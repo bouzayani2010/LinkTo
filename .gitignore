@@ -1,0 +1,14 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.idea/
+facebook/build/
+library/build/
+app/build/
+library/
+materialDesign_Library/build/generated/source/buildConfig/androidTest/debug/com/gc/materialdesign/test/BuildConfig.java
+materialDesign_Library/build/
