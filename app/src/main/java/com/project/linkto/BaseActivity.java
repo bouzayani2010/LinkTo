@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 import com.project.linkto.Fragment.HomeFragment;
 import com.project.linkto.Fragment.user.SingInFragment;
 
@@ -21,11 +21,14 @@ import com.project.linkto.Fragment.user.SingInFragment;
 public class BaseActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
+    public FirebaseDatabase database;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
+        database = FirebaseDatabase.getInstance();
 
 
     }
