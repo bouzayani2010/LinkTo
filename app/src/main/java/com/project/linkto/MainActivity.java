@@ -10,7 +10,11 @@ import android.view.View;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.linkto.bean.Userbd;
+import com.project.linkto.database.Userrepo;
 import com.project.linkto.singleton.DataHelper;
+
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -33,6 +37,20 @@ public class MainActivity extends BaseActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getSavedUser();
+            }
+        });
+
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (DataHelper.isConnected()) {
             goToHome();
         } else {
@@ -69,5 +87,20 @@ public class MainActivity extends BaseActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
         //  updateUI(currentUser);
+    }
+
+    private void getSavedUser() {
+        DataHelper.getInstance().initDB(this);
+        Userrepo uRepo = DataHelper.getInstance().getuRepo();
+        if (uRepo != null) {
+            List<Userbd> list = (List<Userbd>) uRepo.findAll();
+            if (list != null && !list.isEmpty()) {
+                Userbd userbd = list.get(0);
+                if (userbd != null) {
+                    DataHelper.getInstance().setConnected(true);
+                    DataHelper.getInstance().setmUserbd(userbd);
+                }
+            }
+        }
     }
 }

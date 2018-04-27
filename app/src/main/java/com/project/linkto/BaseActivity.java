@@ -10,9 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.linkto.Fragment.HomeFragment;
 import com.project.linkto.Fragment.user.SingInFragment;
+import com.project.linkto.utils.Utils;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -87,4 +89,7 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void saveUser(FirebaseUser user) {
+        Utils.saveParam(this,"useremail",user.getEmail());
+    }
 }

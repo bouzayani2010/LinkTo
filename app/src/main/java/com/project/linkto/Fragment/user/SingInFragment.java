@@ -16,6 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.R;
+import com.project.linkto.bean.Userbd;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
@@ -54,13 +55,19 @@ public class SingInFragment extends BaseFragment {
                                 DataHelper.getInstance().setmUser(user);
                                 DataHelper.getInstance().setConnected(true);
                                 mActivity.goToHome();
-                               // updateUI(user);
+
+                                if (user != null) {
+                                    Userbd userbd = new Userbd(user);
+                                    DataHelper.getInstance().getuRepo().clearAll();
+                                    DataHelper.getInstance().getuRepo().create(userbd);
+                                }
+                                // updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(mActivity, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
-                             //   updateUI(null);
+                                //   updateUI(null);
                             }
                         }
                     });

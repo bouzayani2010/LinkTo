@@ -5,15 +5,18 @@ package com.project.linkto.bean;
  */
 
 public class Person {
-    private String birthdate;
+    private Long birthdate;
     private String firstname;
     private String lastname;
+    private String email;
+    private String coverphoto;
+    private String profilephoto;
 
-    public String getBirthdate() {
+    public Long getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Long birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -31,6 +34,30 @@ public class Person {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCoverphoto() {
+        return coverphoto;
+    }
+
+    public void setCoverphoto(String coverphoto) {
+        this.coverphoto = coverphoto;
+    }
+
+    public String getProfilephoto() {
+        return profilephoto;
+    }
+
+    public void setProfilephoto(String profilephoto) {
+        this.profilephoto = profilephoto;
     }
 
     @Override

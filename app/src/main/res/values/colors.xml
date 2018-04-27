@@ -6,6 +6,7 @@
     <color name="colorHint">#a1a0a0</color>
     <color name="colorText">#212121</color>
     <color name="colorTextWhite" >#ffffff</color>
+    <color name="colorTextWhite50" >#99ffffff</color>
     <color name="colorGoogle">#d0422a</color>
     <color name="colorFacebook">#3b5998</color>
 </resources>

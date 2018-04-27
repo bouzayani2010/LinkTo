@@ -9,6 +9,11 @@ import android.widget.TextView;
 import com.project.linkto.R;
 import com.project.linkto.bean.Person;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,10 +50,16 @@ public class ListPersonAdapter extends RecyclerView.Adapter<ListPersonAdapter.My
 
     @Override
     public void onBindViewHolder(ListPersonAdapter.MyViewHolder holder, int position) {
-        Person person = personList.get(position);
-        holder.tv_firstname.setText(person.getFirstname());
-        holder.tv_lastname.setText(person.getLastname());
-        holder.tv_birthdate.setText(person.getBirthdate());
+        try {
+            Person person = personList.get(position);
+            holder.tv_firstname.setText(person.getFirstname());
+            holder.tv_lastname.setText(person.getLastname());
+            Date birthDate=new Date(person.getBirthdate());
+            SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY MMM DD");
+            holder.tv_birthdate.setText(""+dateFormat.format(birthDate));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
