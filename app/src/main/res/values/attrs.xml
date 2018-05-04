@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyTextView">
+        <attr name="fontName" format="string" />
+    </declare-styleable>
+    <declare-styleable name="CircularProgressBar">
+        <attr name="cpbStyle" format="reference" />
+        <attr name="cpb_color" format="color" />
+        <attr name="cpb_colors" format="reference" />
+        <attr name="cpb_stroke_width" format="dimension" />
+        <attr name="cpb_min_sweep_angle" format="integer" />
+        <attr name="cpb_max_sweep_angle" format="integer" />
+        <attr name="cpb_sweep_speed" format="float" />
+        <attr name="cpb_rotation_speed" format="float" />
+    </declare-styleable>
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="ctTextFont" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="AspectRatioImageView">
+        <attr name="aspectRatio" format="float" />
+        <attr name="aspectRatioEnabled" format="boolean" />
+        <attr name="dominantMeasurement">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CalendarPickerView">
+        <attr name="android:background" />
+        <attr name="tsquare_dividerColor" format="color" />
+        <attr name="tsquare_dayBackground" format="reference" />
+        <attr name="tsquare_dayTextColor" format="color" />
+        <attr name="tsquare_titleTextStyle" format="reference" />
+        <attr name="tsquare_displayHeader" format="boolean" />
+        <attr name="tsquare_displayDayNamesHeaderRow" format="boolean" />
+        <attr name="tsquare_displayAlwaysDigitNumbers" format="boolean" />
+        <attr name="tsquare_headerTextColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="calendar_cell2">
+        <attr name="tsquare_state_selectable" format="boolean" />
+        <attr name="tsquare_state_current_month" format="boolean" />
+        <attr name="tsquare_state_today" format="boolean" />
+        <attr name="tsquare_state_range_first" format="boolean" />
+        <attr name="tsquare_state_range_middle" format="boolean" />
+        <attr name="tsquare_state_range_last" format="boolean" />
+        <attr name="tsquare_state_highlighted" format="boolean" />
+    </declare-styleable>
+
+    <!-- Caldroid -->
+
+    <!-- Styles -->
+    <attr name="styleCaldroidViewLayout" format="reference" />
+    <attr name="styleCaldroidLeftArrow" format="reference" />
+    <attr name="styleCaldroidRightArrow" format="reference" />
+    <attr name="styleCaldroidMonthName" format="reference" />
+    <attr name="styleCaldroidNormalCell" format="reference" />
+    <attr name="styleCaldroidSquareCell" format="reference" />
+    <attr name="styleCaldroidGridView" format="reference" />
+    <attr name="styleCaldroidWeekdayView" format="reference" />
+
+    <!-- Custom states -->
+    <declare-styleable name="DateState">
+        <attr name="state_date_today" format="boolean" />
+        <attr name="state_date_selected" format="boolean" />
+        <attr name="state_date_disabled" format="boolean" />
+        <attr name="state_date_prev_next_month" format="boolean" />
+    </declare-styleable>
+
+    <!-- Declare stylable attribute for a cell -->
+    <declare-styleable name="Cell">
+        <attr name="android:textColor" />
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <!-- end Caldroid -->
+
+    <!-- Panel config -->
+    <declare-styleable name="Panel">
+        <!-- Defines panel animation duration in ms. -->
+        <attr name="animationDuration" format="integer" />
+        <!-- Defines panel position off the screen. -->
+        <attr name="position">
+            <!-- Panel placed at top of the screen. -->
+            <enum name="top" value="0" />
+            <!-- Panel placed at bottom of the screen. -->
+            <enum name="bottom" value="1" />
+            <!-- Panel placed at left of the screen. -->
+            <enum name="left" value="2" />
+            <!-- Panel placed at right of the screen. -->
+            <enum name="right" value="3" />
+        </attr>
+        <!-- Identifier for the child that represents the panel's handle. -->
+        <attr name="handle" format="reference" />
+        <!-- Identifier for the child that represents the panel's content. -->
+        <attr name="content" format="reference" />
+        <!-- Defines if flying gesture forces linear interpolator in animation. -->
+        <attr name="linearFlying" format="boolean" />
+        <!-- Defines size relative to parent (must be in form: nn%p). -->
+        <attr name="weight" format="fraction" />
+        <!-- Defines opened handle (drawable/color). -->
+        <attr name="openedHandle" format="reference|color" />
+        <!-- Defines closed handle (drawable/color). -->
+        <attr name="closedHandle" format="reference|color" />
+    </declare-styleable>
+
+    <!-- Specifies how to place the content of an object, both
+            off the x- and y-axis, within the object itself. -->
+    <attr name="gravity">
+        <!-- Push object to the top of its container, not changing its size. -->
+        <flag name="top" value="0x30" />
+        <!-- Push object to the bottom of its container, not changing its size. -->
+        <flag name="bottom" value="0x50" />
+        <!-- Push object to the left of its container, not changing its size. -->
+        <flag name="left" value="0x03" />
+        <!-- Push object to the right of its container, not changing its size. -->
+        <flag name="right" value="0x05" />
+        <!-- Place object in the vertical center of its container, not changing its size. -->
+        <flag name="center_vertical" value="0x10" />
+        <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill_vertical" value="0x70" />
+        <!-- Place object in the horizontal center of its container, not changing its size. -->
+        <flag name="center_horizontal" value="0x01" />
+        <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+        <flag name="fill_horizontal" value="0x07" />
+        <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+        <flag name="center" value="0x11" />
+        <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill" value="0x77" />
+        <!-- Additional option that can be set to have the top and/or bottom edges of
+             the child clipped to its container's bounds.
+             The clip will be based off the vertical gravity: a top gravity will clip the bottom
+             edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+        <flag name="clip_vertical" value="0x80" />
+        <!-- Additional option that can be set to have the left and/or right edges of
+             the child clipped to its container's bounds.
+             The clip will be based off the horizontal gravity: a left gravity will clip the right
+             edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+        <flag name="clip_horizontal" value="0x08" />
+    </attr>
+    <!-- Default GridView style. -->
+    <attr name="gridViewStyle" format="reference" />
+    <declare-styleable name="TwoWayAbsListView">
+        <!-- Drawable used to indicate the currently selected item in the list. -->
+        <attr name="listSelector" format="color|reference" />
+        <!-- When set to true, the selector will be drawn over the selected item.
+             Otherwise the selector is drawn behind the selected item. The default
+             value is false. -->
+        <attr name="drawSelectorOnTop" format="boolean" />
+        <!-- Used by ListView and GridView to stack their content from the bottom. -->
+        <attr name="stackFromBottom" format="boolean" />
+        <!-- When set to true, the list uses a drawing cache during scrolling.
+             This makes the rendering faster but uses more memory. The default
+             value is true. -->
+        <attr name="scrollingCache" format="boolean" />
+        <!-- When set to true, the list will filter results as the user types. The
+             List's adapter must support the Filterable interface for this to work. -->
+        <!-- <attr name="textFilterEnabled" format="boolean" /> -->
+        <!-- Sets the transcript mode for the list. In transcript mode, the list
+             scrolls to the bottom to make new items visible when they are added. -->
+        <attr name="transcriptMode">
+            <!-- Disables transcript mode. This is the default value. -->
+            <enum name="disabled" value="0" />
+            <!-- The list will automatically scroll to the bottom when
+                 a data set change notification is received and only if the last item is
+                 already visible off screen. -->
+            <enum name="normal" value="1" />
+            <!-- The list will automatically scroll to the bottom, no matter what items
+                 are currently visible. -->
+            <enum name="alwaysScroll" value="2" />
+        </attr>
+        <!-- Indicates that this list will always be drawn off top of solid, single-color
+             opaque background. This allows the list to optimize drawing. -->
+        <attr name="cacheColorHint" format="color" />
+        <!-- Enables the fast scroll thumb that can be dragged to quickly scroll through
+             the list. -->
+        <!-- <attr name="fastScrollEnabled" format="boolean" /> -->
+        <!-- When set to true, the list will use a more refined calculation
+             method based off the pixels height of the items visible off screen. This
+             property is set to true by default but should be set to false if your adapter
+             will display items of varying heights. When this property is set to true and
+             your adapter displays items of varying heights, the scrollbar thumb will
+             change size as the user scrolls through the list. When set to fale, the list
+             will use only the number of items in the adapter and the number of items visible
+             off screen to determine the scrollbar's properties. -->
+        <attr name="smoothScrollbar" format="boolean" />
+
+        <!-- Use this attribute to control which direction the GridView scrolls when in
+             portrait orientation -->
+        <attr name="scrollDirectionPortrait">
+            <!-- Scroll up vertically. This is the default value. -->
+            <enum name="vertical" value="0" />
+            <!-- Scroll horizontally. -->
+            <enum name="horizontal" value="1" />
+        </attr>
+        <attr name="scrollDirectionLandscape">
+            <!-- Scroll up vertically. This is the default value. -->
+            <enum name="vertical" value="0" />
+            <!-- Scroll horizontally. -->
+            <enum name="horizontal" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="TwoWayGridView">
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="stretchMode">
+            <enum name="none" value="0" />
+            <enum name="spacingWidth" value="1" />
+            <enum name="columnWidth" value="2" />
+            <enum name="spacingWidthUniform" value="3" />
+        </attr>
+        <attr name="columnWidth" format="dimension" />
+        <attr name="rowHeight" format="dimension" />
+        <attr name="numColumns" format="integer" min="0">
+            <enum name="auto_fit" value="-1" />
+        </attr>
+        <attr name="numRows" format="integer" min="0">
+            <enum name="auto_fit" value="-1" />
+        </attr>
+        <attr name="gravity" />
+    </declare-styleable>
+
+    <!--                      -->
+    <declare-styleable name="SlidingUpPanelLayout">
+        <attr name="umanoPanelHeight" format="dimension" />
+        <attr name="umanoShadowHeight" format="dimension" />
+        <attr name="umanoParallaxOffset" format="dimension" />
+        <attr name="umanoFadeColor" format="color" />
+        <attr name="umanoFlingVelocity" format="integer" />
+        <attr name="umanoDragView" format="reference" />
+        <attr name="umanoScrollableView" format="reference" />
+        <attr name="umanoOverlay" format="boolean" />
+        <attr name="umanoClipPanel" format="boolean" />
+        <attr name="umanoAnchorPoint" format="float" />
+        <attr name="umanoInitialState" format="enum">
+            <enum name="expanded" value="0" />
+            <enum name="collapsed" value="1" />
+            <enum name="anchored" value="2" />
+            <enum name="hidden" value="3" />
+        </attr>
+        <attr name="umanoScrollInterpolator" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SegmentedControlButton">
+        <attr name="sgTextColor" format="reference" />
+        <attr name="sgTextColorSelected" format="reference" />
+        <attr name="sgBackgroundResourceId" format="reference" />
+        <attr name="sgBackgroundSelectedResourceId" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="TextAppearanceCompatStyleable">
+        <attr name="android:textSize" />
+    </declare-styleable>
+
+    <declare-styleable name="calendar_cell1">
+        <attr name="state_selectable" format="boolean" />
+        <attr name="state_current_month" format="boolean" />
+        <attr name="state_focused_month" format="boolean" />
+        <attr name="state_today" format="boolean" />
+        <attr name="state_range_first" format="boolean" />
+        <attr name="state_range_middle" format="boolean" />
+        <attr name="state_range_last" format="boolean" />
+        <attr name="state_range_first_and_last" format="boolean" />
+        <attr name="state_range_open" format="boolean" />
+        <attr name="state_highlighted" format="boolean" />
+    </declare-styleable>
+    <!--
+     <attr name="switchPadding" format="dimension" />
+     <attr name="switchMinWidth" format="dimension" />
+     <attr name="textAllCaps" format="boolean" />
+     <attr name="thumbTextPadding" format="dimension" />
+     <attr name="track" format="reference" />
+     -->
+    <declare-styleable name="MySwitch">
+        <!-- Drawable to use as the "thumb" that switches back and forth. -->
+        <attr name="thumb" format="reference" />
+        <!-- Drawable to use as the "track" that the switch thumb slides within. -->
+        <!-- Text to use when the switch is in the checked/"off" state. -->
+        <attr name="textOn" format="reference|string" />
+        <!-- Text to use when the switch is in the unchecked/"off" state. -->
+        <attr name="textOff" format="reference|string" />
+
+        <!-- drawablw to use when the switch is in the checked/"off" state. -->
+        <attr name="drawableOn" format="reference" />
+        <!-- drawablw to use when the switch is in the unchecked/"off" state. -->
+        <attr name="drawableOff" format="reference" />
+
+        <!-- if the switch should operate like iOS UISwitch -->
+        <attr name="pushStyle" format="boolean" />
+        <!-- if text should be drawn off the Thumb or On the track. -->
+        <attr name="textOnThumb" format="boolean" />
+        <!-- if the thumb should be allowed to move more beyond the switch boundaries -->
+        <attr name="thumbExtraMovement" format="dimension" />
+        <!-- Amount of padding off either side of text within the switch thumb. -->
+
+        <!-- Amount of padding off either side of text within the switch track. -->
+        <attr name="trackTextPadding" format="dimension" />
+        <!-- TextAppearance style for text displayed off the switch thumb. -->
+        <attr name="switchTextAppearanceAttrib" format="reference" />
+        <!-- Minimum width for the switch component -->
+
+        <!-- Minimum height for the switch component -->
+        <attr name="switchMinHeight" format="dimension" />
+        <!-- Minimum space between the switch and caption text -->
+
+
+        <attr name="orientation">
+            <!-- the switch moves only off the x-axis(horizontally) -->
+            <enum name="horizontal" value="1" />
+            <!-- the switch moves only off the y-axis(vertically) -->
+            <enum name="vertical" value="0" />
+        </attr>
+
+        <!-- the track drawable will be drawn off top of these background. So if
+             these back grounds were to be visible, the track has to have transparency -->
+        <!-- The background when left side of the switch is visible -->
+        <attr name="leftBackground" format="reference" />
+
+        <!-- The background when right side of the switch is visible -->
+        <attr name="rightBackground" format="reference" />
+
+        <!-- We need a mask drawable to mask the background, then draw the track -->
+        <attr name="backgroundMask" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="mySwitchTextAppearanceAttrib">
+        <!-- Text color. -->
+        <attr name="textColor" format="color" />
+        <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+        <attr name="textSize" format="dimension" />
+        <!-- Style (bold, italic, bolditalic) for the text. -->
+        <attr name="textStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+
+        <!-- Typeface (normal, sans, serif, monospace) for the text. -->
+        <attr name="typeface" format="reference">
+            <enum name="normal" value="0" />
+            <enum name="sans" value="1" />
+            <enum name="serif" value="2" />
+            <enum name="monospace" value="3" />
+        </attr>
+        <!-- Color of the text selection highlight. -->
+        <attr name="textColorHighlight" format="color" />
+        <!-- Color of the hint text. -->
+        <attr name="textColorHint" format="color" />
+        <!-- Color of the links. -->
+        <attr name="textColorLink" format="color" />
+        <!-- Present the text in ALL CAPS. This may use a small-caps form when available. -->
+
+    </declare-styleable>
+    <!-- Default style for the Switch widget. -->
+    <attr name="mySwitchStyleAttr" format="reference" />
+
+
+</resources>

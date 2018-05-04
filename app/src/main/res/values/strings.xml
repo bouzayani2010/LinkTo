@@ -6,4 +6,11 @@
     <string name="signin">Sign In</string>
     <string name="signin_with_google">Sign In with Google</string>
     <string name="signin_with_facebook">Sign In with Facebook</string>
+    <string name="expressyourself">Express your Self ...</string>
+    <string name="createapublication">Create a publication.</string>
+    <string name="submit">Submit</string>
+    <string name="publicationempty">The publication is empty.</string>
+    <string name="publicationemptymessage">This publication seems empty. Write something or insert a link or photo to post.</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

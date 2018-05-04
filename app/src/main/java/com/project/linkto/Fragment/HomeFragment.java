@@ -1,30 +1,36 @@
 package com.project.linkto.Fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.R;
-import com.project.linkto.adapter.ListPersonAdapter;
+import com.project.linkto.adapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
+import com.project.linkto.bean.Post;
 import com.project.linkto.singleton.DataHelper;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import jp.wasabeef.picasso.transformations.CropSquareTransformation;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -32,9 +38,9 @@ import java.util.List;
 public class HomeFragment extends BaseFragment {
 
     private TextView userName;
-    private List<Person> personList = new ArrayList<Person>();
+    private List<Post> postList = new ArrayList<Post>();
     private RecyclerView recyclerView;
-    private ListPersonAdapter mAdapter;
+    private ListPostAdapter mAdapter;
     private DatabaseReference mDatabase;
     private ImageView coverImg;
     private ImageView profileImg;
@@ -51,6 +57,19 @@ public class HomeFragment extends BaseFragment {
         userName = (TextView) view.findViewById(R.id.nameuser);
         coverImg = (ImageView) view.findViewById(R.id.coverimg);
         profileImg = (ImageView) view.findViewById(R.id.profileimg);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Express yourself", Snackbar.LENGTH_LONG)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mActivity.gotoFeedPost();
+                            }
+                        }).show();
+            }
+        });
 
 
         if (DataHelper.getInstance().isConnected()) {
@@ -69,7 +88,7 @@ public class HomeFragment extends BaseFragment {
 
                     }
                 });
-              //  userName.setText();
+                //  userName.setText();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -78,22 +97,22 @@ public class HomeFragment extends BaseFragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        mAdapter = new ListPersonAdapter(personList);
+        mAdapter = new ListPostAdapter(postList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         //mDatabase.child("users").
-        mDatabase.child("users").getRef().addValueEventListener(new ValueEventListener() {
+        mDatabase.child("posts").getRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    personList.clear();
+                    postList.clear();
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         Log.i("mamama", "::" + singleSnapshot.toString());
-                        Person person = singleSnapshot.getValue(Person.class);
-                        personList.add(person);
-                        Log.i("mamama", "::" + person.toString());
+                        Post post = singleSnapshot.getValue(Post.class);
+                        postList.add(post);
+                        Log.i("mamama", "::" + post.toString());
                     }
                 } catch (Exception e) {
                     Log.i("mamama", "::" + e.getMessage());
@@ -113,11 +132,17 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void drawPersonViews(Person personProfile) {
-        Log.i("person",personProfile.getCoverphoto());
-        Log.i("person",personProfile.getProfilephoto());
-        userName.setText(personProfile.getFirstname()+" "+ personProfile.getLastname());
-        Picasso.get().load(personProfile.getCoverphoto()).resize(2000,1000).centerCrop().into(coverImg);
-        Picasso.get().load(personProfile.getProfilephoto()).into(profileImg);
+        Log.i("person", personProfile.getCoverphoto());
+        Log.i("person", personProfile.getProfilephoto());
+        userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
+        final int radius = 10;
+        final int margin = 10;
+        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
+        Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+                .transform(transformation)
+               .transform(new CropSquareTransformation())
+                .into(profileImg);
     }
 
 

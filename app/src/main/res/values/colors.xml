@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#d6d7de</color>
+    <color name="colorPrimaryDark">#d6d7de</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorHint">#a1a0a0</color>
     <color name="colorText">#212121</color>
@@ -9,4 +9,7 @@
     <color name="colorTextWhite50" >#99ffffff</color>
     <color name="colorGoogle">#d0422a</color>
     <color name="colorFacebook">#3b5998</color>
+    <color name="colorBackButton">#cfc6c0</color>
+    <color name="graylight">#7c7b79</color>
+    <color name="graylight90">#99e1dfdc</color>
 </resources>
