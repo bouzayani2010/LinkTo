@@ -1,6 +1,7 @@
 package com.project.linkto.Fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,10 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
 import com.project.linkto.adapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
@@ -44,6 +49,7 @@ public class HomeFragment extends BaseFragment {
     private DatabaseReference mDatabase;
     private ImageView coverImg;
     private ImageView profileImg;
+    private ImageView logoutImg;
 
     public HomeFragment() {
     }
@@ -56,6 +62,7 @@ public class HomeFragment extends BaseFragment {
 
         userName = (TextView) view.findViewById(R.id.nameuser);
         coverImg = (ImageView) view.findViewById(R.id.coverimg);
+        logoutImg = (ImageView) view.findViewById(R.id.logout);
         profileImg = (ImageView) view.findViewById(R.id.profileimg);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +77,34 @@ public class HomeFragment extends BaseFragment {
                         }).show();
             }
         });
+        logoutImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialDialog.Builder(mActivity)
+                        .title(R.string.logout)
+                        .content(R.string.logoutmessage)
+                        .positiveText(R.string.ok)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                                mActivity.removeSavedUser();
+                            }
+                        })
+                        .negativeText(R.string.cancel)
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
 
+
+            }
+        });
 
         if (DataHelper.getInstance().isConnected()) {
-
+            logoutImg.setVisibility(View.VISIBLE);
             try {
                 String uidProfile = DataHelper.getInstance().getmUserbd().getUid();
                 mDatabase.child("users").child(uidProfile).addValueEventListener(new ValueEventListener() {
@@ -92,6 +123,8 @@ public class HomeFragment extends BaseFragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            logoutImg.setVisibility(View.INVISIBLE);
         }
 
 
@@ -135,13 +168,16 @@ public class HomeFragment extends BaseFragment {
         Log.i("person", personProfile.getCoverphoto());
         Log.i("person", personProfile.getProfilephoto());
         userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
-        final int radius = 10;
-        final int margin = 10;
-        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Transformation transformation = new RoundedTransformationBuilder()
+                .borderColor(getResources().getColor(R.color.colorAccent))
+                .borderWidthDp(3)
+                .cornerRadiusDp(30)
+                .oval(true)
+                .build();
         Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
         Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
-                .transform(transformation)
-               .transform(new CropSquareTransformation())
+
+                .centerCrop() .transform(transformation)
                 .into(profileImg);
     }
 

@@ -13,4 +13,6 @@
     <string name="publicationemptymessage">This publication seems empty. Write something or insert a link or photo to post.</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="logout">Logout</string>
+    <string name="logoutmessage">Do you want to log out ?</string>
 </resources>

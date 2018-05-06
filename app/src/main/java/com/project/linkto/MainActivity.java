@@ -96,4 +96,16 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+    public void removeSavedUser() {
+
+        FirebaseAuth.getInstance().signOut();
+        DataHelper.getInstance().initDB(this);
+        Userrepo uRepo = DataHelper.getInstance().getuRepo();
+        uRepo.delete(DataHelper.getInstance().getmUserbd());
+        DataHelper.getInstance().setConnected(false);
+        onBackPressed();
+
+        goToSignIn();
+    }
 }

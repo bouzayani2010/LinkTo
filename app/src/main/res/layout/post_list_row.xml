@@ -53,19 +53,18 @@
                     android:textSize="13sp" />
 
                 <View
-                    android:paddingTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="0.3dp"
                     android:layout_below="@+id/tv_date"
-                    android:background="@color/colorFacebook"></View>
+                    android:background="@color/colorFacebook"
+                    android:paddingTop="15dp"></View>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/body"
-                >
+                android:layout_below="@+id/body">
 
                 <LinearLayout
                     android:id="@+id/items"
@@ -84,13 +83,15 @@
                             android:id="@+id/tv_likes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableLeft="@drawable/like"
+                            android:drawablePadding="5dp"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:layout_centerInParent="true"
                             android:text="200 likes"
                             android:textColor="@color/colorHint"
                             android:textSize="12sp"
-                            linkto:ctTextFont="helvetica-neue-medium" />
+                            linkto:ctTextFont="bebas" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -104,13 +105,15 @@
                             android:id="@+id/tv_comments"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableLeft="@drawable/comment"
+                            android:drawablePadding="5dp"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:layout_centerInParent="true"
                             android:text="2 comments"
                             android:textColor="@color/colorHint"
                             android:textSize="12sp"
-                            linkto:ctTextFont="helvetica-neue-medium" />
+                            linkto:ctTextFont="bebas" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -124,13 +127,15 @@
                             android:id="@+id/tv_shares"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:drawableLeft="@drawable/share"
+                            android:drawablePadding="5dp"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:layout_centerInParent="true"
                             android:text="2 shares"
                             android:textColor="@color/colorHint"
                             android:textSize="12sp"
-                            linkto:ctTextFont="helvetica-neue-medium" />
+                            linkto:ctTextFont="bebas" />
                     </RelativeLayout>
                 </LinearLayout>
 
