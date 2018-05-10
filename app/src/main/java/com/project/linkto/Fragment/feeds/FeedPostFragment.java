@@ -70,7 +70,7 @@ public class FeedPostFragment extends BaseFragment {
     private void writeNewPost(String userId, String username, String title, String body) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body,timestamp.toString());
+        Post post = new Post(userId, username, title, body,timestamp.toString(),0);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();

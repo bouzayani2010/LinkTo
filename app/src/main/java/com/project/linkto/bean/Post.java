@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,17 +19,20 @@ public class Post {
     public String body;
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
+    public Map<String, Like> likes = new HashMap<>();
+    private String key;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body, String timestamp) {
+    public Post(String uid, String author, String title, String body, String timestamp, int starCount) {
         this.uid = uid;
         this.author = author;
         this.title = title;
         this.body = body;
         this.timestamp = timestamp;
+        this.starCount = starCount;
     }
 
     @Exclude
@@ -41,6 +45,7 @@ public class Post {
         result.put("starCount", starCount);
         result.put("stars", stars);
         result.put("timestamp", timestamp);
+        result.put("likes", likes);
 
         return result;
     }
@@ -99,5 +104,22 @@ public class Post {
 
     public void setStars(Map<String, Boolean> stars) {
         this.stars = stars;
+    }
+
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public Map<String, Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Map<String, Like> likes) {
+        this.likes = likes;
     }
 }

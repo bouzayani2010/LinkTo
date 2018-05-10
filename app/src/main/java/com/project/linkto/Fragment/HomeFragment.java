@@ -45,8 +45,8 @@ public class HomeFragment extends BaseFragment {
     private TextView userName;
     private List<Post> postList = new ArrayList<Post>();
     private RecyclerView recyclerView;
-    private ListPostAdapter mAdapter;
-    private DatabaseReference mDatabase;
+    public ListPostAdapter mAdapter;
+    public static DatabaseReference mDatabase;
     private ImageView coverImg;
     private ImageView profileImg;
     private ImageView logoutImg;
@@ -56,7 +56,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mDatabase = mActivity.database.getReference();
 
@@ -144,6 +144,8 @@ public class HomeFragment extends BaseFragment {
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         Log.i("mamama", "::" + singleSnapshot.toString());
                         Post post = singleSnapshot.getValue(Post.class);
+                        post.setKey(singleSnapshot.getKey());
+                      //
                         postList.add(post);
                         Log.i("mamama", "::" + post.toString());
                     }
@@ -171,8 +173,8 @@ public class HomeFragment extends BaseFragment {
         Transformation transformation = new RoundedTransformationBuilder()
                 .borderColor(getResources().getColor(R.color.colorAccent))
                 .borderWidthDp(3)
-                .cornerRadiusDp(30)
-                .oval(true)
+                .cornerRadiusDp(20)
+                .oval(false)
                 .build();
         Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
         Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
