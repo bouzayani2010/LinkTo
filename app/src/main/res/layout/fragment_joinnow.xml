@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/name">
+
+        <ImageView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="50dp"
+            android:src="@drawable/linkto"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:id="@+id/normal_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/ed_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login"
+                android:text="kacem.bouzayani@gmail.com"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorHint" />
+
+            <EditText
+                android:id="@+id/ed_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ed_login"
+                android:hint="@string/password"
+                android:text="kacem1234"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorHint" />
+
+            <com.project.linkto.customwidget.CustomBT
+                android:id="@+id/bt_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/ed_password"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/picture_frame"
+                android:text="@string/joinnow" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

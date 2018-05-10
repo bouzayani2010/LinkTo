@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +34,7 @@ public class SingInFragment extends BaseFragment {
     private EditText ed_login;
     private EditText ed_password;
     private Button bt_submit;
+    private TextView tv_join;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +43,13 @@ public class SingInFragment extends BaseFragment {
         ed_login = (EditText) view.findViewById(R.id.ed_login);
         ed_password = (EditText) view.findViewById(R.id.ed_password);
         bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        tv_join = (TextView) view.findViewById(R.id.tv_join);
+        tv_join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.gotoJoinNow();
+            }
+        });
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +82,17 @@ public class SingInFragment extends BaseFragment {
                             }
                         }
                     });
+                } else {
+                    new MaterialDialog.Builder(mActivity)
+                            .title(R.string.logout)
+                            .content(R.string.empty_fields_text)
+                            .positiveText(R.string.ok)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                 }
             }
         });
@@ -78,4 +100,6 @@ public class SingInFragment extends BaseFragment {
         return view;
 
     }
+
+
 }

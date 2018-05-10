@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.linkto.Fragment.HomeFragment;
 import com.project.linkto.Fragment.feeds.FeedPostFragment;
+import com.project.linkto.Fragment.user.JoinNowFragment;
 import com.project.linkto.Fragment.user.SingInFragment;
 import com.project.linkto.utils.Utils;
 
@@ -24,6 +25,7 @@ import com.project.linkto.utils.Utils;
 public class BaseActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
+
     public void pushtoFragments(final String tag, final Fragment fragment,
                                 final boolean shouldAnimate, final int contentContainerId,
                                 final boolean withLoss) {
@@ -90,8 +92,19 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void gotoJoinNow() {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
+        if (fragment != null) {
+            if (!(fragment instanceof JoinNowFragment)) {
+                pushtoFragments("JoinNow", new JoinNowFragment(), true, R.id.container, false);
+            }
+        } else {
+            pushtoFragments("JoinNow", new JoinNowFragment(), true, R.id.container, false);
+        }
+    }
+
     public void saveUser(FirebaseUser user) {
-        Utils.saveParam(this,"useremail",user.getEmail());
+        Utils.saveParam(this, "useremail", user.getEmail());
     }
 
     public void gotoFeedPost() {
