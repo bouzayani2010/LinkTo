@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.Fragment.HomeFragment;
 import com.project.linkto.Fragment.feeds.FeedPostFragment;
 import com.project.linkto.Fragment.user.JoinNowFragment;
@@ -68,6 +70,19 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("onBackPressed", "Container00");
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        if (fragment instanceof BaseFragment) {
+            ((BaseFragment) fragment).onBackPressed();
+        } else {
+            finish();
+        }
+    }
+
 
     public void goToHome() {
         Fragment fragment = fragmentManager.findFragmentById(R.id.container);

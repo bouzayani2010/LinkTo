@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="50dp"
-            android:src="@drawable/linkto"
+            android:src="@drawable/linktotr"
             android:textSize="25sp" />
 
         <RelativeLayout

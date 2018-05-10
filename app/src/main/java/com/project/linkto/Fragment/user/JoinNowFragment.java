@@ -13,6 +13,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.R;
 import com.project.linkto.utils.Utils;
@@ -45,12 +46,12 @@ public class JoinNowFragment extends BaseFragment {
                 String login = ed_login.getText().toString();
                 String password = ed_password.getText().toString();
                 if (!Utils.isEmptyString(login) && !Utils.isEmptyString(password)) {
-                    mAuth.createUserWithEmailAndPassword(login,password).addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(login, password).addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                       //     task.
-                            if(task.isSuccessful()){
-                                new MaterialDialog.Builder(mActivity) .title(R.string.logout)
+
+                            if (task.isSuccessful()) {
+                                new MaterialDialog.Builder(mActivity).title(R.string.logout)
                                         .content(R.string.registration_success_text)
                                         .positiveText(R.string.ok)
                                         .onPositive(new MaterialDialog.SingleButtonCallback() {
