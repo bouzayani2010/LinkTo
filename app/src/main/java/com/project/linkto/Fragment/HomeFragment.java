@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,10 +32,6 @@ import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
-import jp.wasabeef.picasso.transformations.CropSquareTransformation;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -50,6 +45,7 @@ public class HomeFragment extends BaseFragment {
     private ImageView coverImg;
     private ImageView profileImg;
     private ImageView logoutImg;
+    private FloatingActionButton fab;
 
     public HomeFragment() {
     }
@@ -64,7 +60,19 @@ public class HomeFragment extends BaseFragment {
         coverImg = (ImageView) view.findViewById(R.id.coverimg);
         logoutImg = (ImageView) view.findViewById(R.id.logout);
         profileImg = (ImageView) view.findViewById(R.id.profileimg);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        drawViews();
+
+
+        //preparePersonData();
+        return view;
+
+    }
+
+    private void drawViews() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +111,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+
         if (DataHelper.getInstance().isConnected()) {
             logoutImg.setVisibility(View.VISIBLE);
             try {
@@ -128,8 +137,6 @@ public class HomeFragment extends BaseFragment {
         }
 
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
         mAdapter = new ListPostAdapter(postList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -145,9 +152,10 @@ public class HomeFragment extends BaseFragment {
                         Log.i("mamama", "::" + singleSnapshot.toString());
                         Post post = singleSnapshot.getValue(Post.class);
                         post.setKey(singleSnapshot.getKey());
-                      //
+                        //
                         postList.add(post);
                         Log.i("mamama", "::" + post.toString());
+
                     }
                 } catch (Exception e) {
                     Log.i("mamama", "::" + e.getMessage());
@@ -161,9 +169,6 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-        //preparePersonData();
-        return view;
-
     }
 
     private void drawPersonViews(Person personProfile) {
@@ -178,8 +183,7 @@ public class HomeFragment extends BaseFragment {
                 .build();
         Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
         Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
-
-                .centerCrop() .transform(transformation)
+                .centerCrop().transform(transformation)
                 .into(profileImg);
     }
 

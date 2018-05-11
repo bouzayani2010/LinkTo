@@ -17,8 +17,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            linkto:srcCompat="@android:drawable/ic_dialog_email" />
+            android:layout_margin="16dp"
+            android:cropToPadding="true"
+            linkto:fabSize="normal"
+            linkto:paddingEnd="@dimen/fab_margin"
+            linkto:paddingStart="@dimen/fab_margin"
+            linkto:srcCompat="@drawable/pen1" />
 
         <RelativeLayout
             android:id="@+id/personellayout"
@@ -43,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/nameuser"
                 android:layout_alignParentLeft="true"
-                android:background="@color/colorBackButton"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:background="@color/colorBackButton" />
 
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -53,19 +57,19 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_alignParentBottom="true"
+                android:background="@color/cardview_shadow_end_color"
                 android:padding="15dp"
                 android:scaleType="centerCrop"
                 app:riv_border_color="@color/colorAccent"
                 app:riv_border_width="2dip"
-                app:riv_corner_radius="5dp"
-                android:background="@color/cardview_shadow_end_color" />
+                app:riv_corner_radius="5dp" />
 
             <ImageView
                 android:id="@+id/logout"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="10dp"
+                android:layout_margin="15dp"
                 android:src="@drawable/logout" />
 
         </RelativeLayout>

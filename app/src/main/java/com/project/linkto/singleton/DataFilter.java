@@ -1,13 +1,7 @@
 package com.project.linkto.singleton;
 
-import android.content.Context;
-
-import com.google.firebase.auth.FirebaseUser;
 import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Post;
-import com.project.linkto.bean.Userbd;
-import com.project.linkto.database.DatabaseManager;
-import com.project.linkto.database.Userrepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +23,7 @@ public class DataFilter {
     }
 
 
-    public boolean liked(Post post, String userId) {
+    public String liked(Post post, String userId) {
         try {
             Map<String, Like> mapLikes = post.getLikes();
 
@@ -37,7 +31,7 @@ public class DataFilter {
             for (String lkey : listOfLikeskey) {
                 Like lk = mapLikes.get(lkey);
                 if(lk.getUid().equals(userId)){
-                    return true;
+                    return lkey;
                 }
 
             }
@@ -45,6 +39,6 @@ public class DataFilter {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 }

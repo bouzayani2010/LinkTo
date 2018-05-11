@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.Fragment.HomeFragment;
+import com.project.linkto.Fragment.feeds.CommentFragment;
 import com.project.linkto.Fragment.feeds.FeedPostFragment;
 import com.project.linkto.Fragment.user.JoinNowFragment;
 import com.project.linkto.Fragment.user.SingInFragment;
@@ -118,9 +119,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void saveUser(FirebaseUser user) {
-        Utils.saveParam(this, "useremail", user.getEmail());
-    }
 
     public void gotoFeedPost() {
         Fragment fragment = fragmentManager.findFragmentById(R.id.container);
@@ -130,6 +128,17 @@ public class BaseActivity extends AppCompatActivity {
             }
         } else {
             pushtoFragments("SignIn", new FeedPostFragment(), true, R.id.container, false);
+        }
+    }
+
+    public void gotoComment(CommentFragment commentFragment) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
+        if (fragment != null) {
+            if (!(fragment instanceof CommentFragment)) {
+                pushtoFragments("Comment", commentFragment, true, R.id.container, false);
+            }
+        } else {
+            pushtoFragments("Comment", commentFragment, true, R.id.container, false);
         }
     }
 }

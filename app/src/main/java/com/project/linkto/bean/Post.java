@@ -4,7 +4,6 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,18 +20,19 @@ public class Post {
     public Map<String, Boolean> stars = new HashMap<>();
     public Map<String, Like> likes = new HashMap<>();
     private String key;
+    private int commentCount;
+    private int shareCount;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body, String timestamp, int starCount) {
+    public Post(String uid, String author, String title, String body, String timestamp) {
         this.uid = uid;
         this.author = author;
         this.title = title;
         this.body = body;
         this.timestamp = timestamp;
-        this.starCount = starCount;
     }
 
     @Exclude
@@ -43,6 +43,8 @@ public class Post {
         result.put("title", title);
         result.put("body", body);
         result.put("starCount", starCount);
+        result.put("commentCount", commentCount);
+        result.put("shareCount", shareCount);
         result.put("stars", stars);
         result.put("timestamp", timestamp);
         result.put("likes", likes);
@@ -121,5 +123,21 @@ public class Post {
 
     public void setLikes(Map<String, Like> likes) {
         this.likes = likes;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getShareCount() {
+        return shareCount;
+    }
+
+    public void setShareCount(int shareCount) {
+        this.shareCount = shareCount;
     }
 }

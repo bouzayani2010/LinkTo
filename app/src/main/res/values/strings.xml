@@ -18,5 +18,9 @@
     <string name="joinnow">Join Now</string>
     <string name="empty_fields_text">Please fill in all the fields</string>
     <string name="registration_success_text">Your registration is completed with success. Please focus on your email to confirm.</string>
+    <string name="like">Like</string>
+    <string name="remove_like">Would you want to remove your Like ?</string>
+    <string name="your_comment">Your Comment ...</string>
+    <string name="comment">Comment</string>
 
 </resources>
