@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.Fragment.HomeFragment;
@@ -28,6 +29,8 @@ import com.project.linkto.utils.Utils;
 public class BaseActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
+
+    public static DatabaseReference mDatabase;
 
     public void pushtoFragments(final String tag, final Fragment fragment,
                                 final boolean shouldAnimate, final int contentContainerId,
@@ -68,6 +71,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
 
 
     }

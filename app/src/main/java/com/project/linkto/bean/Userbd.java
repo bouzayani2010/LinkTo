@@ -1,14 +1,20 @@
 package com.project.linkto.bean;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by bbouzaiene on 27/04/2018.
  */
 
 @DatabaseTable
+@IgnoreExtraProperties
 public class Userbd {
 
     @DatabaseField(generatedId = true)
@@ -21,6 +27,8 @@ public class Userbd {
     private String uid;
     @DatabaseField
     private String photoUrl;
+    private String firstname;
+    private Object lastname;
 
     public Userbd(FirebaseUser user) {
         this.email = user.getEmail();
@@ -31,6 +39,17 @@ public class Userbd {
             e.printStackTrace();
         }
         this.uid = user.getUid();
+    }
+
+
+    @Exclude
+    public Map<String,Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+        result.put("firstname", firstname);
+        result.put("lastname", lastname);
+
+        return result;
     }
 
     public Userbd() {

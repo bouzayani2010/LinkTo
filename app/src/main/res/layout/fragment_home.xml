@@ -47,9 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/nameuser"
                 android:layout_alignParentLeft="true"
+                android:src="@drawable/thumbnail1"
+                android:background="@color/graylight"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="@color/colorBackButton" />
+                android:layout_alignParentTop="true" />
 
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,9 +58,9 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/cardview_shadow_end_color"
                 android:padding="15dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/avatar"
                 app:riv_border_color="@color/colorAccent"
                 app:riv_border_width="2dip"
                 app:riv_corner_radius="5dp" />

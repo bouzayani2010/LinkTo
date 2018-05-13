@@ -32,6 +32,8 @@ import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.project.linkto.BaseActivity.mDatabase;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -41,7 +43,6 @@ public class HomeFragment extends BaseFragment {
     private List<Post> postList = new ArrayList<Post>();
     private RecyclerView recyclerView;
     public ListPostAdapter mAdapter;
-    public static DatabaseReference mDatabase;
     private ImageView coverImg;
     private ImageView profileImg;
     private ImageView logoutImg;
@@ -54,7 +55,6 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        mDatabase = mActivity.database.getReference();
 
         userName = (TextView) view.findViewById(R.id.nameuser);
         coverImg = (ImageView) view.findViewById(R.id.coverimg);
@@ -85,6 +85,15 @@ public class HomeFragment extends BaseFragment {
                         }).show();
             }
         });
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialDialog.Builder(mActivity)
+                        .title(R.string.logout)
+                        .content(R.string.logoutmessage)
+                   .show();
+            }
+        });
         logoutImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,29 +121,7 @@ public class HomeFragment extends BaseFragment {
         });
 
 
-        if (DataHelper.getInstance().isConnected()) {
-            logoutImg.setVisibility(View.VISIBLE);
-            try {
-                String uidProfile = DataHelper.getInstance().getmUserbd().getUid();
-                mDatabase.child("users").child(uidProfile).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Person personProfile = dataSnapshot.getValue(Person.class);
-                        drawPersonViews(personProfile);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                //  userName.setText();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            logoutImg.setVisibility(View.INVISIBLE);
-        }
 
 
         mAdapter = new ListPostAdapter(postList);
@@ -172,20 +159,51 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void drawPersonViews(Person personProfile) {
-        Log.i("person", personProfile.getCoverphoto());
-        Log.i("person", personProfile.getProfilephoto());
-        userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
-        Transformation transformation = new RoundedTransformationBuilder()
-                .borderColor(getResources().getColor(R.color.colorAccent))
-                .borderWidthDp(3)
-                .cornerRadiusDp(20)
-                .oval(false)
-                .build();
-        Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
-        Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
-                .centerCrop().transform(transformation)
-                .into(profileImg);
+        try {
+            Log.i("person", personProfile.getCoverphoto());
+            Log.i("person", personProfile.getProfilephoto());
+            userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .borderColor(getResources().getColor(R.color.colorAccent))
+                    .borderWidthDp(3)
+                    .cornerRadiusDp(20)
+                    .oval(false)
+                    .build();
+            Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
+            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+                    .centerCrop().transform(transformation)
+                    .into(profileImg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DataHelper.getInstance().isConnected()) {
+            logoutImg.setVisibility(View.VISIBLE);
+            try {
+                String uidProfile = DataHelper.getInstance().getmUserbd().getUid();
+                mDatabase.child("users").child(uidProfile).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Person personProfile = dataSnapshot.getValue(Person.class);
+                        if (personProfile != null)
+                            drawPersonViews(personProfile);
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                //  userName.setText();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            logoutImg.setVisibility(View.INVISIBLE);
+        }
+    }
 }

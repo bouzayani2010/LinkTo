@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login"
-                android:text="kacem.bouzayani@gmail.com"
+                android:text="belgacem.bouzayani@gmail.com"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorHint" />
 
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ed_login"
                 android:hint="@string/password"
-                android:text="kacem1234"
+                android:text="belgacem1234"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorHint" />
 

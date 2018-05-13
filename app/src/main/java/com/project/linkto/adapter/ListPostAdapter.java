@@ -21,8 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.project.linkto.BaseActivity.mDatabase;
 import static com.project.linkto.Fragment.BaseFragment.mActivity;
-import static com.project.linkto.Fragment.HomeFragment.mDatabase;
 
 /**
  * Created by bbouzaiene on 20/04/2018.

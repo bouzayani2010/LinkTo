@@ -35,6 +35,8 @@
                 android:layout_below="@+id/content_title"
                 android:hint="@string/expressyourself"
                 android:padding="10dp"
+                android:gravity="top"
+                android:minLines="4"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorHint"
                 android:textSize="16sp" />

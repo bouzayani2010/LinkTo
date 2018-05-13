@@ -104,7 +104,9 @@ public class MainActivity extends BaseActivity {
         Userrepo uRepo = DataHelper.getInstance().getuRepo();
         uRepo.delete(DataHelper.getInstance().getmUserbd());
         DataHelper.getInstance().setConnected(false);
-        onBackPressed();
+        DataHelper.getInstance().setmUserbd(null);
+        DataHelper.getInstance().setmUser(null);
+        // onBackPressed();
 
         goToSignIn();
     }
