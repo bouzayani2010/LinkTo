@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.project.linkto.Fragment.HomeFragment;
+import com.project.linkto.Fragment.MyHomeFragment;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new HomeFragment();
+                return new MyHomeFragment();
             default:
                 return new HomeFragment();
         }
@@ -45,6 +46,6 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return ""+this.chapters.get(position);
+        return "" + this.chapters.get(position);
     }
 }

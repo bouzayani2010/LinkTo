@@ -21,8 +21,14 @@ public class BaseFragment extends Fragment {
     }
 
     public void onBackPressed() {
-        if (this instanceof HomeFragment) {
-            mActivity.finish();
+        if (this instanceof MainFragment) {
+            MainFragment mainFrgment = (MainFragment) this;
+            int positionViewPager = mainFrgment.getViewPager().getCurrentItem();
+            if (positionViewPager< 1) {
+                mActivity.finish();
+            }else{
+                mainFrgment.getViewPager().setCurrentItem(positionViewPager-1);
+            }
         } else {
             FragmentManager fm = getFragmentManager();
             if (fm.getBackStackEntryCount() > 0) {
@@ -30,7 +36,7 @@ public class BaseFragment extends Fragment {
                 fm.popBackStack();
             } else {
                 Log.e("MainActivity", "nothing off backstack, calling super");
-                (	mActivity).finish();
+                (mActivity).finish();
             }
             Log.d("onBackPressed", "BaseFragment");
             //mActivity.finish();

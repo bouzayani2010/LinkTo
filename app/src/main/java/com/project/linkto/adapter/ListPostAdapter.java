@@ -15,6 +15,7 @@ import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Post;
 import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.utils.Utils;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -70,7 +71,9 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             holder.tv_body.setText(post.getBody());/*
             Date birthDate=new Date(post.getTimestamp());
             SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY MMM DD");*/
-            holder.tv_date.setText("" + post.getTimestamp());
+
+            Timestamp currenttimestamp = new Timestamp(System.currentTimeMillis());
+            holder.tv_date.setText(Utils.getdiffDate( currenttimestamp.toString(),post.getTimestamp()));
             final String userId = DataHelper.getInstance().getmUserbd().getUid();
             holder.tv_likes.setText("" + post.getStarCount() + " likes");
             holder.tv_comments.setText("" + post.getCommentCount() + " comments");

@@ -23,7 +23,7 @@ import java.util.List;
 public class MainFragment extends BaseFragment {
     private MainPagerAdapter mainPagerAdapter;
     private ViewPager viewPager;
-    private PagerSlidingTabStrip tabs;
+    public static PagerSlidingTabStrip tabs;
 
     @Nullable
     @Override
@@ -48,4 +48,10 @@ public class MainFragment extends BaseFragment {
         tabs.setViewPager(viewPager);
 
     }
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+
 }

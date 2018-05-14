@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -44,12 +45,11 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 import static com.project.linkto.BaseActivity.mDatabase;
 import static com.project.linkto.BaseActivity.storage;
-import static com.project.linkto.Fragment.MainFragment.tabs;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class HomeFragment extends BaseFragment {
+public class MyHomeFragment extends BaseFragment {
 
     private static final int READ_REQUEST_CODE_profile = 19;
     private static final int READ_REQUEST_CODE_cover = 119;
@@ -61,8 +61,9 @@ public class HomeFragment extends BaseFragment {
     private ImageView profileImg;
     private ImageView logoutImg;
     private FloatingActionButton fab;
+    private RelativeLayout personellayout;
 
-    public HomeFragment() {
+    public MyHomeFragment() {
     }
 
     @Override
@@ -75,6 +76,7 @@ public class HomeFragment extends BaseFragment {
         logoutImg = (ImageView) view.findViewById(R.id.logout);
         profileImg = (ImageView) view.findViewById(R.id.profileimg);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        personellayout = (RelativeLayout) view.findViewById(R.id.personellayout);
 
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -87,6 +89,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void drawViews() {
+        personellayout.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

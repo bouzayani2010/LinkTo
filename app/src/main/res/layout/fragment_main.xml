@@ -16,7 +16,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/vpPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs">
 
         </android.support.v4.view.ViewPager>
 
@@ -24,12 +25,13 @@
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+
             android:layout_centerHorizontal="true"
             cardview:pstsDividerColor="@color/graylight"
             cardview:pstsIndicatorColor="@color/colorAccent"
 
             cardview:pstsIndicatorHeight="2dp"
-            cardview:pstsTabBackground="@color/transparent"
+            cardview:pstsTabBackground="@color/colorTextWhite50"
             cardview:pstsUnderlineColor="@color/graylight" />
 
     </RelativeLayout>

@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.project.linkto.R;
 import com.project.linkto.bean.Comment;
+import com.project.linkto.utils.Utils;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -54,7 +56,11 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
         try {
             final Comment commentFeed = commentList.get(position);
             holder.tv_body.setText(commentFeed.getContent_text());
-            holder.tv_date.setText("" + commentFeed.getTimestamp());
+
+
+            Timestamp currenttimestamp = new Timestamp(System.currentTimeMillis());
+            holder.tv_date.setText(Utils.getdiffDate( currenttimestamp.toString(),commentFeed.getTimestamp()));
+           // holder.tv_date.setText("" + commentFeed.getTimestamp());
 
 
         } catch (Exception e) {
