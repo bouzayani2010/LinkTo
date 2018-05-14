@@ -22,5 +22,7 @@
     <string name="remove_like">Would you want to remove your Like ?</string>
     <string name="your_comment">Your Comment ...</string>
     <string name="comment">Comment</string>
+    <string name="profile">Profile</string>
+    <string name="changephoto">Do you want to update profile Photo ?</string>
 
 </resources>

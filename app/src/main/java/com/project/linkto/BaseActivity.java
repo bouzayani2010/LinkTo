@@ -11,16 +11,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.Fragment.HomeFragment;
+import com.project.linkto.Fragment.MainFragment;
 import com.project.linkto.Fragment.feeds.CommentFragment;
 import com.project.linkto.Fragment.feeds.FeedPostFragment;
 import com.project.linkto.Fragment.user.JoinNowFragment;
 import com.project.linkto.Fragment.user.SingInFragment;
-import com.project.linkto.utils.Utils;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -31,6 +31,7 @@ public class BaseActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
 
     public static DatabaseReference mDatabase;
+    public static FirebaseStorage storage;
 
     public void pushtoFragments(final String tag, final Fragment fragment,
                                 final boolean shouldAnimate, final int contentContainerId,
@@ -71,6 +72,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
         mDatabase = database.getReference();
 
 
@@ -99,6 +101,17 @@ public class BaseActivity extends AppCompatActivity {
             pushtoFragments("Home", new HomeFragment(), true, R.id.container, false);
         }
 
+    }
+
+    public void goToMain() {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
+        if (fragment != null) {
+            if (!(fragment instanceof MainFragment)) {
+                pushtoFragments("Main", new MainFragment(), true, R.id.container, false);
+            }
+        } else {
+            pushtoFragments("Main", new MainFragment(), true, R.id.container, false);
+        }
     }
 
     public void goToSignIn() {

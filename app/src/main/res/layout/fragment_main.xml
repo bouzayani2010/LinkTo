@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="0dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="3dp">
+        <!--
+                android:background="@drawable/full_width_input"-->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            cardview:pstsDividerColor="@color/graylight"
+            cardview:pstsIndicatorColor="@color/colorAccent"
+
+            cardview:pstsIndicatorHeight="2dp"
+            cardview:pstsTabBackground="@color/transparent"
+            cardview:pstsUnderlineColor="@color/graylight" />
+
+    </RelativeLayout>
+</FrameLayout>

@@ -45,11 +45,14 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
         if (DataHelper.isConnected()) {
-            goToHome();
+         //   goToHome();
+            goToMain();
         } else {
             goToSignIn();
         }
     }
+
+
 
 
     @Override

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chapter">
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Message</item>
+        <item>Activity</item>
+    </string-array>
+    <string-array name="profile">
+        <item>Load new Photo</item>
+        <item>Delete This Photo</item>
+    </string-array>
+    <string-array name="coverprofile">
+        <item>Load new Photo</item>
+        <item>Delete This Photo</item>
+    </string-array>
+</resources>

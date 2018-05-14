@@ -1,5 +1,8 @@
 package com.project.linkto.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,29 +19,39 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
 import com.project.linkto.adapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
 import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static com.project.linkto.BaseActivity.mDatabase;
+import static com.project.linkto.BaseActivity.storage;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class HomeFragment extends BaseFragment {
 
+    private static final int READ_REQUEST_CODE_profile = 19;
+    private static final int READ_REQUEST_CODE_cover = 119;
     private TextView userName;
     private List<Post> postList = new ArrayList<Post>();
     private RecyclerView recyclerView;
@@ -85,13 +98,56 @@ public class HomeFragment extends BaseFragment {
                         }).show();
             }
         });
+        coverImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> coverprofile_activity = Arrays.asList(getResources().getStringArray(R.array.coverprofile));
+                new MaterialDialog.Builder(mActivity)
+                        .title(R.string.profile)
+                        .items(coverprofile_activity)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                switch (which) {
+                                    case 0:
+                                        //   loadNewProfilePhoto();
+                                        loadPhotoFromLocalStorage(READ_REQUEST_CODE_cover);
+                                        break;
+                                    case 1:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
+            }
+        });
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                List<String> profile_activity = Arrays.asList(getResources().getStringArray(R.array.profile));
                 new MaterialDialog.Builder(mActivity)
-                        .title(R.string.logout)
-                        .content(R.string.logoutmessage)
-                   .show();
+                        .title(R.string.profile)
+                        .items(profile_activity)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                switch (which) {
+                                    case 0:
+                                        //   loadNewProfilePhoto();
+                                        loadPhotoFromLocalStorage(READ_REQUEST_CODE_profile);
+                                        break;
+                                    case 1:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        })
+                        .show();
             }
         });
         logoutImg.setOnClickListener(new View.OnClickListener() {
@@ -119,9 +175,6 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-
-
-
 
 
         mAdapter = new ListPostAdapter(postList);
@@ -156,6 +209,76 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void loadPhotoFromLocalStorage(int load) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+        // Filter to only show results that can be "opened", such as a
+        // file (as opposed to a list of contacts or timezones)
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        // Filter to show only images, using the image MIME data type.
+        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+        // To search for all documents available via installed storage providers,
+        // it would be "*/*".
+        intent.setType("image/*");
+
+        startActivityForResult(intent, load);
+    }
+
+    private void loadNewProfilePhoto(final int requestCode, Uri file) {
+
+        StorageReference storageRef = storage.getReference();
+        String md5 = Utils.getMD5EncryptedString(file.toString());
+        StorageReference riversRef = null;
+        if (requestCode == READ_REQUEST_CODE_profile)
+            riversRef = storageRef.child("profile/profile/" + md5);
+        else if (requestCode == READ_REQUEST_CODE_cover)
+            riversRef = storageRef.child("profile/cover/" + md5);
+        UploadTask uploadTask = riversRef.putFile(file);
+
+
+        final StorageReference finalRiversRef = riversRef;
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return finalRiversRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    Log.i("uriuri", "1** " + downloadUri.toString());
+
+                    addUrltoFirebase(requestCode, downloadUri.toString());
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+        });
+
+        /*Uri downloadUri = urlTask.getResult();
+        Log.i("uriuri",downloadUri.toString());*/
+
+
+    }
+
+    private void addUrltoFirebase(int requestCode, String newurlPhoto) {
+
+        String uidProfile = DataHelper.getInstance().getmUserbd().getUid();
+        if (requestCode == READ_REQUEST_CODE_profile) {
+            mDatabase.child("users").child(uidProfile).child("profilephoto").setValue(newurlPhoto);
+        } else if (requestCode == READ_REQUEST_CODE_cover) {
+            mDatabase.child("users").child(uidProfile).child("coverphoto").setValue(newurlPhoto);
+        }
     }
 
     private void drawPersonViews(Person personProfile) {
@@ -205,5 +328,28 @@ public class HomeFragment extends BaseFragment {
         } else {
             logoutImg.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        if ((requestCode == READ_REQUEST_CODE_profile || requestCode == READ_REQUEST_CODE_cover) && resultCode == Activity.RESULT_OK) {
+            // The document selected by the user won't be returned in the intent.
+            // Instead, a URI to that document will be contained in the return intent
+            // provided to this method as a parameter.
+            // Pull that URI using resultData.getData().
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+                Log.i(TAG, "Uri: " + uri.toString());
+
+                try {
+                    loadNewProfilePhoto(requestCode, uri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 }
