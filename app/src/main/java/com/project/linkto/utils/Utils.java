@@ -3,6 +3,7 @@ package com.project.linkto.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -54,6 +55,9 @@ public class Utils {
             java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(currenttimestamp);
             java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(timestamp);
             int diffyear = ts2.getYear() - ts1.getYear();
+            Log.i("yeardaymonth",ts2.getYear()+" "+ts1.getYear());
+            Log.i("yeardaymonth",ts2.getMonth()+" "+ts1.getMonth());
+            Log.i("yeardaymonth",ts2.getDay()+" "+ts1.getDay());
             if (diffyear > 1)
                 return diffyear + " years ago";
             else if (diffyear == 1) return "A year ago";

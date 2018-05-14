@@ -65,12 +65,13 @@ public class SingInFragment extends BaseFragment {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 DataHelper.getInstance().setmUser(user);
                                 DataHelper.getInstance().setConnected(true);
-                                mActivity.goToHome();
+                                mActivity.goToMain();
 
                                 if (user != null) {
                                     Userbd userbd = new Userbd(user);
                                     DataHelper.getInstance().getuRepo().clearAll();
                                     DataHelper.getInstance().getuRepo().create(userbd);
+                                    DataHelper.getInstance().setmUserbd(userbd);
                                 }
                                 // updateUI(user);
                             } else {
