@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment.user;
+package com.project.linkto.fragment.user;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.linkto.Fragment.BaseFragment;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.R;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.singleton.DataHelper;

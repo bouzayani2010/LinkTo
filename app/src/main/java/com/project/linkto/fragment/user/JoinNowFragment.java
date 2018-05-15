@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment.user;
+package com.project.linkto.fragment.user;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,13 +13,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.R;
-import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
-import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.utils.Utils;
 
 import java.util.HashMap;
@@ -57,20 +54,24 @@ public class JoinNowFragment extends BaseFragment {
                     mAuth.createUserWithEmailAndPassword(login, password).addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                           // DataHelper.getInstance().setmUser(user);
-                            String key=user.getUid();
-
-                            Userbd userbd = new Userbd(user);
-                            Map<String, Object> postValues = userbd.toMap();
-
-                            Map<String, Object> childUpdates = new HashMap<>();
-                            childUpdates.put("/users/" + key, postValues);
-                            //childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
-
-                            mDatabase.updateChildren(childUpdates);
                             if (task.isSuccessful()) {
+                                AuthResult result = task.getResult();
+                                FirebaseUser user = result.getUser();
+
+
+                                //FirebaseUser user = mAuth.getCurrentUser();
+                                // DataHelper.getInstance().setmUser(user);
+                                String key = user.getUid();
+
+                                Userbd userbd = new Userbd(user);
+                                Map<String, Object> postValues = userbd.toMap();
+
+                                Map<String, Object> childUpdates = new HashMap<>();
+                                childUpdates.put("/users/" + key, postValues);
+                                //childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+
+                                mDatabase.updateChildren(childUpdates);
+
                                 new MaterialDialog.Builder(mActivity).title(R.string.logout)
                                         .content(R.string.registration_success_text)
                                         .positiveText(R.string.ok)
@@ -79,6 +80,16 @@ public class JoinNowFragment extends BaseFragment {
                                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                                 dialog.dismiss();
                                                 mActivity.goToSignIn();
+                                            }
+                                        }).show();
+                            } else {
+                                new MaterialDialog.Builder(mActivity).title(R.string.logout)
+                                        .content(R.string.registration_failed_text)
+                                        .positiveText(R.string.ok)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                dialog.dismiss();
                                             }
                                         }).show();
                             }

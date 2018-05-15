@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment.feeds;
+package com.project.linkto.fragment.feeds;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +11,10 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.firebase.database.DatabaseReference;
-import com.project.linkto.Fragment.BaseFragment;
 import com.project.linkto.R;
 import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
@@ -38,7 +38,7 @@ public class FeedPostFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feedpost, container, false);
         mDatabase = mActivity.database.getReference();
-        userbd=DataHelper.getInstance().getmUserbd();
+        userbd = DataHelper.getInstance().getmUserbd();
 
         ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
         bt_submit = (Button) view.findViewById(R.id.bt_submit);
@@ -48,7 +48,7 @@ public class FeedPostFragment extends BaseFragment {
             public void onClick(View v) {
                 String content_text = ed_content_text.getText().toString();
                 if (!Utils.isEmptyString(content_text)) {
-                    writeNewPost(userbd.getUid(),userbd.getDisplayName(),content_text.substring(0,15),content_text);
+                    writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text);
                 } else {
                     new MaterialDialog.Builder(mActivity)
                             .title(R.string.publicationempty)
@@ -70,13 +70,12 @@ public class FeedPostFragment extends BaseFragment {
     private void writeNewPost(String userId, String username, String title, String body) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body,timestamp.toString());
+        Post post = new Post(userId, username, title, body, timestamp.toString());
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/posts/" + key, postValues);
-        //childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
-
         mDatabase.updateChildren(childUpdates);
+        mActivity.onBackPressed();
     }
 }

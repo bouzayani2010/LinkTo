@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment.feeds;
+package com.project.linkto.fragment.feeds;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.project.linkto.Fragment.BaseFragment;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.R;
 import com.project.linkto.adapter.ListCommentAdapter;
 import com.project.linkto.bean.Comment;
@@ -76,6 +76,7 @@ public class CommentFragment extends BaseFragment {
                 String content_text = ed_content_text.getText().toString();
                 if (!Utils.isEmptyString(content_text)) {
                     writeNewComment(post, content_text);
+                    ed_content_text.setText("");
                 } else {
                     new MaterialDialog.Builder(mActivity)
                             .title(R.string.publicationempty)

@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment;
+package com.project.linkto.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,17 +39,17 @@ import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static com.project.linkto.BaseActivity.mDatabase;
 import static com.project.linkto.BaseActivity.storage;
-import static com.project.linkto.Fragment.MainFragment.tabs;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class HomeFragment extends BaseFragment {
+public class MyHomeFragment extends BaseFragment {
 
     private static final int READ_REQUEST_CODE_profile = 19;
     private static final int READ_REQUEST_CODE_cover = 119;
@@ -62,7 +62,7 @@ public class HomeFragment extends BaseFragment {
     private ImageView logoutImg;
     private FloatingActionButton fab;
 
-    public HomeFragment() {
+    public MyHomeFragment() {
     }
 
     @Override
@@ -202,6 +202,7 @@ public class HomeFragment extends BaseFragment {
                     Log.i("mamama", "::" + e.getMessage());
                     e.printStackTrace();
                 }
+                Collections.sort(postList);
                 mAdapter.notifyDataSetChanged();
             }
 

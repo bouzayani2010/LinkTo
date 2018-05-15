@@ -1,4 +1,4 @@
-package com.project.linkto.Fragment;
+package com.project.linkto.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

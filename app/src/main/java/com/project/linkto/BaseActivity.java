@@ -14,13 +14,13 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.project.linkto.Fragment.BaseFragment;
-import com.project.linkto.Fragment.HomeFragment;
-import com.project.linkto.Fragment.MainFragment;
-import com.project.linkto.Fragment.feeds.CommentFragment;
-import com.project.linkto.Fragment.feeds.FeedPostFragment;
-import com.project.linkto.Fragment.user.JoinNowFragment;
-import com.project.linkto.Fragment.user.SingInFragment;
+import com.project.linkto.fragment.BaseFragment;
+import com.project.linkto.fragment.MyHomeFragment;
+import com.project.linkto.fragment.MainFragment;
+import com.project.linkto.fragment.feeds.CommentFragment;
+import com.project.linkto.fragment.feeds.FeedPostFragment;
+import com.project.linkto.fragment.user.JoinNowFragment;
+import com.project.linkto.fragment.user.SingInFragment;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -94,11 +94,11 @@ public class BaseActivity extends AppCompatActivity {
     public void goToHome() {
         Fragment fragment = fragmentManager.findFragmentById(R.id.container);
         if (fragment != null) {
-            if (!(fragment instanceof HomeFragment)) {
-                pushtoFragments("Home", new HomeFragment(), true, R.id.container, false);
+            if (!(fragment instanceof MyHomeFragment)) {
+                pushtoFragments("Home", new MyHomeFragment(), true, R.id.container, false);
             }
         } else {
-            pushtoFragments("Home", new HomeFragment(), true, R.id.container, false);
+            pushtoFragments("Home", new MyHomeFragment(), true, R.id.container, false);
         }
 
     }

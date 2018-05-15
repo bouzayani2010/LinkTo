@@ -24,5 +24,6 @@
     <string name="comment">Comment</string>
     <string name="profile">Profile</string>
     <string name="changephoto">Do you want to update profile Photo ?</string>
+    <string name="registration_failed_text" >Your registration is failed. Please try to use another email.</string>
 
 </resources>

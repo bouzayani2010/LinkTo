@@ -8,6 +8,7 @@ import android.util.Log;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -52,34 +53,49 @@ public class Utils {
 
     public static String getdiffDate(String currenttimestamp, String timestamp) {
         try {
-            java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(currenttimestamp);
-            java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(timestamp);
-            int diffyear = ts2.getYear() - ts1.getYear();
-            Log.i("yeardaymonth",ts2.getYear()+" "+ts1.getYear());
-            Log.i("yeardaymonth",ts2.getMonth()+" "+ts1.getMonth());
-            Log.i("yeardaymonth",ts2.getDay()+" "+ts1.getDay());
+
+            Calendar cal1 = Calendar.getInstance();
+
+            Calendar cal2 = Calendar.getInstance();
+
+            java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(currenttimestamp);
+            java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(timestamp);
+
+            java.sql.Time time1 = new java.sql.Time(ts1.getTime());
+            java.sql.Time time2 = new java.sql.Time(ts2.getTime());
+
+            java.sql.Date date1 = new java.sql.Date(ts1.getTime());
+            cal1.setTime(date1);
+            java.sql.Date date2 = new java.sql.Date(ts2.getTime());
+            cal2.setTime(date2);
+
+
+            int diffyear = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR);
+            Log.i("yeardaymonth1", date2.getYear() + " " + date1.getYear());
+            Log.i("yeardaymonth1", date2.getMonth() + " " + date1.getMonth());
+            Log.i("yeardaymonth1", date2.getDay() + " " + date1.getDay());
             if (diffyear > 1)
                 return diffyear + " years ago";
             else if (diffyear == 1) return "A year ago";
             else {
-                int diffmonth = ts2.getMonth() - ts1.getMonth();
+                int diffmonth = cal2.get(Calendar.MONTH) - cal1.get(Calendar.MONTH);
                 if (diffmonth > 1)
                     return diffmonth + " months ago";
                 else if (diffmonth == 1) return "A month ago";
                 else {
-                    int diffday = ts2.getDay() - ts1.getDay();
+                    int diffday = cal2.get(Calendar.DAY_OF_MONTH) - cal1.get(Calendar.DAY_OF_MONTH);
                     if (diffday > 1)
                         return diffday + " days ago";
                     else if (diffday == 1) return "Yesterday";
                     else {
-                        int diffhours = ts2.getHours() - ts1.getHours();
+                        int diffhours = time2.getHours() - time1.getHours();
                         if (diffhours > 1)
                             return diffhours + " hours ago";
                         else if (diffhours == 1) return "An hour ago";
                         else {
-                            int diffminutes = ts2.getMinutes() - ts1.getMinutes();
+                            int diffminutes = time2.getMinutes() - time1.getMinutes();
                             if (diffminutes > 1)
-                                return diffhours + " minutes ago";
+                                return diffminutes + " minutes ago";
                             else return "Just now!";
                         }
                     }
@@ -87,6 +103,8 @@ public class Utils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
+            Log.i("yeardaymonth", e.getMessage());
         }
         return "";
     }

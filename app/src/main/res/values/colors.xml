@@ -13,4 +13,5 @@
     <color name="graylight">#7c7b79</color>
     <color name="graylight90">#99e1dfdc</color>
     <color name="transparent">#00000000</color>
+    <color name="colorAccent50" >#99fc4f00</color>
 </resources>

@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.project.linkto.Fragment.HomeFragment;
-import com.project.linkto.Fragment.MyHomeFragment;
+import com.project.linkto.fragment.MyHomeFragment;
+import com.project.linkto.fragment.HomeFragment;
 
 import java.util.List;
 

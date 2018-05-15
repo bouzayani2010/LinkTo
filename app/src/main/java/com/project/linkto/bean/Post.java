@@ -1,5 +1,8 @@
 package com.project.linkto.bean;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -10,7 +13,7 @@ import java.util.Map;
  * Created by bbouzaiene on 04/05/2018.
  */
 @IgnoreExtraProperties
-public class Post {
+public class Post implements Comparable<Post> {
     private String timestamp;
     public String uid;
     public String author;
@@ -139,5 +142,16 @@ public class Post {
 
     public void setShareCount(int shareCount) {
         this.shareCount = shareCount;
+    }
+
+    @Override
+    public int compareTo(@NonNull Post other) {
+        java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(this.getTimestamp());
+        java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(other.getTimestamp());
+
+        Log.i("yeardaymonth",ts1.getTime()+" "+ts2.getTime());
+        if(ts2.getTime()>=ts1.getTime())
+        return 1;
+        else return -1;
     }
 }

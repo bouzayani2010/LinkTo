@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login"
+                android:textAllCaps="false"
                 android:text="belgacem.bouzayani@gmail.com"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorHint" />
@@ -40,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ed_login"
                 android:hint="@string/password"
-                android:text="belgacem1234"
                 android:textColor="@color/colorText"
+                android:text="belgacem1234"
                 android:textColorHint="@color/colorHint" />
 
             <com.project.linkto.customwidget.CustomBT
