@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.R;
-import com.project.linkto.adapter.ListCommentAdapter;
+import com.project.linkto.adapter.viewsadapter.ListCommentAdapter;
 import com.project.linkto.bean.Comment;
 import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;

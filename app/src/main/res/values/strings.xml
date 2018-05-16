@@ -11,6 +11,7 @@
     <string name="submit">Submit</string>
     <string name="publicationempty">The publication is empty.</string>
     <string name="publicationemptymessage">This publication seems empty. Write something or insert a link or photo to post.</string>
+    <string name="emptymessage">This message seems empty. Write something or insert a link or photo to post.</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="logout">Logout</string>
@@ -25,5 +26,6 @@
     <string name="profile">Profile</string>
     <string name="changephoto">Do you want to update profile Photo ?</string>
     <string name="registration_failed_text" >Your registration is failed. Please try to use another email.</string>
+    <string name="message">Message</string>
 
 </resources>

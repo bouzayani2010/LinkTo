@@ -29,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
-import com.project.linkto.adapter.ListPostAdapter;
+import com.project.linkto.adapter.viewsadapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
 import com.project.linkto.singleton.DataHelper;

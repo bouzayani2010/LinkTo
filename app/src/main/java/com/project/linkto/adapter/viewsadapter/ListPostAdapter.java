@@ -1,4 +1,4 @@
-package com.project.linkto.adapter;
+package com.project.linkto.adapter.viewsadapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
