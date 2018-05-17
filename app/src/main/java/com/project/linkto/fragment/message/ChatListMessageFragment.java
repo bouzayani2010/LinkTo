@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -28,13 +27,12 @@ import static com.project.linkto.BaseActivity.mDatabase;
  * Created by bbouzaiene on 16/05/2018.
  */
 
-public class ChatMessageFragment extends BaseFragment {
+public class ChatListMessageFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private EditText ed_content_text;
     private Userbd userbd;
-    private Button bt_submit;
 
 
     @Override
@@ -45,8 +43,6 @@ public class ChatMessageFragment extends BaseFragment {
         ed_content_text = (EditText)view.findViewById(R.id.ed_content_text);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
-        bt_submit = (Button) view.findViewById(R.id.bt_submit);
         drawViews();
 
         return view;
@@ -54,7 +50,7 @@ public class ChatMessageFragment extends BaseFragment {
     }
 
     private void drawViews() {
-        bt_submit.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String content_text = ed_content_text.getText().toString();

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -19,6 +20,7 @@ import com.project.linkto.R;
 import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
+import com.project.linkto.fragment.MainFragment;
 import com.project.linkto.fragment.feeds.CommentFragment;
 import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
@@ -44,6 +46,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
     private final List<Post> postList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout rl_user;
         private RoundedImageView profileimg;
         private TextView tv_comments;
         private TextView tv_shares;
@@ -59,6 +62,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             tv_likes = (TextView) view.findViewById(R.id.tv_likes);
             tv_comments = (TextView) view.findViewById(R.id.tv_comments);
             tv_shares = (TextView) view.findViewById(R.id.tv_shares);
+            rl_user = (RelativeLayout) view.findViewById(R.id.rl_user);
         }
     }
 
@@ -85,7 +89,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             holder.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), post.getTimestamp()));
             final String userId = DataHelper.getInstance().getmUserbd().getUid();
 
-            Log.i("yeardaymonth1",post.getTimestamp().toString());
+            Log.i("yeardaymonth1", post.getTimestamp().toString());
             mDatabase.child("users").child(post.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,6 +101,28 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
+
+            holder.rl_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(mActivity)
+                            .title(R.string.Profile)
+                            .items(R.array.activity_profile)
+                            .itemsCallback(new MaterialDialog.ListCallback() {
+                                @Override
+                                public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                    switch (which) {
+                                        case 0:
+                                            break;
+                                        case 1:
+                                            MainFragment.viewPager.setCurrentItem(2);
+                                            break;
+                                    }
+                                }
+                            })
+                            .show();
                 }
             });
             holder.tv_likes.setText("" + post.getStarCount() + " likes");

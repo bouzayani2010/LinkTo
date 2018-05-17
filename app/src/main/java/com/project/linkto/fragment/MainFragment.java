@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainFragment extends BaseFragment {
     private MainPagerAdapter mainPagerAdapter;
-    private ViewPager viewPager;
+    public static ViewPager viewPager;
     public static PagerSlidingTabStrip tabs;
 
     @Nullable

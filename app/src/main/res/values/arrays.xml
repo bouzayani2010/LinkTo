@@ -14,4 +14,8 @@
         <item>Load new Photo</item>
         <item>Delete This Photo</item>
     </string-array>
+    <string-array name="activity_profile">
+        <item>Visit profile</item>
+        <item>Send Message</item>
+    </string-array>
 </resources>
