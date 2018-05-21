@@ -42,7 +42,7 @@ public class ChatMessageFragment extends BaseFragment {
                              final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         userbd = DataHelper.getInstance().getmUserbd();
-        ed_content_text = (EditText)view.findViewById(R.id.ed_content_text);
+        ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -80,10 +80,19 @@ public class ChatMessageFragment extends BaseFragment {
 
     private void writeNewMessage(String content_text) {
         String key = mDatabase.child("messages").push().getKey();
-        ChatMessage chatmessage=new ChatMessage(content_text,userbd.getUid());
-        Map<String, Object> postValues = chatmessage.toMap();
+        ChatMessage chatmessage = new ChatMessage(content_text, userbd.getUid());
+        Map<String, Object> messagesValues = chatmessage.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/messages/" + key+"/content", postValues);
-        mDatabase.updateChildren(childUpdates);
+        Map<String, Object> groupsUpdates = new HashMap<>();
+
+        String key1 = mDatabase.child("messages").child(key).child("content").push().getKey();
+
+        childUpdates.put(key1, messagesValues);
+
+        mDatabase.child("messages").child(key).child("content").updateChildren(childUpdates);
+
+        String groupkey1 = mDatabase.child("messages").child(key).child("groups").push().getKey();
+        groupsUpdates.put(groupkey1, userbd.getUid());
+        mDatabase.child("messages").child(key).child("groups").updateChildren(groupsUpdates);
     }
 }

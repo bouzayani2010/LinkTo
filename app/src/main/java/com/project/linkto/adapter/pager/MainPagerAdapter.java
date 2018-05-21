@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.project.linkto.fragment.MyHomeFragment;
 import com.project.linkto.fragment.HomeFragment;
+import com.project.linkto.fragment.message.ChatListMessageFragment;
 import com.project.linkto.fragment.message.ChatMessageFragment;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new HomeFragment();
             case 2:
-                return new ChatMessageFragment();
+                return new ChatListMessageFragment();
             case 3:
                 return new MyHomeFragment();
             default:

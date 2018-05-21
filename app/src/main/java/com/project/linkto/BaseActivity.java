@@ -15,10 +15,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.project.linkto.fragment.BaseFragment;
-import com.project.linkto.fragment.MyHomeFragment;
 import com.project.linkto.fragment.MainFragment;
+import com.project.linkto.fragment.MyHomeFragment;
 import com.project.linkto.fragment.feeds.CommentFragment;
 import com.project.linkto.fragment.feeds.FeedPostFragment;
+import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.fragment.user.JoinNowFragment;
 import com.project.linkto.fragment.user.SingInFragment;
 
@@ -156,6 +157,17 @@ public class BaseActivity extends AppCompatActivity {
             }
         } else {
             pushtoFragments("Comment", commentFragment, true, R.id.container, false);
+        }
+    }
+
+    public void gotoChatMessage(ChatMessageFragment chatMessageFragment) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
+        if (fragment != null) {
+            if (!(fragment instanceof ChatMessageFragment)) {
+                pushtoFragments("chatMessage", chatMessageFragment, true, R.id.container, false);
+            }
+        } else {
+            pushtoFragments("chatMessage", chatMessageFragment, true, R.id.container, false);
         }
     }
 }
