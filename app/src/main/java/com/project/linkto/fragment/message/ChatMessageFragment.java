@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.project.linkto.R;
 import com.project.linkto.bean.ChatMessage;
+import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
@@ -35,6 +36,8 @@ public class ChatMessageFragment extends BaseFragment {
     private EditText ed_content_text;
     private Userbd userbd;
     private Button bt_submit;
+    private Person mPerson;
+    private String mUserId;
 
 
     @Override
@@ -92,7 +95,17 @@ public class ChatMessageFragment extends BaseFragment {
         mDatabase.child("messages").child(key).child("content").updateChildren(childUpdates);
 
         String groupkey1 = mDatabase.child("messages").child(key).child("groups").push().getKey();
+        String groupkey2 = mDatabase.child("messages").child(key).child("groups").push().getKey();
         groupsUpdates.put(groupkey1, userbd.getUid());
+        groupsUpdates.put(groupkey2, mUserId);
         mDatabase.child("messages").child(key).child("groups").updateChildren(groupsUpdates);
+    }
+
+    public void setmUser(Person mPerson) {
+        this.mPerson = mPerson;
+    }
+
+    public void setmUserId(String mUserId) {
+        this.mUserId = mUserId;
     }
 }

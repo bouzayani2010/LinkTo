@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +18,7 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
 import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Person;
+import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -49,11 +51,15 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final GroupMessage groupMessage = groupMessageList.get(position);
         Log.i("groups", groupMessage.getListUserId().toString());
-        String otherUserId = groupMessage.getListUserId().get(0);
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        final String otherUserId = groupMessage.getListUserId().get(0);
+        holder.rl_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChatMessageFragment chatMessageFragment=new ChatMessageFragment();
+                chatMessageFragment.setmUserId(otherUserId);
+                mActivity.gotoChatMessage(chatMessageFragment);
+            }
+        });
         mDatabase.child("users").child(otherUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,11 +77,12 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
         });
     }
 
-    private void drawPersonViews(ListTitleMessageAdapter.MyViewHolder holder, Person personProfile) {
+    private void drawPersonViews(ListTitleMessageAdapter.MyViewHolder holder, final Person personProfile) {
         try {
             Log.i("person", personProfile.getCoverphoto());
             Log.i("person", personProfile.getProfilephoto());
             holder.tv_title.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
+
             Transformation transformation = new RoundedTransformationBuilder()
                     .borderColor(mActivity.getResources().getColor(R.color.colorAccent))
                     .borderWidthDp(3)
@@ -101,13 +108,15 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout rl_user;
         private TextView tv_title;
         public ImageView profileimg;
 
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            profileimg = (RoundedImageView) itemView.findViewById(R.id.profileimg);
-            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+        public MyViewHolder(View view) {
+            super(view);
+            profileimg = (RoundedImageView) view.findViewById(R.id.profileimg);
+            tv_title = (TextView) view.findViewById(R.id.tv_title);
+            rl_user = (RelativeLayout) view.findViewById(R.id.rluser);
         }
     }
 }
