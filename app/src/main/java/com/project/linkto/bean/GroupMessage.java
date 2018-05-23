@@ -8,6 +8,7 @@ import java.util.List;
 
 public class GroupMessage {
     private List<String> listUserId;
+    private String key;
 
     public void setListUserId(List<String> listUserId) {
         this.listUserId = listUserId;
@@ -15,5 +16,14 @@ public class GroupMessage {
 
     public List<String> getListUserId() {
         return listUserId;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+
+    }
+
+    public String getKey() {
+        return key;
     }
 }

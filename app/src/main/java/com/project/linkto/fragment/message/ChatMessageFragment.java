@@ -3,7 +3,10 @@ package com.project.linkto.fragment.message;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +15,24 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.R;
+import com.project.linkto.adapter.viewsadapter.ListMessageAdapter;
 import com.project.linkto.bean.ChatMessage;
+import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Person;
+import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.project.linkto.BaseActivity.mDatabase;
@@ -38,6 +50,9 @@ public class ChatMessageFragment extends BaseFragment {
     private Button bt_submit;
     private Person mPerson;
     private String mUserId;
+    private GroupMessage groupMessage;
+    private List<ChatMessage> messageList = new ArrayList<ChatMessage>();
+    private ListMessageAdapter mAdapter;
 
 
     @Override
@@ -48,7 +63,6 @@ public class ChatMessageFragment extends BaseFragment {
         ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-
         bt_submit = (Button) view.findViewById(R.id.bt_submit);
         drawViews();
 
@@ -57,6 +71,40 @@ public class ChatMessageFragment extends BaseFragment {
     }
 
     private void drawViews() {
+        mAdapter = new ListMessageAdapter(mActivity,messageList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        //mDatabase.child("users").
+        mDatabase.child("messages").child(groupMessage.getKey()).child("content").getRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    messageList.clear();
+                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                        Log.i("mamama", "::" + singleSnapshot.toString());
+                        ChatMessage chatMessage = singleSnapshot.getValue(ChatMessage.class);
+                        //chatMessage.setKey(singleSnapshot.getKey());
+                        //
+                        messageList.add(chatMessage);
+                        Log.i("mamama", "::" + chatMessage.toString());
+
+                    }
+                } catch (Exception e) {
+                    Log.i("mamama", "::" + e.getMessage());
+                    e.printStackTrace();
+                }
+              //  Collections.sort(postList);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,23 +130,23 @@ public class ChatMessageFragment extends BaseFragment {
     }
 
     private void writeNewMessage(String content_text) {
-        String key = mDatabase.child("messages").push().getKey();
+        //  String key = mDatabase.child("messages").push().getKey();
+        String key = groupMessage.getKey();
+        if (key == null) {
+            key = mDatabase.child("messages").push().getKey();
+            Map<String, Object> groupsUpdates = new HashMap<>();
+            String groupkey1 = mDatabase.child("messages").child(key).child("groups").push().getKey();
+            String groupkey2 = mDatabase.child("messages").child(key).child("groups").push().getKey();
+            groupsUpdates.put(groupkey1, userbd.getUid());
+            groupsUpdates.put(groupkey2, mUserId);
+            mDatabase.child("messages").child(key).child("groups").updateChildren(groupsUpdates);
+        }
         ChatMessage chatmessage = new ChatMessage(content_text, userbd.getUid());
         Map<String, Object> messagesValues = chatmessage.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        Map<String, Object> groupsUpdates = new HashMap<>();
-
         String key1 = mDatabase.child("messages").child(key).child("content").push().getKey();
-
         childUpdates.put(key1, messagesValues);
-
         mDatabase.child("messages").child(key).child("content").updateChildren(childUpdates);
-
-        String groupkey1 = mDatabase.child("messages").child(key).child("groups").push().getKey();
-        String groupkey2 = mDatabase.child("messages").child(key).child("groups").push().getKey();
-        groupsUpdates.put(groupkey1, userbd.getUid());
-        groupsUpdates.put(groupkey2, mUserId);
-        mDatabase.child("messages").child(key).child("groups").updateChildren(groupsUpdates);
     }
 
     public void setmUser(Person mPerson) {
@@ -107,5 +155,9 @@ public class ChatMessageFragment extends BaseFragment {
 
     public void setmUserId(String mUserId) {
         this.mUserId = mUserId;
+    }
+
+    public void setGroupMessage(GroupMessage groupMessage) {
+        this.groupMessage = groupMessage;
     }
 }

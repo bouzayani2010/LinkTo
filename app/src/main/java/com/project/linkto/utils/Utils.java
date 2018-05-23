@@ -8,7 +8,10 @@ import android.util.Log;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -51,6 +54,12 @@ public class Utils {
         return md5;
     }
 
+
+    public static String convertTime(long time){
+        Date date = new Date(time);
+        Format format = new SimpleDateFormat("yyyy MM dd HH:mm:ss");
+        return format.format(date);
+    }
     public static String getdiffDate(String currenttimestamp, String timestamp) {
         try {
 

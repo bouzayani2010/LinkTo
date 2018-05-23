@@ -69,10 +69,11 @@ public class ChatListMessageFragment extends BaseFragment {
         mDatabase.child("messages").getRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                groupMessageList.clear();;
-                GroupMessage groupMessage = new GroupMessage();
-                List<String> listUserId = new ArrayList<String>();
+                groupMessageList.clear();
+
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    GroupMessage groupMessage = new GroupMessage();
+                    List<String> listUserId = new ArrayList<String>();
                     Log.i("groups", "::" + singleSnapshot.toString());
                     Map<String, Map> map = (Map<String, Map>) singleSnapshot.getValue();
                     Map groups = map.get("groups");
@@ -80,9 +81,11 @@ public class ChatListMessageFragment extends BaseFragment {
                     listUserId.addAll(groups.values());
                     listUserId.remove(userbd.getUid());
                     groupMessage.setListUserId(listUserId);
+
+                    groupMessage.setKey(singleSnapshot.getKey());
+                    groupMessageList.add(groupMessage);
                 }
-                groupMessage.setListUserId(listUserId);
-                groupMessageList.add(groupMessage);
+               // groupMessage.setListUserId(listUserId);
                 mAdapter.notifyDataSetChanged();
             }
 

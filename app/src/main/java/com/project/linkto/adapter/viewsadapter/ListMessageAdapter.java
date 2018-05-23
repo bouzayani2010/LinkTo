@@ -16,12 +16,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
-import com.project.linkto.bean.GroupMessage;
+import com.project.linkto.bean.ChatMessage;
 import com.project.linkto.bean.Person;
-import com.project.linkto.fragment.message.ChatMessageFragment;
+import com.project.linkto.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import static com.project.linkto.BaseActivity.mDatabase;
@@ -31,37 +32,35 @@ import static com.project.linkto.fragment.BaseFragment.mActivity;
  * Created by bbouzaiene on 21/05/2018.
  */
 
-public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessageAdapter.MyViewHolder> {
-    private List<GroupMessage> groupMessageList;
+public class ListMessageAdapter extends RecyclerView.Adapter<ListMessageAdapter.MyViewHolder> {
+    private List<ChatMessage> chatMessageList;
     private Context mContext;
 
-    public ListTitleMessageAdapter(Context mContext, List<GroupMessage> groupMessageList) {
+    public ListMessageAdapter(Context mContext, List<ChatMessage> chatMessageList) {
         this.mContext = mContext;
-        this.groupMessageList = groupMessageList;
+        this.chatMessageList = chatMessageList;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.group_message_row, parent, false);
+                .inflate(R.layout.chat_message_row, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final GroupMessage groupMessage = groupMessageList.get(position);
-        Log.i("groups", groupMessage.getListUserId().toString());
-        final String otherUserId = groupMessage.getListUserId().get(0);
+        final ChatMessage chatMessage = chatMessageList.get(position);
+        holder.tv_body.setText(chatMessage.getMessageText());
+
+        Timestamp currenttimestamp = new Timestamp(System.currentTimeMillis());
+        holder.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), chatMessage.getMessageTime()));
         holder.rl_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatMessageFragment chatMessageFragment=new ChatMessageFragment();
-                chatMessageFragment.setmUserId(otherUserId);
-                chatMessageFragment.setGroupMessage(groupMessage);
-                mActivity.gotoChatMessage(chatMessageFragment);
             }
         });
-        mDatabase.child("users").child(otherUserId).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(chatMessage.getMessageUser()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Person personProfile = dataSnapshot.getValue(Person.class);
@@ -78,7 +77,7 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
         });
     }
 
-    private void drawPersonViews(ListTitleMessageAdapter.MyViewHolder holder, final Person personProfile) {
+    private void drawPersonViews(ListMessageAdapter.MyViewHolder holder, final Person personProfile) {
         try {
             Log.i("person", personProfile.getCoverphoto());
             Log.i("person", personProfile.getProfilephoto());
@@ -101,7 +100,7 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
     @Override
     public int getItemCount() {
         try {
-            return groupMessageList.size();
+            return chatMessageList.size();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,6 +108,8 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private final TextView tv_date;
+        private final TextView tv_body;
         public RelativeLayout rl_user;
         private TextView tv_title;
         public ImageView profileimg;
@@ -117,6 +118,8 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
             super(view);
             profileimg = (RoundedImageView) view.findViewById(R.id.profileimg);
             tv_title = (TextView) view.findViewById(R.id.tv_title);
+            tv_date = (TextView) view.findViewById(R.id.tv_date);
+            tv_body = (TextView) view.findViewById(R.id.tv_body);
             rl_user = (RelativeLayout) view.findViewById(R.id.rluser);
         }
     }
