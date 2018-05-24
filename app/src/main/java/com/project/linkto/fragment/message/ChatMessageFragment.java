@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -47,7 +48,7 @@ public class ChatMessageFragment extends BaseFragment {
     private FloatingActionButton fab;
     private EditText ed_content_text;
     private Userbd userbd;
-    private Button bt_submit;
+    private ImageView bt_submit;
     private Person mPerson;
     private String mUserId;
     private GroupMessage groupMessage;
@@ -63,7 +64,7 @@ public class ChatMessageFragment extends BaseFragment {
         ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        bt_submit = (ImageView) view.findViewById(R.id.bt_submit);
         drawViews();
 
         return view;
