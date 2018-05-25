@@ -1,14 +1,13 @@
 package com.project.linkto.adapter.pager;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.project.linkto.fragment.MyHomeFragment;
-import com.project.linkto.fragment.HomeFragment;
+import com.astuetz.PagerSlidingTabStrip;
+import com.project.linkto.fragment.chapter.HomeFragment;
+import com.project.linkto.fragment.chapter.MyHomeFragment;
 import com.project.linkto.fragment.message.ChatListMessageFragment;
-import com.project.linkto.fragment.message.ChatMessageFragment;
 
 import java.util.List;
 
@@ -16,12 +15,14 @@ import java.util.List;
  * Created by bbouzaiene on 14/05/2018.
  */
 
-public class MainPagerAdapter extends FragmentStatePagerAdapter {
+public class MainPagerAdapter extends FragmentStatePagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
     private final List<String> chapters;
+    private final int[] icons;
 
-    public MainPagerAdapter(FragmentManager childFragmentManager, List<String> chapters) {
+    public MainPagerAdapter(FragmentManager childFragmentManager, List<String> chapters, int[] icons) {
         super(childFragmentManager);
         this.chapters = chapters;
+        this.icons = icons;
     }
 
     @Override
@@ -51,9 +52,13 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
         return 0;
     }
 
-    @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         return "" + this.chapters.get(position);
+    }
+
+    @Override
+    public int getPageIconResId(int position) {
+        return this.icons[position];
     }
 }

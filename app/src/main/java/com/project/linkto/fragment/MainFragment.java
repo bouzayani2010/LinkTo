@@ -41,9 +41,17 @@ public class MainFragment extends BaseFragment {
 
     private void drawViews() {
         List<String> chapters = Arrays.asList(getResources().getStringArray(R.array.chapter));
+        int[] icons = {
+                R.drawable.person_icon,
+                R.drawable.home_icon,
+                R.drawable.contact_icon,
+                R.drawable.activity
+        };
 
-        mainPagerAdapter = new MainPagerAdapter(getChildFragmentManager(),chapters);
+
+        mainPagerAdapter = new MainPagerAdapter(getChildFragmentManager(), chapters, icons);
         viewPager.setAdapter(mainPagerAdapter);
+
 
         tabs.setViewPager(viewPager);
 

@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.fragment.MainFragment;
-import com.project.linkto.fragment.MyHomeFragment;
+import com.project.linkto.fragment.chapter.MyHomeFragment;
 import com.project.linkto.fragment.feeds.CommentFragment;
 import com.project.linkto.fragment.feeds.FeedPostFragment;
 import com.project.linkto.fragment.message.ChatMessageFragment;

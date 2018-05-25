@@ -9,6 +9,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -55,7 +57,8 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.0.1'
 
     // compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+ //   compile 'com.jpardogo.materialtabstrip:library:1.0.8'
     compile 'com.nbsp:library:1.8'
 
     testCompile 'junit:junit:4.12'

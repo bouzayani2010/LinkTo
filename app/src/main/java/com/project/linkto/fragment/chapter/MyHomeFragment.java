@@ -1,4 +1,4 @@
-package com.project.linkto.fragment;
+package com.project.linkto.fragment.chapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -33,6 +32,7 @@ import com.project.linkto.R;
 import com.project.linkto.adapter.viewsadapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -50,7 +50,7 @@ import static com.project.linkto.BaseActivity.storage;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class HomeFragment extends BaseFragment {
+public class MyHomeFragment extends BaseFragment {
 
     private static final int READ_REQUEST_CODE_profile = 19;
     private static final int READ_REQUEST_CODE_cover = 119;
@@ -62,9 +62,8 @@ public class HomeFragment extends BaseFragment {
     private ImageView profileImg;
     private ImageView logoutImg;
     private FloatingActionButton fab;
-    private RelativeLayout personellayout;
 
-    public HomeFragment() {
+    public MyHomeFragment() {
     }
 
     @Override
@@ -77,7 +76,6 @@ public class HomeFragment extends BaseFragment {
         logoutImg = (ImageView) view.findViewById(R.id.logout);
         profileImg = (ImageView) view.findViewById(R.id.profileimg);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        personellayout = (RelativeLayout) view.findViewById(R.id.personellayout);
 
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -90,7 +88,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void drawViews() {
-        personellayout.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

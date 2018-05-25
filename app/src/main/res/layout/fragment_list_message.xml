@@ -24,11 +24,44 @@
             linkto:paddingStart="@dimen/fab_margin"
             linkto:srcCompat="@drawable/pen1" />
 
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/bt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/transparent"
+                android:src="@drawable/search_icon" />
+
+            <com.project.linkto.customwidget.CustomET
+                android:id="@+id/ed_content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_clickable"
+                android:hint="@string/write_your_message"
+                android:padding="10dp"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorHint"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/bt_search" />
+
+        </RelativeLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/personellayout"
+            android:layout_below="@+id/rl_search"
             android:scrollbars="vertical" />
 
 
