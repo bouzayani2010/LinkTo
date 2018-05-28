@@ -22,6 +22,7 @@ import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
 import com.project.linkto.fragment.MainFragment;
 import com.project.linkto.fragment.feeds.CommentFragment;
+import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
@@ -118,6 +119,9 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                                             break;
                                         case 1:
                                             MainFragment.viewPager.setCurrentItem(2);
+                                            ChatMessageFragment chatMessageFragment = new ChatMessageFragment();
+                                            chatMessageFragment.setmUserId(post.getUid());
+                                            mActivity.gotoChatMessage(chatMessageFragment);
                                             break;
                                     }
                                 }

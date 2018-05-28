@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:background="@android:drawable/picture_frame"
+            android:background="@android:drawable/dialog_holo_light_frame"
             android:padding="10dp">
 
             <com.project.linkto.customwidget.CustomET

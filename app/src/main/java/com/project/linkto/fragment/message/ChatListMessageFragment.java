@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,7 @@ import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static com.project.linkto.BaseActivity.mDatabase;
 
@@ -66,7 +62,48 @@ public class ChatListMessageFragment extends BaseFragment {
                 mActivity.gotoChatMessage(chatMessageFragment);
             }
         });
-        mDatabase.child("messages").getRef().addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(userbd.getUid()).child("messageid").getRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                groupMessageList.clear();
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    final String mId = (String) singleSnapshot.getValue();
+                    mDatabase.child("messages").child(mId).child("groups").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            GroupMessage groupMessage = new GroupMessage();
+                            List<String> listUserId = new ArrayList<String>();
+                            for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+
+                                String userId = (String) singleSnapshot.getValue();
+                                listUserId.add(userId);
+                            }
+
+                            listUserId.remove(userbd.getUid());
+                            groupMessage.setListUserId(listUserId);
+
+
+                            groupMessage.setKey(mId);
+                            groupMessageList.add(groupMessage);
+                            mAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+/*        mDatabase.child("messages").getRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groupMessageList.clear();
@@ -85,7 +122,7 @@ public class ChatListMessageFragment extends BaseFragment {
                     groupMessage.setKey(singleSnapshot.getKey());
                     groupMessageList.add(groupMessage);
                 }
-               // groupMessage.setListUserId(listUserId);
+                // groupMessage.setListUserId(listUserId);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -93,9 +130,9 @@ public class ChatListMessageFragment extends BaseFragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
-        mAdapter = new ListTitleMessageAdapter(mActivity,groupMessageList);
+        mAdapter = new ListTitleMessageAdapter(mActivity, groupMessageList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

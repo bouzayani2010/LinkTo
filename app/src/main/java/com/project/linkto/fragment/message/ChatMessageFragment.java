@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -24,14 +23,12 @@ import com.project.linkto.adapter.viewsadapter.ListMessageAdapter;
 import com.project.linkto.bean.ChatMessage;
 import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Person;
-import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +51,7 @@ public class ChatMessageFragment extends BaseFragment {
     private GroupMessage groupMessage;
     private List<ChatMessage> messageList = new ArrayList<ChatMessage>();
     private ListMessageAdapter mAdapter;
+    private String key;
 
 
     @Override
@@ -72,39 +70,49 @@ public class ChatMessageFragment extends BaseFragment {
     }
 
     private void drawViews() {
-        mAdapter = new ListMessageAdapter(mActivity,messageList);
+        mAdapter = new ListMessageAdapter(mActivity, messageList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         //mDatabase.child("users").
-        mDatabase.child("messages").child(groupMessage.getKey()).child("content").getRef().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    messageList.clear();
-                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                        Log.i("mamama", "::" + singleSnapshot.toString());
-                        ChatMessage chatMessage = singleSnapshot.getValue(ChatMessage.class);
-                        //chatMessage.setKey(singleSnapshot.getKey());
-                        //
-                        messageList.add(chatMessage);
-                        Log.i("mamama", "::" + chatMessage.toString());
+        // String key = "";
+        try {
+            if (Utils.isEmptyString(key))
+                if (groupMessage != null)
+                    key = groupMessage.getKey();
+        } catch (Exception e) {
+            e.printStackTrace();
+            key = "";
+        }
+        if (key != null)
+            mDatabase.child("messages").child(key).child("content").getRef().addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    try {
+                        messageList.clear();
+                        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                            Log.i("mamama", "::" + singleSnapshot.toString());
+                            ChatMessage chatMessage = singleSnapshot.getValue(ChatMessage.class);
+                            //chatMessage.setKey(singleSnapshot.getKey());
+                            //
+                            messageList.add(chatMessage);
+                            Log.i("mamama", "::" + chatMessage.toString());
 
+                        }
+                    } catch (Exception e) {
+                        Log.i("mamama", "::" + e.getMessage());
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    Log.i("mamama", "::" + e.getMessage());
-                    e.printStackTrace();
+                    //  Collections.sort(postList);
+                    mAdapter.notifyDataSetChanged();
                 }
-              //  Collections.sort(postList);
-                mAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +140,12 @@ public class ChatMessageFragment extends BaseFragment {
 
     private void writeNewMessage(String content_text) {
         //  String key = mDatabase.child("messages").push().getKey();
-        String key = groupMessage.getKey();
+
+        try {
+            key = groupMessage.getKey();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (key == null) {
             key = mDatabase.child("messages").push().getKey();
             Map<String, Object> groupsUpdates = new HashMap<>();
@@ -141,6 +154,17 @@ public class ChatMessageFragment extends BaseFragment {
             groupsUpdates.put(groupkey1, userbd.getUid());
             groupsUpdates.put(groupkey2, mUserId);
             mDatabase.child("messages").child(key).child("groups").updateChildren(groupsUpdates);
+
+
+            Map<String, Object> idsdUpdates = new HashMap<>();
+            String keyinUser = mDatabase.child("users").child(userbd.getUid()).child("messageid").push().getKey();
+            idsdUpdates.put(keyinUser, key);
+            mDatabase.child("users").child(userbd.getUid()).child("messageid").updateChildren(idsdUpdates);
+
+            Map<String, Object> idsOthersUpdates = new HashMap<>();
+            String keyinotherUser = mDatabase.child("users").child(mUserId).child("messageid").push().getKey();
+            idsOthersUpdates.put(keyinotherUser, key);
+            mDatabase.child("users").child(mUserId).child("messageid").updateChildren(idsdUpdates);
         }
         ChatMessage chatmessage = new ChatMessage(content_text, userbd.getUid());
         Map<String, Object> messagesValues = chatmessage.toMap();
@@ -148,6 +172,8 @@ public class ChatMessageFragment extends BaseFragment {
         String key1 = mDatabase.child("messages").child(key).child("content").push().getKey();
         childUpdates.put(key1, messagesValues);
         mDatabase.child("messages").child(key).child("content").updateChildren(childUpdates);
+
+
     }
 
     public void setmUser(Person mPerson) {

@@ -51,7 +51,9 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final GroupMessage groupMessage = groupMessageList.get(position);
         Log.i("groups", groupMessage.getListUserId().toString());
-        final String otherUserId = groupMessage.getListUserId().get(0);
+
+       final String otherUserId = groupMessage.getListUserId().get(0);
+
         holder.rl_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
