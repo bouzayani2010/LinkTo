@@ -22,8 +22,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -185,10 +188,43 @@ public class MyHomeFragment extends BaseFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         //mDatabase.child("users").
-        mDatabase.child("posts").getRef().addValueEventListener(new ValueEventListener() {
+
+        String uidProfile = DataHelper.getInstance().getmUserbd().getUid();
+        DatabaseReference ref = mDatabase.child("posts").getRef();
+        Query query = ref.orderByChild("uid").equalTo(uidProfile);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("mamama1", "1::" + dataSnapshot.toString());
                 try {
+                    postList.clear();
+                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                        Log.i("mamama1", "::" + singleSnapshot.toString());
+                        Post post = singleSnapshot.getValue(Post.class);
+                        post.setKey(singleSnapshot.getKey());
+                        //
+                        postList.add(post);
+                        Log.i("mamama1", "::" + post.toString());
+
+                    }
+                } catch (Exception e) {
+                    Log.i("mamama", "::" + e.getMessage());
+                    e.printStackTrace();
+                }
+                Collections.sort(postList);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+         /*       try {
                     postList.clear();
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         Log.i("mamama", "::" + singleSnapshot.toString());
@@ -204,7 +240,7 @@ public class MyHomeFragment extends BaseFragment {
                     e.printStackTrace();
                 }
                 Collections.sort(postList);
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();*/
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -41,7 +42,7 @@ public class CommentFragment extends BaseFragment {
 
     private Post post;
     private EditText ed_content_text;
-    private Button bt_submit;
+    private ImageView bt_submit;
     private DatabaseReference mDatabase;
     private Userbd userbd;
     private RecyclerView recyclerView;
@@ -61,7 +62,7 @@ public class CommentFragment extends BaseFragment {
         userbd = DataHelper.getInstance().getmUserbd();
         mDatabase = mActivity.database.getReference();
         ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
-        bt_submit = (Button) view.findViewById(R.id.bt_submit);
+        bt_submit = (ImageView) view.findViewById(R.id.bt_submit);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
         drawViews();

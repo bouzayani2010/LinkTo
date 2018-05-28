@@ -8,8 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/graylight90"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/graylight90">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:background="@android:drawable/picture_frame"
+            android:background="@android:drawable/dialog_holo_light_frame"
             android:padding="10dp">
 
             <com.project.linkto.customwidget.CustomET
@@ -34,22 +34,23 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/bt_submit"
+                android:background="@drawable/bg_clickable"
                 android:hint="@string/your_comment"
                 android:padding="10dp"
-                android:background="@drawable/bg_clickable"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorHint"
                 android:textSize="16sp" />
 
-            <com.project.linkto.customwidget.CustomBT
+
+            <ImageView
                 android:id="@+id/bt_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="2dp"
-                android:background="@color/colorBackButton"
-                android:text="@string/comment" />
+                android:src="@drawable/send"
+                android:background="@color/transparent"/>
         </RelativeLayout>
     </RelativeLayout>
 
