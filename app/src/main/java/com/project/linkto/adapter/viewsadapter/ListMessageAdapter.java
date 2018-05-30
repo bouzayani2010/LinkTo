@@ -18,6 +18,7 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.R;
 import com.project.linkto.bean.ChatMessage;
 import com.project.linkto.bean.Person;
+import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 import com.squareup.picasso.Picasso;

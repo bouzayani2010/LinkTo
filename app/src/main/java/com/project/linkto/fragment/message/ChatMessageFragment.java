@@ -6,17 +6,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.R;
 import com.project.linkto.adapter.viewsadapter.ListMessageAdapter;
@@ -52,6 +56,8 @@ public class ChatMessageFragment extends BaseFragment {
     private List<ChatMessage> messageList = new ArrayList<ChatMessage>();
     private ListMessageAdapter mAdapter;
     private String key;
+    private EditText tv_title;
+    private TextView tv_name;
 
 
     @Override
@@ -63,6 +69,8 @@ public class ChatMessageFragment extends BaseFragment {
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         bt_submit = (ImageView) view.findViewById(R.id.bt_submit);
+        tv_title = (EditText) view.findViewById(R.id.tv_title);
+        tv_name = (TextView) view.findViewById(R.id.tv_name);
         drawViews();
 
         return view;
@@ -75,17 +83,48 @@ public class ChatMessageFragment extends BaseFragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        //mDatabase.child("users").
-        // String key = "";
-        try {
-            if (Utils.isEmptyString(key))
-                if (groupMessage != null)
-                    key = groupMessage.getKey();
-        } catch (Exception e) {
-            e.printStackTrace();
-            key = "";
+        tv_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (Utils.isEmptyString(s.toString()))
+                    searchUser(s.toString());
+            }
+        });
+
+        if (groupMessage != null) {
+            key = groupMessage.getKey();
+            tv_title.setVisibility(View.GONE);
+        } else {
+            tv_name.setVisibility(View.VISIBLE);
+            tv_title.setVisibility(View.VISIBLE);
         }
-        if (key != null)
+
+        if (key != null) {
+
+            mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Person personProfile = dataSnapshot.getValue(Person.class);
+
+                    tv_name.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             mDatabase.child("messages").child(key).child("content").getRef().addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -113,6 +152,7 @@ public class ChatMessageFragment extends BaseFragment {
 
                 }
             });
+        }
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,16 +178,45 @@ public class ChatMessageFragment extends BaseFragment {
         });
     }
 
+    private void searchUser(String queryText) {
+        Query queryRef = mDatabase.child("users").getRef().orderByChild("firstname")
+                .startAt(queryText)
+                .endAt(queryText + "\uf8ff");
+        //.on("value");
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Log.i("usersusers", "1::" + dataSnapshot.toString());
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.i("mamama1", "::" + singleSnapshot.toString());
+                    Person person = singleSnapshot.getValue(Person.class);
+
+                    Log.i("usersusers", "::" + person.getFirstname());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void writeNewMessage(String content_text) {
         //  String key = mDatabase.child("messages").push().getKey();
+        if (groupMessage == null) {
+            groupMessage = new GroupMessage();
 
-        try {
-            key = groupMessage.getKey();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (key == null) {
             key = mDatabase.child("messages").push().getKey();
+            groupMessage.setKey(key);
+
+            List<String> listUserId = new ArrayList<String>();
+            listUserId.add(mUserId);
+            listUserId.add(userbd.getUid());
+            groupMessage.setListUserId(listUserId);
+            drawViews();
+
             Map<String, Object> groupsUpdates = new HashMap<>();
             String groupkey1 = mDatabase.child("messages").child(key).child("groups").push().getKey();
             String groupkey2 = mDatabase.child("messages").child(key).child("groups").push().getKey();
@@ -165,7 +234,15 @@ public class ChatMessageFragment extends BaseFragment {
             String keyinotherUser = mDatabase.child("users").child(mUserId).child("messageid").push().getKey();
             idsOthersUpdates.put(keyinotherUser, key);
             mDatabase.child("users").child(mUserId).child("messageid").updateChildren(idsdUpdates);
+
         }
+        try {
+            key = groupMessage.getKey();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ChatMessage chatmessage = new ChatMessage(content_text, userbd.getUid());
         Map<String, Object> messagesValues = chatmessage.toMap();
         Map<String, Object> childUpdates = new HashMap<>();

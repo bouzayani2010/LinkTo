@@ -25,10 +25,11 @@
     <string name="comment">Comment</string>
     <string name="profile">Profile</string>
     <string name="changephoto">Do you want to update profile Photo ?</string>
-    <string name="registration_failed_text" >Your registration is failed. Please try to use another email.</string>
+    <string name="registration_failed_text">Your registration is failed. Please try to use another email.</string>
     <string name="message">Message</string>
     <string name="write_your_message">Write your message</string>
     <string name="send">Send</string>
     <string name="Profile">Profile</string>
+    <string name="new_message">New Message</string>
 
 </resources>
