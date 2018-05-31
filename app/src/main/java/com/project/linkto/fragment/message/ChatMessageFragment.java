@@ -6,8 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +16,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -27,6 +26,7 @@ import com.project.linkto.adapter.viewsadapter.ListMessageAdapter;
 import com.project.linkto.bean.ChatMessage;
 import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Person;
+import com.project.linkto.bean.SampleSearchModel;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
@@ -56,9 +56,8 @@ public class ChatMessageFragment extends BaseFragment {
     private List<ChatMessage> messageList = new ArrayList<ChatMessage>();
     private ListMessageAdapter mAdapter;
     private String key;
-    private EditText tv_title;
     private TextView tv_name;
-
+    private FloatingSearchView floating_search_view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +68,7 @@ public class ChatMessageFragment extends BaseFragment {
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         bt_submit = (ImageView) view.findViewById(R.id.bt_submit);
-        tv_title = (EditText) view.findViewById(R.id.tv_title);
+        floating_search_view = (FloatingSearchView) view.findViewById(R.id.floating_search_view);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         drawViews();
 
@@ -83,30 +82,21 @@ public class ChatMessageFragment extends BaseFragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        tv_title.addTextChangedListener(new TextWatcher() {
+
+
+        floating_search_view.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (Utils.isEmptyString(s.toString()))
-                    searchUser(s.toString());
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+                searchUser(newQuery);
             }
         });
 
         if (groupMessage != null) {
             key = groupMessage.getKey();
-            tv_title.setVisibility(View.GONE);
+            floating_search_view.setVisibility(View.GONE);
         } else {
             tv_name.setVisibility(View.VISIBLE);
-            tv_title.setVisibility(View.VISIBLE);
+            floating_search_view.setVisibility(View.VISIBLE);
         }
 
         if (key != null) {
@@ -179,6 +169,9 @@ public class ChatMessageFragment extends BaseFragment {
     }
 
     private void searchUser(String queryText) {
+
+
+
         Query queryRef = mDatabase.child("users").getRef().orderByChild("firstname")
                 .startAt(queryText)
                 .endAt(queryText + "\uf8ff");
@@ -187,13 +180,21 @@ public class ChatMessageFragment extends BaseFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Log.i("usersusers", "1::" + dataSnapshot.toString());
+                List<SampleSearchModel> newSuggestions = new ArrayList<SampleSearchModel>();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Log.i("mamama1", "::" + singleSnapshot.toString());
                     Person person = singleSnapshot.getValue(Person.class);
 
                     Log.i("usersusers", "::" + person.getFirstname());
+                    SampleSearchModel sampleSearchModel = new SampleSearchModel(person.getFirstname() + " " + person.getLastname());
+                    newSuggestions.add(sampleSearchModel);
+
+                    Log.i("usersusers", "::" + newSuggestions);
+
 
                 }
+
+                floating_search_view.swapSuggestions(newSuggestions);
             }
 
             @Override

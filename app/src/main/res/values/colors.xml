@@ -5,13 +5,19 @@
     <color name="colorAccent">#fc4f00</color>
     <color name="colorHint">#a1a0a0</color>
     <color name="colorText">#212121</color>
-    <color name="colorTextWhite" >#ffffff</color>
-    <color name="colorTextWhite50" >#99ffffff</color>
+    <color name="colorTextWhite">#ffffff</color>
+    <color name="colorTextWhite50">#99ffffff</color>
     <color name="colorGoogle">#d0422a</color>
     <color name="colorFacebook">#3b5998</color>
     <color name="colorBackButton">#cfc6c0</color>
     <color name="graylight">#7c7b79</color>
     <color name="graylight90">#99e1dfdc</color>
     <color name="transparent">#00000000</color>
-    <color name="colorAccent50" >#99fc4f00</color>
+    <color name="colorAccent50">#99fc4f00</color>
+    <color name="lightGrayColor">#dadada</color>
+    <color name="caldroid_white">#fcfafa</color>
+    <color name="blue_book">#2c8fd1</color>
+    <color name="blue">#026fb7</color>
+    <color name="caldroid_transparent">#00000000</color>
+    <color name="caldroid_light_red" >#c6ec0a0a</color>
 </resources>

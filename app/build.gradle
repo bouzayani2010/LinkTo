@@ -63,6 +63,9 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+
+    compile 'com.github.mirrajabi:search-dialog:1.2.2'
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
