@@ -11,9 +11,10 @@ public class Person {
     private String email;
     private String coverphoto;
     private String profilephoto;
+    private String key;
 
     public Long getBirthdate() {
-        return 0+birthdate;
+        return 0 + birthdate;
     }
 
     public void setBirthdate(Long birthdate) {
@@ -21,7 +22,7 @@ public class Person {
     }
 
     public String getFirstname() {
-        return ""+firstname;
+        return "" + firstname;
     }
 
     public void setFirstname(String firstname) {
@@ -29,7 +30,7 @@ public class Person {
     }
 
     public String getLastname() {
-        return ""+lastname;
+        return "" + lastname;
     }
 
     public void setLastname(String lastname) {
@@ -37,7 +38,7 @@ public class Person {
     }
 
     public String getEmail() {
-        return ""+email;
+        return "" + email;
     }
 
     public void setEmail(String email) {
@@ -45,7 +46,7 @@ public class Person {
     }
 
     public String getCoverphoto() {
-        return ""+coverphoto;
+        return "" + coverphoto;
     }
 
     public void setCoverphoto(String coverphoto) {
@@ -53,7 +54,7 @@ public class Person {
     }
 
     public String getProfilephoto() {
-        return ""+profilephoto;
+        return "" + profilephoto;
     }
 
     public void setProfilephoto(String profilephoto) {
@@ -67,5 +68,13 @@ public class Person {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 }

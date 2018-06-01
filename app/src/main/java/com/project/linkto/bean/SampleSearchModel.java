@@ -12,6 +12,7 @@ import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class SampleSearchModel implements SearchSuggestion {
     private String mTitle;
+    private Person person;
 
     public SampleSearchModel(String title) {
         mTitle = title;
@@ -32,5 +33,21 @@ public class SampleSearchModel implements SearchSuggestion {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

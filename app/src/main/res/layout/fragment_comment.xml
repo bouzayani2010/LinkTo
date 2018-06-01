@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:padding="10dp">
+            android:background="@drawable/base_item_background_shape_selected"
+            android:padding="5dp">
 
             <com.project.linkto.customwidget.CustomET
                 android:id="@+id/ed_content_text"

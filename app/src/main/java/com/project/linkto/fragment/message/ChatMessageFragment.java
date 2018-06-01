@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -29,6 +30,7 @@ import com.project.linkto.bean.Person;
 import com.project.linkto.bean.SampleSearchModel;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
+import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
@@ -87,12 +89,40 @@ public class ChatMessageFragment extends BaseFragment {
         floating_search_view.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, String newQuery) {
-                searchUser(newQuery);
+                if (!Utils.isEmptyString(newQuery))
+                    searchUser(newQuery);
+            }
+        });
+        floating_search_view.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+                SampleSearchModel sampleSearchModel = (SampleSearchModel) searchSuggestion;
+                tv_name.setText(sampleSearchModel.getPerson().getFirstname() + " " + sampleSearchModel.getPerson().getLastname());
+                floating_search_view.setVisibility(View.GONE);
+
+
+                mUserId = sampleSearchModel.getPerson().getKey();
+                groupMessage= DataFilter.getInstance().getGroupMessage(mUserId);
+              /*  groupMessage = new GroupMessage();
+
+                List<String> listUserId = new ArrayList<String>();
+                listUserId.add(mUserId);
+                listUserId.add(userbd.getUid());
+                groupMessage.setListUserId(listUserId); */
+                drawViews();
+                //   Toast.makeText(mActivity,sampleSearchModel.getPerson().getEmail()+" "+sampleSearchModel.getBody(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+
             }
         });
 
+
         if (groupMessage != null) {
             key = groupMessage.getKey();
+            tv_name.setVisibility(View.VISIBLE);
             floating_search_view.setVisibility(View.GONE);
         } else {
             tv_name.setVisibility(View.VISIBLE);
@@ -107,6 +137,7 @@ public class ChatMessageFragment extends BaseFragment {
                     Person personProfile = dataSnapshot.getValue(Person.class);
 
                     tv_name.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
+                    //  floating_search_view.setSearchText(personProfile.getFirstname() + " " + personProfile.getLastname());
 
                 }
 
@@ -171,7 +202,6 @@ public class ChatMessageFragment extends BaseFragment {
     private void searchUser(String queryText) {
 
 
-
         Query queryRef = mDatabase.child("users").getRef().orderByChild("firstname")
                 .startAt(queryText)
                 .endAt(queryText + "\uf8ff");
@@ -184,9 +214,11 @@ public class ChatMessageFragment extends BaseFragment {
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     Log.i("mamama1", "::" + singleSnapshot.toString());
                     Person person = singleSnapshot.getValue(Person.class);
+                    person.setKey(singleSnapshot.getKey());
 
                     Log.i("usersusers", "::" + person.getFirstname());
                     SampleSearchModel sampleSearchModel = new SampleSearchModel(person.getFirstname() + " " + person.getLastname());
+                    sampleSearchModel.setPerson(person);
                     newSuggestions.add(sampleSearchModel);
 
                     Log.i("usersusers", "::" + newSuggestions);
@@ -195,6 +227,8 @@ public class ChatMessageFragment extends BaseFragment {
                 }
 
                 floating_search_view.swapSuggestions(newSuggestions);
+
+
             }
 
             @Override

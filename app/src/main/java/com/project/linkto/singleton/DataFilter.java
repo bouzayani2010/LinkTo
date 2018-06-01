@@ -1,5 +1,6 @@
 package com.project.linkto.singleton;
 
+import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Post;
 
@@ -30,7 +31,7 @@ public class DataFilter {
             List<String> listOfLikeskey = new ArrayList<String>(mapLikes.keySet());
             for (String lkey : listOfLikeskey) {
                 Like lk = mapLikes.get(lkey);
-                if(lk.getUid().equals(userId)){
+                if (lk.getUid().equals(userId)) {
                     return lkey;
                 }
 
@@ -39,6 +40,17 @@ public class DataFilter {
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    public GroupMessage getGroupMessage(String mUserId) {
+        List<GroupMessage> groupMessageList = DataHelper.getInstance().getmGroupMessageList();
+        for (GroupMessage groupMessage : groupMessageList) {
+            List<String> listUserId = groupMessage.getListUserId();
+            if (listUserId.contains(mUserId)) {
+                return groupMessage;
+            }
+        }
         return null;
     }
 }

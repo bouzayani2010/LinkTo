@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.R;
 import com.project.linkto.adapter.viewsadapter.ListTitleMessageAdapter;
@@ -55,6 +58,22 @@ public class ChatListMessageFragment extends BaseFragment {
     }
 
     private void drawViews() {
+        ed_content_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filtreUsers(s.toString());
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +105,7 @@ public class ChatListMessageFragment extends BaseFragment {
 
                             groupMessage.setKey(mId);
                             groupMessageList.add(groupMessage);
+                            DataHelper.getInstance().setmGroupMessageList(groupMessageList);
                             mAdapter.notifyDataSetChanged();
                         }
 
@@ -137,6 +157,13 @@ public class ChatListMessageFragment extends BaseFragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void filtreUsers(String queryText) {
+
+        Query queryRef = mDatabase.child("users").getRef().orderByChild("firstname")
+                .startAt(queryText)
+                .endAt(queryText + "\uf8ff");
     }
 
 

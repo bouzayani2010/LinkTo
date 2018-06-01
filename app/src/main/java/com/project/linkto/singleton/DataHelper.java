@@ -3,9 +3,12 @@ package com.project.linkto.singleton;
 import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.database.DatabaseManager;
 import com.project.linkto.database.Userrepo;
+
+import java.util.List;
 
 /**
  * Created by bbouzaiene on 17/04/2018.
@@ -17,6 +20,7 @@ public class DataHelper {
     private FirebaseUser mUser;
     private Userrepo uRepo;
     private Userbd mUserbd;
+    private List<GroupMessage> mGroupMessageList;
 
     public static boolean isConnected() {
         return connected;
@@ -63,5 +67,13 @@ public class DataHelper {
     public void initDB(Context context) {
         DatabaseManager.init(context);
         this.setuRepo(new Userrepo(context));
+    }
+
+    public void setmGroupMessageList(List<GroupMessage> mGroupMessageList) {
+        this.mGroupMessageList = mGroupMessageList;
+    }
+
+    public List<GroupMessage> getmGroupMessageList() {
+        return mGroupMessageList;
     }
 }
