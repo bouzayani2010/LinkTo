@@ -45,10 +45,12 @@ public class DataFilter {
 
     public GroupMessage getGroupMessage(String mUserId) {
         List<GroupMessage> groupMessageList = DataHelper.getInstance().getmGroupMessageList();
-        for (GroupMessage groupMessage : groupMessageList) {
-            List<String> listUserId = groupMessage.getListUserId();
-            if (listUserId.contains(mUserId)) {
-                return groupMessage;
+        if (groupMessageList != null && groupMessageList.size() > 0) {
+            for (GroupMessage groupMessage : groupMessageList) {
+                List<String> listUserId = groupMessage.getListUserId();
+                if (listUserId.contains(mUserId)) {
+                    return groupMessage;
+                }
             }
         }
         return null;

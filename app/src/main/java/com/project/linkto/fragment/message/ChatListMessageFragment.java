@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.project.linkto.R;
 import com.project.linkto.adapter.viewsadapter.ListTitleMessageAdapter;
 import com.project.linkto.bean.GroupMessage;
+import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.fragment.BaseFragment;
+import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +75,16 @@ public class ChatListMessageFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                filtreUsers(s.toString());
+
+                if (!Utils.isEmptyString(s.toString()))
+                    filtreUsers(s.toString());
+                else
+                    groupMessageList = DataHelper.getInstance().getmGroupMessageList();
+                mAdapter = new ListTitleMessageAdapter(mActivity, groupMessageList);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(mAdapter);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +97,10 @@ public class ChatListMessageFragment extends BaseFragment {
         mDatabase.child("users").child(userbd.getUid()).child("messageid").getRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                groupMessageList.clear();
+                if (groupMessageList != null)
+                    groupMessageList.clear();
+                else
+                    groupMessageList = new ArrayList<GroupMessage>();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     final String mId = (String) singleSnapshot.getValue();
                     mDatabase.child("messages").child(mId).child("groups").addValueEventListener(new ValueEventListener() {
@@ -123,35 +139,6 @@ public class ChatListMessageFragment extends BaseFragment {
 
             }
         });
-/*        mDatabase.child("messages").getRef().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                groupMessageList.clear();
-
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    GroupMessage groupMessage = new GroupMessage();
-                    List<String> listUserId = new ArrayList<String>();
-                    Log.i("groups", "::" + singleSnapshot.toString());
-                    Map<String, Map> map = (Map<String, Map>) singleSnapshot.getValue();
-                    Map groups = map.get("groups");
-                    Log.i("groups", "::" + groups.toString());
-                    listUserId.addAll(groups.values());
-                    listUserId.remove(userbd.getUid());
-                    groupMessage.setListUserId(listUserId);
-
-                    groupMessage.setKey(singleSnapshot.getKey());
-                    groupMessageList.add(groupMessage);
-                }
-                // groupMessage.setListUserId(listUserId);
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
         mAdapter = new ListTitleMessageAdapter(mActivity, groupMessageList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -164,6 +151,39 @@ public class ChatListMessageFragment extends BaseFragment {
         Query queryRef = mDatabase.child("users").getRef().orderByChild("firstname")
                 .startAt(queryText)
                 .endAt(queryText + "\uf8ff");
+
+        queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<GroupMessage> newGroupMessageList = new ArrayList<GroupMessage>();
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+
+                    Log.i("mamama1", "::" + singleSnapshot.toString());
+                    Person person = singleSnapshot.getValue(Person.class);
+                    person.setKey(singleSnapshot.getKey());
+
+                    Log.i("usersusers", "::" + person.getFirstname());
+
+                    GroupMessage groupMessage = DataFilter.getInstance().getGroupMessage(person.getKey());
+                    if (groupMessage != null) {
+                        newGroupMessageList.add(groupMessage);
+                    }
+                }
+                // groupMessageList = newGroupMessageList;
+                // mAdapter.notifyDataSetChanged();
+
+                mAdapter = new ListTitleMessageAdapter(mActivity, newGroupMessageList);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

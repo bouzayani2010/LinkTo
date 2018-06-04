@@ -89,7 +89,7 @@ public class ChatMessageFragment extends BaseFragment {
         floating_search_view.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, String newQuery) {
-                if (!Utils.isEmptyString(newQuery))
+                if (!Utils.isEmptyString(newQuery.trim()))
                     searchUser(newQuery);
             }
         });
@@ -103,14 +103,7 @@ public class ChatMessageFragment extends BaseFragment {
 
                 mUserId = sampleSearchModel.getPerson().getKey();
                 groupMessage= DataFilter.getInstance().getGroupMessage(mUserId);
-              /*  groupMessage = new GroupMessage();
-
-                List<String> listUserId = new ArrayList<String>();
-                listUserId.add(mUserId);
-                listUserId.add(userbd.getUid());
-                groupMessage.setListUserId(listUserId); */
                 drawViews();
-                //   Toast.makeText(mActivity,sampleSearchModel.getPerson().getEmail()+" "+sampleSearchModel.getBody(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -126,7 +119,7 @@ public class ChatMessageFragment extends BaseFragment {
             floating_search_view.setVisibility(View.GONE);
         } else {
             tv_name.setVisibility(View.VISIBLE);
-            floating_search_view.setVisibility(View.VISIBLE);
+            //floating_search_view.setVisibility(View.VISIBLE);
         }
 
         if (key != null) {
