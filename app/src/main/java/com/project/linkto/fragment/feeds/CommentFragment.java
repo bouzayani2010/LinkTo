@@ -1,5 +1,6 @@
 package com.project.linkto.fragment.feeds;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -19,12 +19,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.R;
 import com.project.linkto.adapter.viewsadapter.ListCommentAdapter;
+import com.project.linkto.adapter.viewsadapter.ListPostAdapter;
 import com.project.linkto.bean.Comment;
 import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
+import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 
@@ -48,6 +49,14 @@ public class CommentFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private List<Comment> commentList = new ArrayList<Comment>();
     private ListCommentAdapter mAdapter;
+    private RecyclerView recyclerViewPost;
+    private ListPostAdapter mPostAdapter;
+
+    @SuppressLint("ValidFragment")
+    public CommentFragment(Post post) {
+        super();
+        this.post=post;
+    }
 
     public void setPost(Post post) {
         this.post = post;
@@ -64,6 +73,7 @@ public class CommentFragment extends BaseFragment {
         ed_content_text = (EditText) view.findViewById(R.id.ed_content_text);
         bt_submit = (ImageView) view.findViewById(R.id.bt_submit);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerViewPost = (RecyclerView) view.findViewById(R.id.recycler_view_post);
 
         drawViews();
         return view;
@@ -101,6 +111,17 @@ public class CommentFragment extends BaseFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        List<Post> postList = new ArrayList<Post>();
+        postList.add(post);
+
+
+        RecyclerView.LayoutManager mLayoutManager1 = new LinearLayoutManager(mActivity);
+        mPostAdapter = new ListPostAdapter(postList);
+        recyclerViewPost.setLayoutManager(mLayoutManager1);
+        // recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewPost.setAdapter(mPostAdapter);
+
+        Log.i("mamama", "::" + post.toString());
         mDatabase.child("posts").child(post.getKey()).child("comments").getRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -142,5 +163,9 @@ public class CommentFragment extends BaseFragment {
 
         mDatabase.child("posts").child(post.getKey()).child("comments").updateChildren(childUpdates);
         mDatabase.child("posts").child(post.getKey()).child("commentCount").setValue(post.getCommentCount() + 1);
+    }
+
+    public Post getPost() {
+        return post;
     }
 }

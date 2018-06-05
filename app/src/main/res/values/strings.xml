@@ -31,5 +31,7 @@
     <string name="send">Send</string>
     <string name="Profile">Profile</string>
     <string name="new_message">New Message</string>
+    <string name="share">Share</string>
+    <string name="share_post">Would you like to shre post ?</string>
 
 </resources>

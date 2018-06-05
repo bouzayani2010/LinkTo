@@ -110,15 +110,11 @@ public class ChatListMessageFragment extends BaseFragment {
                             GroupMessage groupMessage = new GroupMessage();
                             List<String> listUserId = new ArrayList<String>();
                             for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-
                                 String userId = (String) singleSnapshot.getValue();
                                 listUserId.add(userId);
                             }
-
                             listUserId.remove(userbd.getUid());
                             groupMessage.setListUserId(listUserId);
-
-
                             groupMessage.setKey(mId);
                             groupMessageList.add(groupMessage);
                             DataHelper.getInstance().setmGroupMessageList(groupMessageList);

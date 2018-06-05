@@ -16,7 +16,7 @@
 
             <stroke
                 android:width="1dip"
-                android:color="@color/lightGrayColor" />
+                android:color="@color/colorAccent50" />
         </shape>
     </item>
 

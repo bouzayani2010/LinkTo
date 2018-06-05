@@ -12,11 +12,19 @@
         android:background="@color/graylight90">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personellayout"
+            android:scrollbars="vertical" />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/rl_comment"
-            android:layout_below="@+id/personellayout"
+            android:layout_below="@+id/recycler_view_post"
+            android:paddingTop="3dp"
             android:scrollbars="vertical" />
 
         <RelativeLayout
@@ -49,8 +57,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="2dp"
-                android:src="@drawable/send"
-                android:background="@color/transparent"/>
+                android:background="@color/transparent"
+                android:src="@drawable/send" />
         </RelativeLayout>
     </RelativeLayout>
 

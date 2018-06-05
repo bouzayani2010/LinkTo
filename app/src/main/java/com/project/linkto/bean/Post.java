@@ -25,6 +25,7 @@ public class Post implements Comparable<Post> {
     private String key;
     private int commentCount;
     private int shareCount;
+    private String originPostId;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
@@ -51,6 +52,7 @@ public class Post implements Comparable<Post> {
         result.put("stars", stars);
         result.put("timestamp", timestamp);
         result.put("likes", likes);
+        result.put("originPostId", originPostId);
 
         return result;
     }
@@ -153,5 +155,13 @@ public class Post implements Comparable<Post> {
         if(ts2.getTime()>=ts1.getTime())
         return 1;
         else return -1;
+    }
+
+    public void setOriginPostId(String originPostId) {
+        this.originPostId = originPostId;
+    }
+
+    public String getOriginPostId() {
+        return originPostId;
     }
 }

@@ -185,7 +185,7 @@ public class MyHomeFragment extends BaseFragment {
         mAdapter = new ListPostAdapter(postList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         //mDatabase.child("users").
 

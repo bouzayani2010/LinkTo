@@ -155,6 +155,9 @@ public class BaseActivity extends AppCompatActivity {
             if (!(fragment instanceof CommentFragment)) {
                 pushtoFragments("Comment", commentFragment, true, R.id.container, false);
             }
+            else{
+                commentFragment.setPost(commentFragment.getPost());
+            }
         } else {
             pushtoFragments("Comment", commentFragment, true, R.id.container, false);
         }
