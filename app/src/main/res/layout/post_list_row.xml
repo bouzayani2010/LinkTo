@@ -67,6 +67,14 @@
                         linkto:ctTextFont="neorcha" />
 
 
+                    <ImageView
+                        android:id="@+id/imageshared"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ed_content_text"
+                        android:layout_centerHorizontal="true"
+                        android:padding="5dp"
+                        android:visibility="visible" />
                     <!-- Content here. -->
                     <RelativeLayout
                         android:id="@+id/bodyshared"

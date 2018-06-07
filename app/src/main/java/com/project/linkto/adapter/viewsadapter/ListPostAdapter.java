@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
     private final List<Post> postList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageshared;
         private RelativeLayout bodyshared;
         private RelativeLayout rl_user;
         private RoundedImageView profileimg;
@@ -60,6 +62,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             super(view);
             tv_title = (TextView) view.findViewById(R.id.tv_title);
             profileimg = (RoundedImageView) view.findViewById(R.id.profileimg);
+            imageshared = (ImageView) view.findViewById(R.id.imageshared);
             tv_body = (TextView) view.findViewById(R.id.tv_body);
             tv_date = (TextView) view.findViewById(R.id.tv_date);
             tv_likes = (TextView) view.findViewById(R.id.tv_likes);
@@ -93,9 +96,17 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             holder.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), post.getTimestamp()));
             final String userId = DataHelper.getInstance().getmUserbd().getUid();
 
+            if (!Utils.isEmptyString(post.getUrlPhoto())) {
+                Picasso.get().load(post.getUrlPhoto()).resize(1000, 1000)
+                        .centerCrop()
+                        .into(holder.imageshared);
+            }
+
             Log.i("yeardaymonth1", post.getTimestamp().toString());
             if (!Utils.isEmptyString(post.getOriginPostId())) {
                 holder.tv_body.setVisibility(View.GONE);
+                holder.imageshared.setVisibility(View.GONE);
+
 
                 LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View schedule_view = inflater.inflate(R.layout.post_list_row, holder.bodyshared, false);
@@ -106,38 +117,45 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         final Post postShared = dataSnapshot.getValue(Post.class);
-                        holderShared.tv_title.setText(postShared.getTitle());
-                        holderShared.tv_body.setText(postShared.getBody());
-                        holderShared.tv_likes.setText("" + postShared.getStarCount() + " likes");
-                        holderShared.tv_comments.setText("" + postShared.getCommentCount() + " comments");
-                        holderShared.tv_shares.setText("" + postShared.getShareCount() + " shares");
-                        holderShared.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), postShared.getTimestamp()));
+                        if (postShared != null) {
+                            holderShared.tv_title.setText(postShared.getTitle());
+                            holderShared.tv_body.setText(postShared.getBody());
+                            holderShared.tv_likes.setText("" + postShared.getStarCount() + " likes");
+                            holderShared.tv_comments.setText("" + postShared.getCommentCount() + " comments");
+                            holderShared.tv_shares.setText("" + postShared.getShareCount() + " shares");
+                            holderShared.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), postShared.getTimestamp()));
 
-                        holderShared.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                postShared.setKey(post.getOriginPostId());
-                                CommentFragment commentFragment = new CommentFragment(postShared);
-                           //     commentFragment.setPost(postShared);
-                                mActivity.gotoComment(commentFragment);
-                                // mActivity.gotoFeedPost();
+                            if (!Utils.isEmptyString(postShared.getUrlPhoto())) {
+                                Picasso.get().load(postShared.getUrlPhoto()).resize(1000, 1000)
+                                        .centerCrop()
+                                        .into(holderShared.imageshared);
                             }
-                        });
+                            holderShared.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                        mDatabase.child("users").child(postShared.getUid()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Person personProfile = dataSnapshot.getValue(Person.class);
-                                if (personProfile != null)
-                                    drawPersonViews(holderShared, personProfile);
-                            }
+                                    postShared.setKey(post.getOriginPostId());
+                                    CommentFragment commentFragment = new CommentFragment(postShared);
+                                    //     commentFragment.setPost(postShared);
+                                    mActivity.gotoComment(commentFragment);
+                                    // mActivity.gotoFeedPost();
+                                }
+                            });
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                            mDatabase.child("users").child(postShared.getUid()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Person personProfile = dataSnapshot.getValue(Person.class);
+                                    if (personProfile != null)
+                                        drawPersonViews(holderShared, personProfile);
+                                }
 
-                            }
-                        });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
 
                     @Override
@@ -147,6 +165,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 });
             } else {
                 holder.tv_body.setVisibility(View.VISIBLE);
+                holder.imageshared.setVisibility(View.VISIBLE);
                 holder.bodyshared.setVisibility(View.GONE);
             }
             mDatabase.child("users").child(post.getUid()).addValueEventListener(new ValueEventListener() {
@@ -194,7 +213,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 @Override
                 public void onClick(View v) {
                     CommentFragment commentFragment = new CommentFragment(post);
-                //    commentFragment.setPost(post);
+                    //    commentFragment.setPost(post);
                     mActivity.gotoComment(commentFragment);
                     // mActivity.gotoFeedPost();
                 }
@@ -215,8 +234,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
 
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                                     String key = mDatabase.child("posts").push().getKey();
-
-                                    Post post1 = new Post(userId, post.getAuthor(), post.getTitle(), post.getBody(), timestamp.toString());
+                                    Post post1 = new Post(userId, post.getAuthor(), post.getTitle(), post.getBody(), timestamp.toString(), post.getUrlPhoto());
                                     if (Utils.isEmptyString(post.getOriginPostId())) {
                                         post1.setOriginPostId(post.getKey());
                                     } else {

@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @IgnoreExtraProperties
 public class Post implements Comparable<Post> {
+    private String urlPhoto;
     private String timestamp;
     public String uid;
     public String author;
@@ -31,12 +32,13 @@ public class Post implements Comparable<Post> {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body, String timestamp) {
+    public Post(String uid, String author, String title, String body, String timestamp, String urlPhoto) {
         this.uid = uid;
         this.author = author;
         this.title = title;
         this.body = body;
         this.timestamp = timestamp;
+        this.urlPhoto = urlPhoto;
     }
 
     @Exclude
@@ -53,6 +55,7 @@ public class Post implements Comparable<Post> {
         result.put("timestamp", timestamp);
         result.put("likes", likes);
         result.put("originPostId", originPostId);
+        result.put("urlPhoto", urlPhoto);
 
         return result;
     }
@@ -151,9 +154,9 @@ public class Post implements Comparable<Post> {
         java.sql.Timestamp ts1 = java.sql.Timestamp.valueOf(this.getTimestamp());
         java.sql.Timestamp ts2 = java.sql.Timestamp.valueOf(other.getTimestamp());
 
-        Log.i("yeardaymonth",ts1.getTime()+" "+ts2.getTime());
-        if(ts2.getTime()>=ts1.getTime())
-        return 1;
+        Log.i("yeardaymonth", ts1.getTime() + " " + ts2.getTime());
+        if (ts2.getTime() >= ts1.getTime())
+            return 1;
         else return -1;
     }
 
@@ -163,5 +166,13 @@ public class Post implements Comparable<Post> {
 
     public String getOriginPostId() {
         return originPostId;
+    }
+
+    public String getUrlPhoto() {
+        return urlPhoto;
+    }
+
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
     }
 }

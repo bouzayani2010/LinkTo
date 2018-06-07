@@ -15,15 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <ImageView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="50dp"
-                android:src="@drawable/linktotr"
-                android:textSize="25sp" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,14 +24,14 @@
 
                 <com.project.linkto.customwidget.CustomTextView
                     android:id="@+id/content_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/createapublication"
                     android:padding="10dp"
-                    android:textAllCaps="true"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorTextWhite50"
-                    android:textSize="16sp"
-                    linkto:ctTextFont="bebas" />
+                    android:textSize="16sp" />
+
 
                 <com.project.linkto.customwidget.CustomET
                     android:id="@+id/ed_content_text"
@@ -55,15 +46,112 @@
                     android:textColorHint="@color/colorHint"
                     android:textSize="16sp" />
 
+                <ImageView
+                    android:id="@+id/imageshared"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ed_content_text"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:visibility="gone" />
+
+                <VideoView
+                    android:id="@+id/videoshared"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/imageshared"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/videoshared">
+
+                    <RelativeLayout
+                        android:id="@+id/media_actions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/base_item_background_shape_selected"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:padding="3dp"
+                            android:src="@drawable/camera_icon" />
+
+                        <com.project.linkto.customwidget.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/imageView2"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/photo"
+                            android:textColor="@color/colorAccent50"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_alignBottom="@+id/media_actions"
+                        android:layout_alignTop="@+id/media_actions"
+                        android:layout_toRightOf="@+id/media_actions"
+                        android:background="@color/colorBackButton"
+                        android:padding="5dp"></View>
+
+                    <RelativeLayout
+                        android:id="@+id/video_actions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_toRightOf="@+id/view2"
+                        android:background="@drawable/base_item_background_shape_selected"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:padding="3dp"
+                            android:src="@drawable/video_icon"
+                            android:textSize="25sp" />
+
+                        <com.project.linkto.customwidget.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/imageView3"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/video"
+                            android:textColor="@color/colorAccent50"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
                 <com.project.linkto.customwidget.CustomBT
                     android:id="@+id/bt_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/ed_content_text"
+                    android:layout_below="@+id/content"
                     android:layout_margin="5dp"
-                    android:background="@color/colorBackButton"
-                    android:text="@string/submit" />
+                    android:background="@drawable/base_item_background_shape_selected"
+                    android:text="@string/publish"
+                    android:textColor="@color/colorAccent" />
             </RelativeLayout>
         </RelativeLayout>
 
