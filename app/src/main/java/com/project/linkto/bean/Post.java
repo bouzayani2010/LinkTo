@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @IgnoreExtraProperties
 public class Post implements Comparable<Post> {
+    private String urlVideo;
     private String urlPhoto;
     private String timestamp;
     public String uid;
@@ -32,13 +33,14 @@ public class Post implements Comparable<Post> {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body, String timestamp, String urlPhoto) {
+    public Post(String uid, String author, String title, String body, String timestamp, String urlPhoto, String urlVideo) {
         this.uid = uid;
         this.author = author;
         this.title = title;
         this.body = body;
         this.timestamp = timestamp;
         this.urlPhoto = urlPhoto;
+        this.urlVideo = urlVideo;
     }
 
     @Exclude
@@ -56,6 +58,7 @@ public class Post implements Comparable<Post> {
         result.put("likes", likes);
         result.put("originPostId", originPostId);
         result.put("urlPhoto", urlPhoto);
+        result.put("urlVideo", urlVideo);
 
         return result;
     }
@@ -174,5 +177,13 @@ public class Post implements Comparable<Post> {
 
     public void setUrlPhoto(String urlPhoto) {
         this.urlPhoto = urlPhoto;
+    }
+
+    public String getUrlVideo() {
+        return urlVideo;
+    }
+
+    public void setUrlVideo(String urlVideo) {
+        this.urlVideo = urlVideo;
     }
 }

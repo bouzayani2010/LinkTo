@@ -47,6 +47,8 @@ public class FeedPostFragment extends BaseFragment {
 
     private static final int READ_REQUEST_CODE_IMAGE = 1005;
     private static final int READ_REQUEST_CODE_VIDEO = 1006;
+    private static final int INDEX_VIDEO = 1;
+    private static final int INDEX_PHOTO = 2;
     private Button bt_submit;
     private EditText ed_content_text;
     private DatabaseReference mDatabase;
@@ -57,6 +59,8 @@ public class FeedPostFragment extends BaseFragment {
     private Uri uriImageShared;
     private RelativeLayout video_actions;
     private Uri uriVideoshared;
+    private int numLoad = 0;
+    private int load = 0;
 
 
     @Override
@@ -77,14 +81,21 @@ public class FeedPostFragment extends BaseFragment {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                load = 0;
+                numLoad = 0;
                 String content_text = ed_content_text.getText().toString();
                 if (!Utils.isEmptyString(content_text)) {
-                    if(uriImageShared==null && uriVideoshared==null){
-                        writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text, null);
-                    }
-                    else
-                    if (uriImageShared != null) {
-                        loadNewProfilePhoto(uriImageShared);
+                    if (uriImageShared == null && uriVideoshared == null) {
+                        writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text, null, null);
+                    } else {
+                        if (uriImageShared != null) {
+                            numLoad++;
+                            loadNewProfilePhoto(uriImageShared);
+                        }
+                        if (uriVideoshared != null) {
+                            numLoad++;
+                            loadNewProfileVideo(uriVideoshared);
+                        }
                     }
                 } else {
                     new MaterialDialog.Builder(mActivity)
@@ -129,13 +140,12 @@ public class FeedPostFragment extends BaseFragment {
 
 
         final StorageReference finalRiversRef = riversRef;
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                 if (!task.isSuccessful()) {
                     throw task.getException();
                 }
-
                 // Continue with the task to get the download URL
                 return finalRiversRef.getDownloadUrl();
             }
@@ -146,13 +156,82 @@ public class FeedPostFragment extends BaseFragment {
                     Uri downloadUri = task.getResult();
                     Log.i("uriuri", "1** " + downloadUri.toString());
                     String content_text = ed_content_text.getText().toString();
-                    writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text, downloadUri.toString());
+
+                    loadNow(downloadUri, INDEX_PHOTO);
+                    //  writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text, downloadUri.toString(), null);
                 } else {
                     // Handle failures
                     // ...
                 }
             }
         });
+    }
+
+    private void loadNewProfileVideo(Uri file) {
+        StorageReference storageRef = storage.getReference();
+        String md5 = Utils.getMD5EncryptedString(file.toString());
+        StorageReference riversRef = null;
+        riversRef = storageRef.child("post/" + md5);
+
+        UploadTask uploadTask = riversRef.putFile(file);
+
+
+        final StorageReference finalRiversRef = riversRef;
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return finalRiversRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    Log.i("uriuri", "1** " + downloadUri.toString());
+                    loadNow(downloadUri, INDEX_VIDEO);
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+        });
+    }
+
+    private void loadNow(Uri downloadUri, int index) {
+        Uri downloadUriVideo = null;
+        Uri downloadUriPhoto = null;
+        String urlVideo = null;
+        String urlPhoto = null;
+
+        String content_text = ed_content_text.getText().toString();
+        switch (index) {
+            case INDEX_VIDEO:
+                load++;
+                downloadUriVideo = downloadUri;
+                if (downloadUriVideo != null) {
+                    urlVideo = downloadUriVideo.toString();
+                }
+
+                break;
+            case INDEX_PHOTO:
+                load++;
+                downloadUriPhoto = downloadUri;
+                if (downloadUriPhoto != null) {
+                    urlPhoto = downloadUriPhoto.toString();
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (load == numLoad) {
+            writeNewPost(userbd.getUid(), userbd.getDisplayName(), content_text.substring(0, 15), content_text, urlPhoto, urlVideo);
+
+        }
     }
 
 
@@ -173,10 +252,10 @@ public class FeedPostFragment extends BaseFragment {
         startActivityForResult(intent, load);
     }
 
-    private void writeNewPost(String userId, String username, String title, String body, String urlPhoto) {
+    private void writeNewPost(String userId, String username, String title, String body, String urlPhoto, String urlVideo) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body, timestamp.toString(), urlPhoto);
+        Post post = new Post(userId, username, title, body, timestamp.toString(), urlPhoto, urlVideo);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
@@ -221,7 +300,7 @@ public class FeedPostFragment extends BaseFragment {
                 try {
                     playVideo(uri);
 
-                    uriImageShared = uri;
+                    uriVideoshared = uri;
                     //  loadNewProfilePhoto(requestCode, uri);
                 } catch (Exception e) {
                     e.printStackTrace();

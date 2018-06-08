@@ -75,6 +75,31 @@
                         android:layout_centerHorizontal="true"
                         android:padding="5dp"
                         android:visibility="visible" />
+
+                    <FrameLayout
+                        android:id="@+id/video_layout"
+                        android:layout_width="fill_parent"
+                        android:visibility="gone"
+                        android:layout_height="200dp"
+
+                        android:layout_below="@+id/imageshared"
+                        android:background="@android:color/black">
+
+                        <com.universalvideoview.UniversalVideoView
+                            android:id="@+id/videoshared"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            app:uvv_autoRotation="false"
+                            app:uvv_fitXY="false" />
+
+                        <com.universalvideoview.UniversalMediaController
+                            android:id="@+id/media_controller"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            app:uvv_scalable="true" />
+
+                    </FrameLayout>
                     <!-- Content here. -->
                     <RelativeLayout
                         android:id="@+id/bodyshared"

@@ -68,6 +68,7 @@ dependencies {
     compile 'com.github.arimorty:floatingsearchview:2.1.1'
 
     compile 'com.otaliastudios:zoomlayout:1.2.0'
+    compile 'com.linsea:universalvideoview:1.1.0@aar'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

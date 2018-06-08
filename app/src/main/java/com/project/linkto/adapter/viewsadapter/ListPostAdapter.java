@@ -1,14 +1,18 @@
 package com.project.linkto.adapter.viewsadapter;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -29,6 +33,8 @@ import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.universalvideoview.UniversalMediaController;
+import com.universalvideoview.UniversalVideoView;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -49,6 +55,8 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
     private final List<Post> postList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private  FrameLayout video_layout;
+        private  UniversalMediaController mMediaController;
         private ImageView imageshared;
         private RelativeLayout bodyshared;
         private RelativeLayout rl_user;
@@ -56,6 +64,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
         private TextView tv_comments;
         private TextView tv_shares;
         public TextView tv_likes;
+        private UniversalVideoView videoshared;
         public TextView tv_title, tv_body, tv_date;
 
         public MyViewHolder(View view) {
@@ -63,6 +72,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             tv_title = (TextView) view.findViewById(R.id.tv_title);
             profileimg = (RoundedImageView) view.findViewById(R.id.profileimg);
             imageshared = (ImageView) view.findViewById(R.id.imageshared);
+            videoshared = (UniversalVideoView) view.findViewById(R.id.videoshared);
             tv_body = (TextView) view.findViewById(R.id.tv_body);
             tv_date = (TextView) view.findViewById(R.id.tv_date);
             tv_likes = (TextView) view.findViewById(R.id.tv_likes);
@@ -70,6 +80,8 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             tv_shares = (TextView) view.findViewById(R.id.tv_shares);
             rl_user = (RelativeLayout) view.findViewById(R.id.rl_user);
             bodyshared = (RelativeLayout) view.findViewById(R.id.bodyshared);
+            mMediaController = (UniversalMediaController) view.findViewById(R.id.media_controller);
+            video_layout = (FrameLayout) view.findViewById(R.id.video_layout);
         }
     }
 
@@ -84,6 +96,25 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
 
         return new MyViewHolder(itemView);
     }
+
+    private void playVideo(MyViewHolder holder, String url) {
+        MediaController mediaControls = new MediaController(mActivity);
+
+        holder.videoshared.setVisibility(View.VISIBLE);
+        try {
+            //set the media controller in the VideoView
+            holder.videoshared.setMediaController(holder.mMediaController);
+            //videoshared the uri of the video to be played
+            Uri uri = Uri.parse(url);
+            holder.videoshared.setVideoURI(uri);
+            holder.videoshared.start();
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onBindViewHolder(final ListPostAdapter.MyViewHolder holder, int position) {
@@ -101,11 +132,18 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                         .centerCrop()
                         .into(holder.imageshared);
             }
+            if (!Utils.isEmptyString(post.getUrlVideo())) {
+                playVideo(holder, post.getUrlVideo());
+                holder.video_layout.setVisibility(View.GONE);
+            } else {
+                holder.video_layout.setVisibility(View.GONE);
+            }
 
             Log.i("yeardaymonth1", post.getTimestamp().toString());
             if (!Utils.isEmptyString(post.getOriginPostId())) {
                 holder.tv_body.setVisibility(View.GONE);
                 holder.imageshared.setVisibility(View.GONE);
+                holder.video_layout.setVisibility(View.GONE);
 
 
                 LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -165,6 +203,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 });
             } else {
                 holder.tv_body.setVisibility(View.VISIBLE);
+                holder.video_layout.setVisibility(View.VISIBLE);
                 holder.imageshared.setVisibility(View.VISIBLE);
                 holder.bodyshared.setVisibility(View.GONE);
             }
@@ -234,7 +273,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
 
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                                     String key = mDatabase.child("posts").push().getKey();
-                                    Post post1 = new Post(userId, post.getAuthor(), post.getTitle(), post.getBody(), timestamp.toString(), post.getUrlPhoto());
+                                    Post post1 = new Post(userId, post.getAuthor(), post.getTitle(), post.getBody(), timestamp.toString(), post.getUrlPhoto(), post.getUrlVideo());
                                     if (Utils.isEmptyString(post.getOriginPostId())) {
                                         post1.setOriginPostId(post.getKey());
                                     } else {
