@@ -14,6 +14,7 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.fragment.MainFragment;
 import com.project.linkto.fragment.chapter.MyHomeFragment;
@@ -33,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public static DatabaseReference mDatabase;
     public static FirebaseStorage storage;
+    public static KProgressHUD kProgressHUD;
 
     public void pushtoFragments(final String tag, final Fragment fragment,
                                 final boolean shouldAnimate, final int contentContainerId,
@@ -77,6 +79,13 @@ public class BaseActivity extends AppCompatActivity {
         mDatabase = database.getReference();
 
 
+        kProgressHUD = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //     .setLabel("Please wait")
+                //   .setDetailsLabel("Downloading data")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
     }
 
     @Override
@@ -154,8 +163,7 @@ public class BaseActivity extends AppCompatActivity {
         if (fragment != null) {
             if (!(fragment instanceof CommentFragment)) {
                 pushtoFragments("Comment", commentFragment, true, R.id.container, false);
-            }
-            else{
+            } else {
                 commentFragment.setPost(commentFragment.getPost());
             }
         } else {

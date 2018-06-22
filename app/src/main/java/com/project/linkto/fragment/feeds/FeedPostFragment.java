@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.project.linkto.BaseActivity.kProgressHUD;
 import static com.project.linkto.BaseActivity.storage;
 
 /**
@@ -81,6 +82,7 @@ public class FeedPostFragment extends BaseFragment {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                kProgressHUD.show();
                 load = 0;
                 numLoad = 0;
                 String content_text = ed_content_text.getText().toString();
@@ -261,6 +263,7 @@ public class FeedPostFragment extends BaseFragment {
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/posts/" + key, postValues);
         mDatabase.updateChildren(childUpdates);
+        kProgressHUD.dismiss();
         mActivity.onBackPressed();
     }
 

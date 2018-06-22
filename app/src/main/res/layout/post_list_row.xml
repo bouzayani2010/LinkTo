@@ -79,25 +79,16 @@
                     <FrameLayout
                         android:id="@+id/video_layout"
                         android:layout_width="fill_parent"
-                        android:visibility="gone"
                         android:layout_height="200dp"
-
                         android:layout_below="@+id/imageshared"
-                        android:background="@android:color/black">
 
-                        <com.universalvideoview.UniversalVideoView
-                            android:id="@+id/videoshared"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_gravity="center"
-                            app:uvv_autoRotation="false"
-                            app:uvv_fitXY="false" />
+                        android:background="@android:color/black"
+                        android:visibility="visible">
+                        <uk.co.jakelee.vidsta.VidstaPlayer
+                            android:id="@+id/player"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
 
-                        <com.universalvideoview.UniversalMediaController
-                            android:id="@+id/media_controller"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            app:uvv_scalable="true" />
 
                     </FrameLayout>
                     <!-- Content here. -->
