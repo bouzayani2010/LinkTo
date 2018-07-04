@@ -1,0 +1,57 @@
+
+tsquid:UselessImportCheck"FRemove this unused import 'com.bumptech.glide.request.RequestOptions'.(÷íöºúÿÿÿÿ8ó…©ÑÅ,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(õÆ™ï8ó…©ÑÅ,
+]squid:CallToDeprecatedMethod"0Remove this use of "getColor"; it is deprecated.(ÆÿÔ“8ó…©ÑÅ,
+Asquid:S1659"%Declare "tv_date" on a separate line.(Š²ø©8ó…©ÑÅ,
+Œ"squid:ClassVariableVisibilityCheck"TMake tv_likes a static final constant or non-public and provide accessors if needed.(È‰±ƒüÿÿÿÿ8ó…©ÑÅ,
+Lsquid:S1905"+Remove this unnecessary cast to "TextView".(»þµþÿÿÿÿ8ó…©ÑÅ,
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Þ‰8ó…©ÑÅ,
+ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(Ó´‹ñùÿÿÿÿ8ó…©ÑÅ,
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏãÓ8ó…©ÑÅ,
+ysquid:S00116"WRename this field "video_layout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÆâüÿÿÿÿ8ó…©ÑÅ,
+†"squid:ClassVariableVisibilityCheck"SMake tv_date a static final constant or non-public and provide accessors if needed.(Š²ø©8ó…©ÑÅ,
+Jsquid:S1905".Remove this unnecessary cast to "FrameLayout".(à„éÍ8ó…©ÑÅ,
+gsquid:S1858"F"getTimestamp" returns a string, there's no need to call "toString()".(¦êÔ‚ùÿÿÿÿ8ó…©ÑÅ,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ó…©ÑÅ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ìÿ–¡úÿÿÿÿ8ó…©ÑÅ,
+†"squid:ClassVariableVisibilityCheck"SMake tv_body a static final constant or non-public and provide accessors if needed.(Š²ø©8ó…©ÑÅ,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ó…©ÑÅ,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ó…©ÑÅ,
+Lsquid:S1905"+Remove this unnecessary cast to "TextView".(ß©ˆËøÿÿÿÿ8ó…©ÑÅ,
+Gsquid:S1905"+Remove this unnecessary cast to "TextView".(•š¯®8ó…©ÑÅ,
+csquid:S1854"BRemove this useless assignment to local variable "transformation".(»²»Úúÿÿÿÿ8žœªÑÅ,
+Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ó…©ÑÅ,
+Wsquid:S2696"6Make the enclosing method "static" or remove this set.(’à–²úÿÿÿÿ8ó…©ÑÅ,
+osquid:S00116"RRename this field "tv_body" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š²ø©8ó…©ÑÅ,
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Þ‰8ó…©ÑÅ,
+usquid:S00116"SRename this field "tv_likes" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‰±ƒüÿÿÿÿ8ó…©ÑÅ,
+Fsquid:S1905"+Remove this unnecessary cast to "TextView".(ÛóŠ18ó…©ÑÅ,
+Asquid:S1659"%Declare "tv_body" on a separate line.(Š²ø©8ó…©ÑÅ,
+tsquid:S00116"RRename this field "rl_user" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¸ŒÜüÿÿÿÿ8ó…©ÑÅ,
+Ksquid:S1905"/Remove this unnecessary cast to "VidstaPlayer".(¥åð¹8ó…©ÑÅ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ìÿ–¡úÿÿÿÿ8ó…©ÑÅ,
+lsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(öÛ«°þÿÿÿÿ8ó…©ÑÅ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Æð¡ûýÿÿÿÿ8ó…©ÑÅ,
+Tsquid:S1481"3Remove this unused "transformation" local variable.(»²»Úúÿÿÿÿ8žœªÑÅ,
+Z"squid:SwitchLastCaseIsDefaultCheck""Add a default case to this switch.(öÛ«°þÿÿÿÿ8ó…©ÑÅ,
+Gsquid:S1905"+Remove this unnecessary cast to "TextView".(²„Ñ¡8ó…©ÑÅ,
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Þ‰8ó…©ÑÅ,
+Osquid:S1905"3Remove this unnecessary cast to "RoundedImageView".(ýñþô8ó…©ÑÅ,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ñ®ì8ó…©ÑÅ,
+bsquid:UselessImportCheck"9Remove this unused import 'com.squareup.picasso.Picasso'.(£œ¿×8ó…©ÑÅ,
+psquid:S00116"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š²ø©8ó…©ÑÅ,
+osquid:S00116"RRename this field "tv_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š²ø©8ó…©ÑÅ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(úÃÿÐüÿÿÿÿ8ó…©ÑÅ,
+Hsquid:S1905",Remove this unnecessary cast to "ImageView".(‡‹®¶8ó…©ÑÅ,
+gsquid:S1192"FDefine a constant instead of duplicating this literal "posts" 8 times.(†Ê²·ýÿÿÿÿ8ó…©ÑÅ,
+]squid:CallToDeprecatedMethod"0Remove this use of "getColor"; it is deprecated.(·ùç8ó…©ÑÅ,
+]squid:CallToDeprecatedMethod"0Remove this use of "getColor"; it is deprecated.(¯Ž§¥8ó…©ÑÅ,
+Rsquid:S1905"1Remove this unnecessary cast to "RelativeLayout".(µ«¡¹úÿÿÿÿ8ó…©ÑÅ,
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(«þžü8ó…©ÑÅ,
+fsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¥µÿW8ó…©ÑÅ,
+‡"squid:ClassVariableVisibilityCheck"TMake tv_title a static final constant or non-public and provide accessors if needed.(Š²ø©8ó…©ÑÅ,
+Lsquid:S1905"+Remove this unnecessary cast to "TextView".(ý¨•úÿÿÿÿÿ8ó…©ÑÅ,
+Rsquid:S1905"1Remove this unnecessary cast to "RelativeLayout".(¶ñŸ…øÿÿÿÿ8ó…©ÑÅ,
+psquid:S00116"TRename this field "tv_shares" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôô±*8ó…©ÑÅ,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÌÃµªýÿÿÿÿ8ó…©ÑÅ,
+xsquid:S00116"VRename this field "tv_comments" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§§™ ùÿÿÿÿ8ó…©ÑÅ,
