@@ -1,5 +1,6 @@
 package com.project.linkto.adapter.viewsadapter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,17 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.project.linkto.GalleryActivity;
 import com.project.linkto.R;
 import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Person;
@@ -54,7 +57,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
     private final List<Post> postList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private  VidstaPlayer vidstaPlayer;
+        private VidstaPlayer vidstaPlayer;
         private FrameLayout video_layout;
         private ImageView imageshared;
         private RelativeLayout bodyshared;
@@ -95,7 +98,6 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
     }
 
     private void playVideo(MyViewHolder holder, String url) {
-        MediaController mediaControls = new MediaController(mActivity);
 
         try {
             //set the media controller in the VideoView
@@ -123,8 +125,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             final String userId = DataHelper.getInstance().getmUserbd().getUid();
 
             if (!Utils.isEmptyString(post.getUrlPhoto())) {
-                Picasso.get().load(post.getUrlPhoto()).resize(1000, 1000)
-                        .centerCrop()
+                Glide.with(mActivity).load(post.getUrlPhoto())
                         .into(holder.imageshared);
             }
 
@@ -154,9 +155,15 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                             holderShared.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), postShared.getTimestamp()));
 
                             if (!Utils.isEmptyString(postShared.getUrlPhoto())) {
-                                Picasso.get().load(postShared.getUrlPhoto()).resize(1000, 1000)
-                                        .centerCrop()
+                                Glide.with(mActivity).load(postShared.getUrlPhoto())
                                         .into(holderShared.imageshared);
+                            }
+
+                            if (!Utils.isEmptyString(postShared.getUrlVideo())) {
+                                holderShared.video_layout.setVisibility(View.VISIBLE);
+                                playVideo(holderShared, post.getUrlVideo());
+                            }else{
+                                holderShared.video_layout.setVisibility(View.GONE);
                             }
                             holderShared.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -199,7 +206,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
 
             }
 
-           // Log.i("urlVideo1", position + "::" + post.getUrlVideo());
+            // Log.i("urlVideo1", position + "::" + post.getUrlVideo());
             if (!Utils.isEmptyString(post.getUrlVideo())) {
                 playVideo(holder, post.getUrlVideo());
                 Log.i("urlVideo1", position + "::" + post.getUrlVideo());
@@ -260,6 +267,15 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 }
             });
 
+            holder.imageshared.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GalleryActivity.currentImage=post.getUrlPhoto();
+
+                    Intent intent = new Intent(mActivity, GalleryActivity.class);
+                   mActivity.startActivity(intent);
+                }
+            });
 
             holder.tv_shares.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -365,8 +381,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                     .cornerRadiusDp(20)
                     .oval(false)
                     .build();
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
-                    .centerCrop().transform(transformation)
+            Glide.with(mActivity).load(personProfile.getProfilephoto())
                     .into(holder.profileimg);
         } catch (Exception e) {
             e.printStackTrace();

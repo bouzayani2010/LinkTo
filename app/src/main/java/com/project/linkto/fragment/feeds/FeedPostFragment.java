@@ -11,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
-import android.widget.VideoView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +36,8 @@ import com.squareup.picasso.Picasso;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+
+import uk.co.jakelee.vidsta.VidstaPlayer;
 
 import static android.content.ContentValues.TAG;
 import static com.project.linkto.BaseActivity.kProgressHUD;
@@ -55,13 +58,14 @@ public class FeedPostFragment extends BaseFragment {
     private DatabaseReference mDatabase;
     private Userbd userbd;
     private RelativeLayout media_actions;
-    private VideoView videoshared;
+    private VidstaPlayer videoshared;
     private ImageView imageshared;
     private Uri uriImageShared;
     private RelativeLayout video_actions;
     private Uri uriVideoshared;
     private int numLoad = 0;
     private int load = 0;
+    private FrameLayout video_layout;
 
 
     @Override
@@ -75,8 +79,9 @@ public class FeedPostFragment extends BaseFragment {
         bt_submit = (Button) view.findViewById(R.id.bt_submit);
         media_actions = (RelativeLayout) view.findViewById(R.id.media_actions);
         video_actions = (RelativeLayout) view.findViewById(R.id.video_actions);
-        videoshared = (VideoView) view.findViewById(R.id.videoshared);
+        videoshared = (VidstaPlayer) view.findViewById(R.id.videoshared);
 
+        video_layout = (FrameLayout) view.findViewById(R.id.video_layout);
         imageshared = (ImageView) view.findViewById(R.id.imageshared);
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
@@ -314,15 +319,12 @@ public class FeedPostFragment extends BaseFragment {
     }
 
     private void playVideo(Uri uri) {
-        MediaController mediaControls = new MediaController(mActivity);
 
-        videoshared.setVisibility(View.VISIBLE);
+        video_layout.setVisibility(View.VISIBLE);
         try {
-            //set the media controller in the VideoView
-            videoshared.setMediaController(mediaControls);
 
             //videoshared the uri of the video to be played
-            videoshared.setVideoURI(uri);
+            videoshared.setVideoSource(uri);
 
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -331,11 +333,8 @@ public class FeedPostFragment extends BaseFragment {
     }
 
     private void printImage(Uri mUri) {
-        Picasso.get()
+        Glide.with(mActivity)
                 .load(mUri)
-                .resize(1000, 1000)
-                .centerCrop()
-
                 // .centerCrop()
                 .into(imageshared);
 

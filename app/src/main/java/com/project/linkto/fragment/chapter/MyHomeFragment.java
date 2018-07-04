@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,10 +18,10 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +37,6 @@ import com.project.linkto.bean.Post;
 import com.project.linkto.fragment.BaseFragment;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
-import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
@@ -325,15 +323,9 @@ public class MyHomeFragment extends BaseFragment {
             Log.i("person", personProfile.getCoverphoto());
             Log.i("person", personProfile.getProfilephoto());
             userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
-            Transformation transformation = new RoundedTransformationBuilder()
-                    .borderColor(getResources().getColor(R.color.colorAccent))
-                    .borderWidthDp(3)
-                    .cornerRadiusDp(20)
-                    .oval(false)
-                    .build();
-            Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
-                    .centerCrop().transform(transformation)
+
+            Glide.with(mActivity).load(personProfile.getCoverphoto()).into(coverImg);
+            Glide.with(mActivity).load(personProfile.getProfilephoto())
                     .into(profileImg);
         } catch (Exception e) {
             e.printStackTrace();

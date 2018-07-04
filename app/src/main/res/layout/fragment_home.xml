@@ -14,8 +14,8 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:cropToPadding="true"
@@ -47,10 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/nameuser"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/thumbnail1"
-                android:background="@color/graylight"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true" />
+                android:background="@color/graylight"
+                android:scaleType="fitXY"
+                android:src="@drawable/thumbnail1" />
 
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
