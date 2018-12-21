@@ -1,36 +1,0 @@
-
-Qsquid:S2209"5Change this instance-reference to a static reference.(ƒÀŒî8óÙ¼ÑÅ,
-Wsquid:S1854";Remove this useless assignment to local variable "urlTask".(”±ØÈ8óÙ¼ÑÅ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(½‘Ñ³8óÙ¼ÑÅ,
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ˆÓíö8óÙ¼ÑÅ,
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(½öÖª8óÙ¼ÑÅ,
-Hsquid:S1905",Remove this unnecessary cast to "ImageView".(ğ†¼ã8óÙ¼ÑÅ,
-bsquid:S1192"FDefine a constant instead of duplicating this literal "users" 3 times.(ÿ ²’8óÙ¼ÑÅ,
-Psquid:S1905"/Remove this unnecessary cast to "RecyclerView".(ÀÕ³¬ûÿÿÿÿ8óÙ¼ÑÅ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8óÙ¼ÑÅ,
-ssquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø×£ùÿÿÿÿ8óÙ¼ÑÅ,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰8óÙ¼ÑÅ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Èõç8óÙ¼ÑÅ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ä©ÀÙûÿÿÿÿ8óÙ¼ÑÅ,
-ssquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿ÿ¹ºüÿÿÿÿ8óÙ¼ÑÅ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8óÙ¼ÑÅ,
-Hsquid:S1905",Remove this unnecessary cast to "ImageView".(ˆ¦£‰8óÙ¼ÑÅ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8óÙ¼ÑÅ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¥©·Öüÿÿÿÿ8óÙ¼ÑÅ,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÀÒ¼Ú8óÙ¼ÑÅ,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰8óÙ¼ÑÅ,
-Msquid:S1905",Remove this unnecessary cast to "ImageView".(Ñ”µÍùÿÿÿÿ8óÙ¼ÑÅ,
-lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(˜ç¸ùÿÿÿÿ8óÙ¼ÑÅ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Èõç8óÙ¼ÑÅ,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(©ÇÊğ8óÙ¼ÑÅ,
-zsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(×şûªüÿÿÿÿ8óÙ¼ÑÅ,
-csquid:S2259"GA "NullPointerException" could be thrown; "riversRef" is nullable here.(Şûàé8óÙ¼ÑÅ,
-squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰8óÙ¼ÑÅ,
-Rsquid:S1905"7Remove this unnecessary cast to "FloatingActionButton".(Úœİ8óÙ¼ÑÅ,
-Lsquid:S1905"+Remove this unnecessary cast to "TextView".(³Ã’ñÿÿÿÿÿ8óÙ¼ÑÅ,
-isquid:S1192"HDefine a constant instead of duplicating this literal "mamama1" 3 times.(å¨ì˜úÿÿÿÿ8óÙ¼ÑÅ,
-Hsquid:S1481",Remove this unused "urlTask" local variable.(”±ØÈ8óÙ¼ÑÅ,
-Œ"squid:ClassVariableVisibilityCheck"TMake mAdapter a static final constant or non-public and provide accessors if needed.(Â½¡‹ıÿÿÿÿ8óÙ¼ÑÅ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8óÙ¼ÑÅ,
-squid:UselessImportCheck"XRemove this unused import 'com.makeramen.roundedimageview.RoundedTransformationBuilder'.(½Š¹¸8Ìé…£Æ,
-nsquid:UselessImportCheck"@Remove this unused import 'com.squareup.picasso.Transformation'.(»Èú‡úÿÿÿÿ8Ìé…£Æ,

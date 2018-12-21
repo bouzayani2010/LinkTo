@@ -1,30 +1,0 @@
-
-ysquid:S1450"XRemove the "bt_submit" field and declare it as a local variable in the relevant methods.(×ºÙ»ûÿÿÿÿ8°²÷Ä,
-Msquid:S1905"1Remove this unnecessary cast to "RelativeLayout".(åÆªÕ8ô• ÍÅ,
-Rsquid:S1905"1Remove this unnecessary cast to "RelativeLayout".(ô¦Ÿ¼şÿÿÿÿ8¨÷°†Ä,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8°²÷Ä,
-wsquid:S1450"\Remove the "video_actions" field and declare it as a local variable in the relevant methods.(€áÎ#8°²÷Ä,
-Hsquid:S1905",Remove this unnecessary cast to "ImageView".(‡‹®¶8¨÷°†Ä,
-ssquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ËÄ•åûÿÿÿÿ8°²÷Ä,
-vsquid:S00116"TRename this field "bt_submit" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ºÙ»ûÿÿÿÿ8°²÷Ä,
-Jsquid:S1905".Remove this unnecessary cast to "FrameLayout".(à„éÍ8¨÷°†Ä,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ö§Äş8°²÷Ä,
-bsquid:UselessImportCheck"9Remove this unused import 'com.squareup.picasso.Picasso'.(£œ¿×8ô• ÍÅ,
-wsquid:S1450"\Remove the "media_actions" field and declare it as a local variable in the relevant methods.(ÁÈ•z8°²÷Ä,
-msquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì¿{8°²÷Ä,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8°²÷Ä,
-Lsquid:S1905"+Remove this unnecessary cast to "EditText".(ı±¾şÿÿÿÿ8¨÷°†Ä,
-Lsquid:S1481"1Remove this unused "content_text" local variable.(ì¿{8°²÷Ä,
-tsquid:S00116"XRename this field "media_actions" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÈ•z8°²÷Ä,
-msquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì¿{8°²÷Ä,
-dsquid:UselessImportCheck";Remove this unused import 'android.widget.MediaController'.(ÓôéÃ8äüÄ,
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8°²÷Ä,
-Jsquid:S1905"/Remove this unnecessary cast to "VidstaPlayer".(ÿ“²N8¨÷°†Ä,
-[squid:S1854"@Remove this useless assignment to local variable "content_text".(ì¿{8°²÷Ä,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(„•Ã•8°²÷Ä,
-tsquid:S00116"XRename this field "video_actions" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€áÎ#8°²÷Ä,
-ysquid:S00116"WRename this field "video_layout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÆâüÿÿÿÿ8°²÷Ä,
-Jsquid:S1905")Remove this unnecessary cast to "Button".(ØšÌóùÿÿÿÿ8¨÷°†Ä,
-wsquid:S00116"ZRename this field "ed_content_text" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÕ·8µèôÄ,
-msquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì¿{8°²÷Ä,
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ö§Äş8°²÷Ä,

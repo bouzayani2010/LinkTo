@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "545784343256-kb1jdri3u5fto6s5kagtl43m62mvarg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.linkto",
+            "certificate_hash": "620d08cc29a5f1043bc48e6308185600c86d18b1"
+          }
+        },
+        {
           "client_id": "545784343256-9thqpoqnh93bi0la7v8mk23qq8dupv4e.apps.googleusercontent.com",
           "client_type": 3
         }

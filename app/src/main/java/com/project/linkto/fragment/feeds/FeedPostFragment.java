@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,12 +68,19 @@ public class FeedPostFragment extends BaseFragment {
     private int numLoad = 0;
     private int load = 0;
     private FrameLayout video_layout;
+    private AdView mAdView;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feedpost, container, false);
+
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         mDatabase = mActivity.database.getReference();
         userbd = DataHelper.getInstance().getmUserbd();
 
