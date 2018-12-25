@@ -1,7 +1,9 @@
 package com.project.linkto;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -19,44 +21,55 @@ public class IntroActivity extends MaterialIntroActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        enableLastSlideAlphaExitTransition(true);
-
-        getBackButtonTranslationWrapper()
-                .setEnterTranslation(new IViewTranslation() {
-                    @Override
-                    public void translate(View view, @FloatRange(from = 0, to = 1.0) float percentage) {
-                        view.setAlpha(percentage);
-                    }
-                });
-
-        addSlide(new SlideFragmentBuilder()
-                        .backgroundColor(R.color.lightGraye8)
-                        .buttonsColor(R.color.colorAccent)
-                        .image(R.drawable.myjob1)
-                        .title("Organize your time with us")
-                        .description("Would you try?")
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide solutions to make you love your work");
-                    }
-                }, "Work with love"));
-
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.lightGraye8)
-                .buttonsColor(R.color.colorAccent)
-                .title("Want more?")
-                .description("Go on")
-                .build());
 
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.lightGraye8)
-                .buttonsColor(R.color.colorAccent)
-                .title("That's it")
-                .description("Would you join us?")
-                .build());
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        // Check if we need to display our OnboardingFragment
+        if (sharedPreferences.getBoolean(
+                MainActivity.COMPLETED_ONBOARDING_PREF_NAME, false)) {
+            // The user hasn't seen the OnboardingFragment yet, so show it
+            startActivity(new Intent(this, MainActivity.class));
+        } else {
+            enableLastSlideAlphaExitTransition(true);
+
+            getBackButtonTranslationWrapper()
+                    .setEnterTranslation(new IViewTranslation() {
+                        @Override
+                        public void translate(View view, @FloatRange(from = 0, to = 1.0) float percentage) {
+                            view.setAlpha(percentage);
+                        }
+                    });
+
+            addSlide(new SlideFragmentBuilder()
+                            .backgroundColor(R.color.lightGraye8)
+                            .buttonsColor(R.color.colorAccent)
+                            .image(R.drawable.myjob1)
+                            .title("Organize your time with us")
+                            .description("Would you try?")
+                            .build(),
+                    new MessageButtonBehaviour(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showMessage("We provide solutions to make you love your work");
+                        }
+                    }, "Work with love"));
+
+            addSlide(new SlideFragmentBuilder()
+                    .backgroundColor(R.color.lightGraye8)
+                    .buttonsColor(R.color.colorAccent)
+                    .title("Want more?")
+                    .description("Go on")
+                    .build());
+
+
+            addSlide(new SlideFragmentBuilder()
+                    .backgroundColor(R.color.lightGraye8)
+                    .buttonsColor(R.color.colorAccent)
+                    .title("That's it")
+                    .description("Would you join us?")
+                    .build());
+        }
     }
 
     @Override

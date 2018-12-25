@@ -1,6 +1,7 @@
 package com.project.linkto.adapter.viewsadapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +17,12 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.Transformation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.GalleryActivity;
 import com.project.linkto.R;
 import com.project.linkto.bean.Like;
@@ -33,11 +34,10 @@ import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
 import com.project.linkto.utils.Utils;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -372,16 +372,19 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
 
     private void drawPersonViews(MyViewHolder holder, Person personProfile) {
         try {
-            Log.i("person", personProfile.getCoverphoto());
-            Log.i("person", personProfile.getProfilephoto());
+            Log.i("glide", personProfile.getCoverphoto());
+            Log.i("glide", personProfile.getProfilephoto());
             holder.tv_title.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
-            Transformation transformation = new RoundedTransformationBuilder()
-                    .borderColor(mActivity.getResources().getColor(R.color.colorAccent))
-                    .borderWidthDp(3)
-                    .cornerRadiusDp(20)
-                    .oval(false)
-                    .build();
-            Glide.with(mActivity).load(personProfile.getProfilephoto())
+            List<jp.wasabeef.picasso.transformations.BlurTransformation> transformationList = new LinkedList<>();
+          /*  transformationList.add(new BlurTransformation(mActivity, 15));
+            transformationList.add(new ColorFilterTransformation(mActivity, colorForFilter));*/
+            transformationList.add(new jp.wasabeef.picasso.transformations.BlurTransformation(mActivity));
+
+            MultiTransformation<Bitmap> multiTransformation = new MultiTransformation<Bitmap>((Transformation<Bitmap>) transformationList);
+
+            Glide.with(mActivity)
+                    .load(personProfile.getProfilephoto())
+
                     .into(holder.profileimg);
         } catch (Exception e) {
             e.printStackTrace();

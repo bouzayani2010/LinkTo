@@ -181,4 +181,5 @@ public class BaseActivity extends AppCompatActivity {
             pushtoFragments("chatMessage", chatMessageFragment, true, R.id.container, false);
         }
     }
+
 }

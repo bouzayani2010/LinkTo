@@ -174,8 +174,6 @@ public class MyHomeFragment extends BaseFragment {
                                 dialog.dismiss();
                             }
                         }).show();
-
-
             }
         });
 
@@ -222,23 +220,7 @@ public class MyHomeFragment extends BaseFragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-         /*       try {
-                    postList.clear();
-                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                        Log.i("mamama", "::" + singleSnapshot.toString());
-                        Post post = singleSnapshot.getValue(Post.class);
-                        post.setKey(singleSnapshot.getKey());
-                        //
-                        postList.add(post);
-                        Log.i("mamama", "::" + post.toString());
 
-                    }
-                } catch (Exception e) {
-                    Log.i("mamama", "::" + e.getMessage());
-                    e.printStackTrace();
-                }
-                Collections.sort(postList);
-                mAdapter.notifyDataSetChanged();*/
             }
 
             @Override
@@ -251,14 +233,8 @@ public class MyHomeFragment extends BaseFragment {
     private void loadPhotoFromLocalStorage(int load) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 
-        // Filter to only show results that can be "opened", such as a
-        // file (as opposed to a list of contacts or timezones)
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
-        // Filter to show only images, using the image MIME data type.
-        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-        // To search for all documents available via installed storage providers,
-        // it would be "*/*".
         intent.setType("image/*");
 
         startActivityForResult(intent, load);

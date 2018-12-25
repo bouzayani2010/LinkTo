@@ -63,6 +63,26 @@ public class Post implements Comparable<Post> {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "urlVideo='" + urlVideo + '\'' +
+                ", urlPhoto='" + urlPhoto + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", uid='" + uid + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", starCount=" + starCount +
+                ", stars=" + stars +
+                ", likes=" + likes +
+                ", key='" + key + '\'' +
+                ", commentCount=" + commentCount +
+                ", shareCount=" + shareCount +
+                ", originPostId='" + originPostId + '\'' +
+                '}';
+    }
+
     public String getTimestamp() {
         return timestamp;
     }
@@ -186,4 +206,7 @@ public class Post implements Comparable<Post> {
     public void setUrlVideo(String urlVideo) {
         this.urlVideo = urlVideo;
     }
+
+
+
 }

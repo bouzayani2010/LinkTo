@@ -1,6 +1,9 @@
 package com.project.linkto;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
@@ -17,10 +20,12 @@ import com.project.linkto.bean.Userbd;
 import com.project.linkto.database.Userrepo;
 import com.project.linkto.singleton.DataHelper;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    public static final String COMPLETED_ONBOARDING_PREF_NAME ="true" ;
     public static FirebaseAuth mAuth;
     public FirebaseUser currentUser;
 
@@ -28,6 +33,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
 
@@ -116,5 +122,15 @@ public class MainActivity extends BaseActivity {
         // onBackPressed();
 
         goToSignIn();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences.Editor sharedPreferencesEditor =
+                PreferenceManager.getDefaultSharedPreferences(this).edit();
+        sharedPreferencesEditor.putBoolean(
+                COMPLETED_ONBOARDING_PREF_NAME, true);
+        sharedPreferencesEditor.apply();
     }
 }

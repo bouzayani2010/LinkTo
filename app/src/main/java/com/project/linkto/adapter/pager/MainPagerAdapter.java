@@ -18,11 +18,14 @@ import java.util.List;
 public class MainPagerAdapter extends FragmentStatePagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
     private final List<String> chapters;
     private final int[] icons;
+    private final int[] icons_gray;
+    private int currentPosition;
 
-    public MainPagerAdapter(FragmentManager childFragmentManager, List<String> chapters, int[] icons) {
+    public MainPagerAdapter(FragmentManager childFragmentManager, List<String> chapters, int[] icons, int[] icons_gray) {
         super(childFragmentManager);
         this.chapters = chapters;
         this.icons = icons;
+        this.icons_gray = icons_gray;
     }
 
     @Override
@@ -59,6 +62,10 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter implements Pager
 
     @Override
     public int getPageIconResId(int position) {
-        return this.icons[position];
+        return this.icons_gray[position];
+    }
+
+    public void setCurrentPosition(int position) {
+        this.currentPosition = position;
     }
 }

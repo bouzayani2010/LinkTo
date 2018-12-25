@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import com.glide.slider.library.SliderLayout;
-import com.glide.slider.library.SliderTypes.BaseSliderView;
-import com.glide.slider.library.SliderTypes.DefaultSliderView;
+
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.project.linkto.utils.Utils;
 
 

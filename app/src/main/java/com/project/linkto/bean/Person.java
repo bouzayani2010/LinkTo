@@ -61,14 +61,6 @@ public class Person {
         this.profilephoto = profilephoto;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "birthdate='" + birthdate + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
 
     public void setKey(String key) {
         this.key = key;
@@ -76,5 +68,18 @@ public class Person {
 
     public String getKey() {
         return key;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "birthdate=" + birthdate +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", coverphoto='" + coverphoto + '\'' +
+                ", profilephoto='" + profilephoto + '\'' +
+                ", key='" + key + '\'' +
+                '}';
     }
 }
