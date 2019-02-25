@@ -47,17 +47,19 @@ public class MainFragment extends BaseFragment {
                 R.drawable.ic_person,
                 R.drawable.ic_home,
                 R.drawable.ic_message,
-                R.drawable.ic_diag
+                R.drawable.event,
+                R.drawable.apps
         };
         final int[] icons_gray = {
                 R.drawable.ic_person_gray,
                 R.drawable.ic_home_gray,
                 R.drawable.ic_message_gray,
-                R.drawable.ic_diag_gray
+                R.drawable.event_gray,
+                R.drawable.apps_gray
         };
 
 
-        mainPagerAdapter = new MainPagerAdapter(getChildFragmentManager(), chapters, icons, icons_gray);
+        mainPagerAdapter = new MainPagerAdapter(getChildFragmentManager(), chapters, icons_gray);
         viewPager.setAdapter(mainPagerAdapter);
 
 
@@ -73,7 +75,6 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                mainPagerAdapter.setCurrentPosition(position);
                 LinearLayout view = (LinearLayout) tabs.getChildAt(0);
                 for (int i = 0; i < view.getChildCount(); i++) {
                     ImageButton textView = (ImageButton) view.getChildAt(i);

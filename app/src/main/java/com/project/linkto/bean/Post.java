@@ -24,6 +24,7 @@ public class Post implements Comparable<Post> {
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
     public Map<String, Like> likes = new HashMap<>();
+    public Map<String, Comment> comments = new HashMap<>();
     private String key;
     private int commentCount;
     private int shareCount;
@@ -59,6 +60,7 @@ public class Post implements Comparable<Post> {
         result.put("originPostId", originPostId);
         result.put("urlPhoto", urlPhoto);
         result.put("urlVideo", urlVideo);
+        result.put("comments", comments);
 
         return result;
     }
@@ -76,6 +78,7 @@ public class Post implements Comparable<Post> {
                 ", starCount=" + starCount +
                 ", stars=" + stars +
                 ", likes=" + likes +
+                ", comments=" + comments +
                 ", key='" + key + '\'' +
                 ", commentCount=" + commentCount +
                 ", shareCount=" + shareCount +
@@ -170,6 +173,14 @@ public class Post implements Comparable<Post> {
 
     public void setShareCount(int shareCount) {
         this.shareCount = shareCount;
+    }
+
+    public Map<String, Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Map<String, Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

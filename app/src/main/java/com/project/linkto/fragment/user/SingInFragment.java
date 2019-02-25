@@ -53,8 +53,8 @@ public class SingInFragment extends BaseFragment {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String login = ed_login.getText().toString();
-                String password = ed_password.getText().toString();
+                String login = ed_login.getText().toString().trim();
+                String password = ed_password.getText().toString().trim();
                 if (!Utils.isEmptyString(login) && !Utils.isEmptyString(password)) {
                     mAuth.signInWithEmailAndPassword(login, password).addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                         @Override

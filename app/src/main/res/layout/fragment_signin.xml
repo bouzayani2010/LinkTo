@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/name">
+        android:layout_below="@+id/name"
+        android:padding="3dp">
 
         <ImageView
             android:id="@+id/name"
@@ -17,120 +19,130 @@
             android:src="@drawable/linktotr"
             android:textSize="25sp" />
 
-        <RelativeLayout
-            android:id="@+id/normal_sign_in"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_centerVertical="true"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:padding="10dp">
-<!--
-            android:text="belgacem.bouzayani@gmail.com"
-            android:text="belgacem1234"-->
+            app:cardElevation="2dp">
 
-            <EditText
-                android:id="@+id/ed_login"
+            <RelativeLayout
+                android:id="@+id/normal_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login"
-                android:text="bouzayani2027@gmail.com"
-                android:textColor="@color/colorText"
-                android:textColorHint="@color/colorHint" />
-
-            <EditText
-                android:id="@+id/ed_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ed_login"
-                android:hint="@string/password"
-                android:text="bouzayani1234"
-                android:textColor="@color/colorText"
-                android:textColorHint="@color/colorHint" />
-
-            <com.project.linkto.customwidget.CustomBT
-                android:id="@+id/bt_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/ed_password"
-                android:layout_margin="5dp"
+                android:layout_centerVertical="true"
                 android:background="@android:drawable/picture_frame"
-                android:text="@string/signin" />
+                android:padding="10dp">
+                <!--
+                            android:text="belgacem.bouzayani@gmail.com"
+                            android:text="belgacem1234"-->
 
-            <com.project.linkto.customwidget.CustomTextView
-                android:id="@+id/tv_join"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/bt_submit"
-                android:padding="5dp"
-                android:text="@string/joinnow"
-                android:textColor="@color/colorAccent" />
-        </RelativeLayout>
+                <EditText
+                    android:id="@+id/ed_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login"
+                    android:text="bouzayani2027@gmail.com"
+                    android:textColor="@color/colorText"
+                    android:textColorHint="@color/colorHint" />
 
-        <RelativeLayout
-            android:id="@+id/network_sing_in"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/normal_sign_in"
-            android:padding="10dp">
+                <EditText
+                    android:id="@+id/ed_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ed_login"
+                    android:hint="@string/password"
+                    android:text="bouzayani1234"
+                    android:textColor="@color/colorText"
+                    android:textColorHint="@color/colorHint" />
 
-            <RelativeLayout
-                android:id="@+id/signin_google"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/colorGoogle"
-                android:padding="3dp">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/google_signin" />
-
-                <TextView
+                <com.project.linkto.customwidget.CustomBT
+                    android:id="@+id/bt_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageView"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageView"
-                    android:gravity="center"
-                    android:text="@string/signin_with_google"
-                    android:textColor="@color/colorTextWhite"
-                    android:textSize="22sp" />
+                    android:layout_below="@+id/ed_password"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/base_item_background_shape"
+                    android:text="@string/signin" />
+
+                <com.project.linkto.customwidget.CustomTextView
+                    android:id="@+id/tv_join"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bt_submit"
+                    android:layout_alignParentLeft="true"
+                    android:padding="5dp"
+                    android:text="@string/joinnow"
+                    android:textColor="@color/colorAccent" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/signin_facebook"
+                android:id="@+id/network_sing_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/signin_google"
-                android:layout_margin="5dp"
-                android:background="@color/colorFacebook"
-                android:padding="3dp"
-                android:visibility="visible">
+                android:layout_below="@+id/normal_sign_in"
+                android:padding="10dp"
+                android:visibility="gone">
 
-                <ImageView
-                    android:id="@+id/imageViewfacebook"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/facebook_login" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/signin_google"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageViewfacebook"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageViewfacebook"
-                    android:gravity="center"
-                    android:text="@string/signin_with_facebook"
-                    android:textColor="@color/colorTextWhite"
-                    android:textSize="22sp" />
+                    android:layout_margin="5dp"
+                    android:background="@color/colorGoogle"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/google_signin" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imageView"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/imageView"
+                        android:gravity="center"
+                        android:text="@string/signin_with_google"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="22sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/signin_facebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/signin_google"
+                    android:layout_margin="5dp"
+                    android:background="@color/colorFacebook"
+                    android:padding="3dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/imageViewfacebook"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/facebook_login" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imageViewfacebook"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/imageViewfacebook"
+                        android:gravity="center"
+                        android:text="@string/signin_with_facebook"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="22sp" />
+                </RelativeLayout>
             </RelativeLayout>
-        </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
     </RelativeLayout>
 
 

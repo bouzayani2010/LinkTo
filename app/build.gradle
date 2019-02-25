@@ -63,7 +63,12 @@ dependencies {
     implementation 'com.j256.ormlite:ormlite-android:5.0'
     // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core
     implementation 'com.j256.ormlite:ormlite-core:5.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //implementation 'com.squareup.picasso:picasso:2.3.2'
+
+
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.0'
     implementation 'com.squareup.okhttp:okhttp:2.7.0'
     implementation 'com.squareup.okio:okio:1.6.0'
@@ -92,29 +97,44 @@ dependencies {
 
     implementation 'com.otaliastudios:zoomlayout:1.2.0'
 
-    //implementation "com.github.firdausmaulan:GlideSlider:$glide_slider_version"
-    // implementation 'com.linsea:universalvideoview:1.1.0@aar'
 
     implementation 'agency.tango.android:material-intro-screen:0.0.5'
 
     implementation 'uk.co.jakelee:vidsta:1.0.0'
+
+    implementation 'com.squareup.picasso:picasso:2.3.2'
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     implementation 'com.kaopiz:kprogresshud:1.1.0'
 
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'jp.wasabeef:glide-transformations:2.0.2'
-    // Check for v11.4.2 or higher
+    // implementation 'com.github.bumptech.glide:glide:3.7.0'
 
+    // Find the latest Glide releases here: https://goo.gl/LpksbR
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+// If you're using Kotlin (and therefore, kapt), use kapt instead of annotationProcessor
+    implementation 'com.github.bumptech.glide:annotations:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+
+
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 /////////////////////  Firebase
-    implementation 'com.google.firebase:firebase-auth:10.0.1'
-    implementation 'com.google.android.gms:play-services-auth:10.0.1'
-    implementation 'com.google.firebase:firebase-database:10.0.1'
-    implementation 'com.google.firebase:firebase-storage:10.0.1'
-    implementation 'com.google.firebase:firebase-core:10.0.1'
-    implementation 'com.google.firebase:firebase-ads:10.0.1'
-    //implementation 'com.google.firebase:firebase-perf:16.2.3'
+    //noinspection GradleCompatible
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-ads:16.0.1'
+    implementation 'com.google.firebase:firebase-perf:16.2.3'
+
+    //  implementation'com.firebaseui:firebase-ui-storage:2.0.1'
+    implementation 'com.firebaseui:firebase-ui-storage:3.2.1'
+
+
+   // implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
+
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

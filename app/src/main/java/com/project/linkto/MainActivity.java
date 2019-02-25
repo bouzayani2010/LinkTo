@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     public static final String COMPLETED_ONBOARDING_PREF_NAME ="true" ;
+    private static final String TAG = "tag";
     public static FirebaseAuth mAuth;
     public FirebaseUser currentUser;
 
@@ -38,6 +40,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
 
 
         Thread t = new Thread(new Runnable() {
@@ -126,7 +129,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
+        try {
+            super.onStop();
+        } catch (Exception e) {
+            Log.w(TAG, "onStop()", e);
+            super.onStop();
+        }
         SharedPreferences.Editor sharedPreferencesEditor =
                 PreferenceManager.getDefaultSharedPreferences(this).edit();
         sharedPreferencesEditor.putBoolean(

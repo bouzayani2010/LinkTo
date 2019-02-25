@@ -299,8 +299,8 @@ public class HomeFragment extends BaseFragment {
                     .cornerRadiusDp(20)
                     .oval(false)
                     .build();
-            Picasso.get().load(personProfile.getCoverphoto()).fit().into(coverImg);
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+            Picasso.with(mActivity).load(personProfile.getCoverphoto()).fit().into(coverImg);
+            Picasso.with(mActivity).load(personProfile.getProfilephoto()).resize(1000, 1000)
                     .centerCrop().transform(transformation)
                     .into(profileImg);
         } catch (Exception e) {

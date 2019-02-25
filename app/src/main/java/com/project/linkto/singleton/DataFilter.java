@@ -1,5 +1,6 @@
 package com.project.linkto.singleton;
 
+import com.project.linkto.bean.Comment;
 import com.project.linkto.bean.GroupMessage;
 import com.project.linkto.bean.Like;
 import com.project.linkto.bean.Post;
@@ -24,6 +25,19 @@ public class DataFilter {
     }
 
 
+    public GroupMessage getGroupMessage(String mUserId) {
+        List<GroupMessage> groupMessageList = DataHelper.getInstance().getmGroupMessageList();
+        if (groupMessageList != null && groupMessageList.size() > 0) {
+            for (GroupMessage groupMessage : groupMessageList) {
+                List<String> listUserId = groupMessage.getListUserId();
+                if (listUserId.contains(mUserId)) {
+                    return groupMessage;
+                }
+            }
+        }
+        return null;
+    }
+
     public String liked(Post post, String userId) {
         try {
             Map<String, Like> mapLikes = post.getLikes();
@@ -43,16 +57,39 @@ public class DataFilter {
         return null;
     }
 
-    public GroupMessage getGroupMessage(String mUserId) {
-        List<GroupMessage> groupMessageList = DataHelper.getInstance().getmGroupMessageList();
-        if (groupMessageList != null && groupMessageList.size() > 0) {
-            for (GroupMessage groupMessage : groupMessageList) {
-                List<String> listUserId = groupMessage.getListUserId();
-                if (listUserId.contains(mUserId)) {
-                    return groupMessage;
+    public String commented(Post post, String userId) {
+        try {
+            Map<String, Comment> mapComment = post.getComments();
+
+            List<String> listOfCommentkey = new ArrayList<String>(mapComment.keySet());
+            for (String lkey : listOfCommentkey) {
+                Comment lk = mapComment.get(lkey);
+                if (lk.getUid().equals(userId)) {
+                    return lkey;
                 }
+
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return null;
+    }
+
+    public String shared(Post post, String userId) {
+        try {
+            List<Post> mypostList = DataHelper.getInstance().getMypostList();
+
+            for (Post pst : mypostList) {
+                if (pst.getOriginPostId().equals(post.getKey())) {
+                    return pst.getOriginPostId();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }

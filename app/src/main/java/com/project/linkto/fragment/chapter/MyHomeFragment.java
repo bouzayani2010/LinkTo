@@ -2,8 +2,11 @@ package com.project.linkto.fragment.chapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,16 +38,24 @@ import com.project.linkto.adapter.viewsadapter.ListPostAdapter;
 import com.project.linkto.bean.Person;
 import com.project.linkto.bean.Post;
 import com.project.linkto.fragment.BaseFragment;
+import com.project.linkto.fragment.user.ProfileFragment;
 import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.utils.ExifTransformation;
+import com.project.linkto.utils.GlideApp;
 import com.project.linkto.utils.Utils;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static com.project.linkto.BaseActivity.kProgressHUD;
 import static com.project.linkto.BaseActivity.mDatabase;
 import static com.project.linkto.BaseActivity.storage;
 
@@ -80,6 +91,8 @@ public class MyHomeFragment extends BaseFragment {
 
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+
+
         drawViews();
 
 
@@ -101,6 +114,13 @@ public class MyHomeFragment extends BaseFragment {
                         }).show();
             }
         });
+        userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                mActivity.gotoProfile(profileFragment);
+            }
+        });
         coverImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +134,6 @@ public class MyHomeFragment extends BaseFragment {
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                 switch (which) {
                                     case 0:
-                                        //   loadNewProfilePhoto();
                                         loadPhotoFromLocalStorage(READ_REQUEST_CODE_cover);
                                         break;
                                     case 1:
@@ -209,6 +228,7 @@ public class MyHomeFragment extends BaseFragment {
                     e.printStackTrace();
                 }
                 Collections.sort(postList);
+                DataHelper.getInstance().setMypostList(postList);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -240,8 +260,8 @@ public class MyHomeFragment extends BaseFragment {
         startActivityForResult(intent, load);
     }
 
-    private void loadNewProfilePhoto(final int requestCode, Uri file) {
-
+    private void loadNewProfilePhoto(final int requestCode, Uri file) throws IOException {
+        kProgressHUD.show();
         StorageReference storageRef = storage.getReference();
         String md5 = Utils.getMD5EncryptedString(file.toString());
         StorageReference riversRef = null;
@@ -249,9 +269,32 @@ public class MyHomeFragment extends BaseFragment {
             riversRef = storageRef.child("profile/profile/" + md5);
         else if (requestCode == READ_REQUEST_CODE_cover)
             riversRef = storageRef.child("profile/cover/" + md5);
-        UploadTask uploadTask = riversRef.putFile(file);
+
+        Bitmap bmp = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), file);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmp, bmp.getWidth() * 3 / 4, bmp.getHeight() * 3 / 4, false);
+
+        Bitmap rotatedBitmap;
+        if (bmp.getWidth() > bmp.getHeight()) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90);
+            rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+            //      rotatedBitmap=Utils.getCroppedBitmap(scaledBitmap);
+        } else {
+            rotatedBitmap = scaledBitmap;
+        }
+
+        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 15, baos);
+        //  bmp.setHeight(500); bmp.setWidth(400);
+        byte[] data = baos.toByteArray();
 
 
+        UploadTask uploadTask = riversRef.putBytes(data);
+
+
+        //   UploadTask uploadTask = riversRef.putFile(file);
         final StorageReference finalRiversRef = riversRef;
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
@@ -266,6 +309,7 @@ public class MyHomeFragment extends BaseFragment {
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
+                kProgressHUD.dismiss();
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
                     Log.i("uriuri", "1** " + downloadUri.toString());
@@ -300,9 +344,20 @@ public class MyHomeFragment extends BaseFragment {
             Log.i("person", personProfile.getProfilephoto());
             userName.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
 
-            Glide.with(mActivity).load(personProfile.getCoverphoto()).into(coverImg);
-            Glide.with(mActivity).load(personProfile.getProfilephoto())
+
+            GlideApp.with(mActivity)
+                    .load(personProfile.getProfilephoto())
+                    // .load("http://via.placeholder.com/300.png")
+                    .override(300, 300)
+                    .centerCrop()
                     .into(profileImg);
+
+
+            GlideApp.with(mActivity)
+                    .load(personProfile.getCoverphoto())
+                    .override(1000, 500)
+                    .centerCrop()
+                    .into(coverImg);
         } catch (Exception e) {
             e.printStackTrace();
         }

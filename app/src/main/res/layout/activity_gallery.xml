@@ -5,6 +5,7 @@
 
     android:layout_height="match_parent"
     android:background="@color/black">
+
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider"
         android:layout_width="match_parent"

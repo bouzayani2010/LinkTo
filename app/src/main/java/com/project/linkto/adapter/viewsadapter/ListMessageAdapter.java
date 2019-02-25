@@ -110,7 +110,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<ListMessageAdapter.
                     .cornerRadiusDp(20)
                     .oval(false)
                     .build();
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+            Picasso.with(mContext).load(personProfile.getProfilephoto()).resize(1000, 1000)
                     .centerCrop().transform(transformation)
                     .into(holder.profileimg);
         } catch (Exception e) {

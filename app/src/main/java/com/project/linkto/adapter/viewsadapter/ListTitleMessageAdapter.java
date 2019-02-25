@@ -92,7 +92,7 @@ public class ListTitleMessageAdapter extends RecyclerView.Adapter<ListTitleMessa
                     .cornerRadiusDp(20)
                     .oval(false)
                     .build();
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+            Picasso.with(mActivity).load(personProfile.getProfilephoto()).resize(1000, 1000)
                     .centerCrop().transform(transformation)
                     .into(holder.profileimg);
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.project.linkto;
 
 import android.annotation.TargetApi;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import com.project.linkto.fragment.feeds.CommentFragment;
 import com.project.linkto.fragment.feeds.FeedPostFragment;
 import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.fragment.user.JoinNowFragment;
+import com.project.linkto.fragment.user.ProfileFragment;
 import com.project.linkto.fragment.user.SingInFragment;
 
 /**
@@ -77,6 +79,7 @@ public class BaseActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         mDatabase = database.getReference();
+        mDatabase.keepSynced(true);
 
 
         kProgressHUD = KProgressHUD.create(this)
@@ -99,6 +102,13 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // do nothing, just override
+    }
+
 
 
     public void goToHome() {
@@ -182,4 +192,14 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void gotoProfile(ProfileFragment profileFragment ) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.container);
+        if (fragment != null) {
+            if (!(fragment instanceof ChatMessageFragment)) {
+                pushtoFragments("profile", profileFragment, true, R.id.container, false);
+            }
+        } else {
+            pushtoFragments("profile", profileFragment, true, R.id.container, false);
+        }
+    }
 }

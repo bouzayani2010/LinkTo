@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.project.linkto.bean.GroupMessage;
+import com.project.linkto.bean.Post;
 import com.project.linkto.bean.Userbd;
 import com.project.linkto.database.DatabaseManager;
 import com.project.linkto.database.Userrepo;
@@ -21,6 +22,7 @@ public class DataHelper {
     private Userrepo uRepo;
     private Userbd mUserbd;
     private List<GroupMessage> mGroupMessageList;
+    private List<Post> mypostList;
 
     public static boolean isConnected() {
         return connected;
@@ -75,5 +77,14 @@ public class DataHelper {
 
     public List<GroupMessage> getmGroupMessageList() {
         return mGroupMessageList;
+    }
+
+    public void setMypostList(List<Post> mypostList) {
+        this.mypostList = mypostList;
+    }
+
+
+    public List<Post> getMypostList() {
+        return mypostList;
     }
 }

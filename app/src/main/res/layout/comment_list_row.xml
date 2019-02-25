@@ -4,7 +4,7 @@
     xmlns:linkto="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp">
+    android:padding="0.5dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/profileimg"
                         android:padding="13dp"
-                        android:text="belgacem"
+                        android:text=""
                         android:textColor="@color/colorAccent50"
                         android:textSize="18sp" />
 

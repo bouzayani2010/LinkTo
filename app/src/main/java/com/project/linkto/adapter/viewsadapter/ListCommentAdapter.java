@@ -16,6 +16,7 @@ import com.project.linkto.R;
 import com.project.linkto.bean.Comment;
 import com.project.linkto.bean.Person;
 import com.project.linkto.utils.Utils;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -116,7 +117,7 @@ public class ListCommentAdapter extends RecyclerView.Adapter<ListCommentAdapter.
                     .cornerRadiusDp(20)
                     .oval(false)
                     .build();
-            Picasso.get().load(personProfile.getProfilephoto()).resize(1000, 1000)
+            Picasso.with(mActivity).load(personProfile.getProfilephoto()).resize(1000, 1000)
                     .centerCrop().transform(transformation)
                     .into(holder.profileimg);
         } catch (Exception e) {

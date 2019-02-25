@@ -38,5 +38,12 @@
     <string name="photo">Photo</string>
     <string name="video">Video</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="edit_info">Edit info</string>
+    <string name="label_name">First Name</string>
+    <string name="label_lastname">Last Name</string>
+    <string name="label_email">Email</string>
+    <string name="label_country">Country</string>
+    <string name="label_city">city</string>
+    <string name="birthdate">Birthdate</string>
 
 </resources>

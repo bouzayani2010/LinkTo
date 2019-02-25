@@ -4,6 +4,7 @@
         <item>Profile</item>
         <item>Home</item>
         <item>Message</item>
+        <item>Alert</item>
         <item>Activity</item>
     </string-array>
     <string-array name="profile">
@@ -17,6 +18,10 @@
     <string-array name="activity_profile">
         <item>Visit profile</item>
         <item>Send Message</item>
+    </string-array>
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 
 </resources>

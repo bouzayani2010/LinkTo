@@ -2,6 +2,7 @@ package com.project.linkto.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -116,5 +117,38 @@ public class Utils {
             Log.i("yeardaymonth", e.getMessage());
         }
         return "";
+    }
+
+    public static Bitmap getCroppedBitmap(Bitmap image) {
+        int imageHeight = image.getHeight(); //get original image height
+        int imageWidth = image.getWidth();  //get original image width
+        int offset = 0;
+
+        int shorterSide = imageWidth < imageHeight ? imageWidth : imageHeight;
+        int longerSide = imageWidth < imageHeight ? imageHeight : imageWidth;
+        boolean portrait = imageWidth < imageHeight ? true : false;  //find out the image orientation
+//number array positions to allocate for one row of the pixels (+ some blanks - explained in the Bitmap.getPixels() documentation)
+        int stride = shorterSide + 1;
+        int lengthToCrop = (longerSide - shorterSide) / 2; //number of pixel to remove from each side
+//size of the array to hold the pixels (amount of pixels) + (amount of strides after every line)
+        int shorterImageDimension=500;
+        int pixelArraySize = (shorterSide * shorterSide) + (shorterImageDimension * 1);
+        int[] pixels = new int[pixelArraySize];
+
+//now fill the pixels with the selected range
+        image.getPixels(pixels, 0, stride, portrait ? 0 : lengthToCrop, portrait ? lengthToCrop : 0, shorterSide, shorterSide);
+
+//save memory
+        image.recycle();
+
+//create new bitmap to contain the cropped pixels
+        Bitmap croppedBitmap = Bitmap.createBitmap(shorterSide, shorterSide, Bitmap.Config.ARGB_4444);
+        croppedBitmap.setPixels(pixels, offset, 0,0, 0, shorterSide, shorterSide);
+
+//I'd recommend to perform these kind of operations on worker thread
+      //  listener.imageCropped(croppedBitmap);
+
+//Or if you like to live dangerously
+        return croppedBitmap;
     }
 }

@@ -3,7 +3,117 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-database-10.0.1.aar/b65413be256db7d4be741df0225f276b/jars/classes.jar!/com/google/android/gms/internal/zzbmz.class">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/c719cd093c12cabc2452cb6bb5a31ca1/jars/classes.jar!/android/support/multidex/MultiDexApplication.class">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Rotana_new_app_android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Rotana_new_app_android/app/src/main/java/com/rotana/rotanahotels/container/hotels/EnquiryRestaurant.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Usek_new_app_android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Usek_new_app_android/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Usek_new_app_android/app/src/main/java/com/university/usek/ContainerActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/Usek_new_app_android/app/src/main/java/com/university/usek/SplashScreen.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/app/src/main/java/com/gloriahotel/gloria_app_android/fragment/booking/BookingRoomFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/app/src/main/java/com/gloriahotel/gloria_app_android/fragment/profile/RegisterFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/app/src/main/res/layout/choose_room_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/app/src/main/res/layout/sign_in_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/gloria-android/gradle.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/DEV/Workspace Android Studio/rosewood_android/app/src/main/java/com/project/rosewood/retrofit/ApiRetrofit.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/sonarIssues.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/generated/source/apt/debug/com/project/linkto/utils/GlideApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml">
           <value>
             <set />
           </value>
@@ -18,6 +128,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/BaseActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/GalleryActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/IntroActivity.java">
           <value>
             <set />
@@ -28,7 +148,132 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/adapter/pager/MainPagerAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/adapter/viewsadapter/ListCommentAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/adapter/viewsadapter/ListMessageAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/adapter/viewsadapter/ListPostAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/adapter/viewsadapter/ListTitleMessageAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/bean/Post.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/customwidget/MyDatePickerFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/MainFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/chapter/HomeFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/chapter/MyHomeFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/feeds/FeedPostFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/user/ProfileFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/fragment/user/SingInFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/service/FirebaseIDService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/service/MyFirebaseMessagingService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/singleton/DataFilter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/singleton/DataHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/utils/ContactUriModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/utils/ExifTransformation.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/utils/MyAppGlideModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/project/linkto/utils/Utils.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/back_cadre.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/drawable/back_without_cadre.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/activity_gallery.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/comment_list_row.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_comment.xml">
           <value>
             <set />
           </value>
@@ -38,7 +283,57 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_signin.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/post_list_row.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/arrays.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/ids">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gradle.properties">
           <value>
             <set />
           </value>

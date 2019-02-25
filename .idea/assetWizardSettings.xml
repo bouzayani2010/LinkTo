@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/Doc%20download/android-studio-ide-181.4847800-windows/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_insert_chart_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/Doc%20download/android-studio-ide-181.4847800-windows/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_event_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,7 +45,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="paddingPercent" value="10" />
+                                                <entry key="paddingPercent" value="-10" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -56,8 +56,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="D:\workspace\LinkTo\app\src\main\res\drawable-xxxhdpi\linktologo.png" />
-                                      <entry key="outputName" value="ic_diag" />
+                                      <entry key="imageAsset" value="D:\workspace\LinkTo\app\src\main\res\drawable-xxxhdpi\logout.png" />
+                                      <entry key="outputName" value="event_gray" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="a1a1a1" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -73,7 +75,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="60" />
+                                                <entry key="scalingPercent" value="75" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -115,7 +117,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/Doc%20download/android-studio-ide-181.4847800-windows/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_insert_chart_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/Doc%20download/android-studio-ide-181.4847800-windows/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_down_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -137,13 +139,19 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="iconShape" value="NONE" />
                                       <entry key="imageAsset" value="D:\workspace\LinkTo\app\src\main\res\drawable-xxxhdpi\linktologo.png" />
-                                      <entry key="outputName" value="ic_diag" />
+                                      <entry key="outputName" value="ic_arrow_down" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>
@@ -156,7 +164,44 @@
         </entry>
         <entry key="vectorWizard">
           <value>
-            <PersistentState />
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/D:/Doc%20download/android-studio-ide-181.4847800-windows/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_aspect_ratio_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="color" value="a1a1a1" />
+                            <entry key="height" value="140" />
+                            <entry key="opacityPercent" value="46" />
+                            <entry key="outputName" value="ic_cover" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\bbouzaiene" />
+                            <entry key="width" value="240" />
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
           </value>
         </entry>
       </map>

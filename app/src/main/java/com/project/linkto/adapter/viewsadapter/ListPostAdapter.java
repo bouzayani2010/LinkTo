@@ -1,9 +1,11 @@
 package com.project.linkto.adapter.viewsadapter;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +19,11 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.Transformation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.project.linkto.GalleryActivity;
 import com.project.linkto.R;
 import com.project.linkto.bean.Like;
@@ -33,11 +34,13 @@ import com.project.linkto.fragment.feeds.CommentFragment;
 import com.project.linkto.fragment.message.ChatMessageFragment;
 import com.project.linkto.singleton.DataFilter;
 import com.project.linkto.singleton.DataHelper;
+import com.project.linkto.utils.GlideApp;
 import com.project.linkto.utils.Utils;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,17 +127,13 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             holder.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), post.getTimestamp()));
             final String userId = DataHelper.getInstance().getmUserbd().getUid();
 
-            if (!Utils.isEmptyString(post.getUrlPhoto())) {
-                Glide.with(mActivity).load(post.getUrlPhoto())
-                        .into(holder.imageshared);
-            }
-
 
             Log.i("yeardaymonth1", post.getTimestamp().toString());
             if (!Utils.isEmptyString(post.getOriginPostId())) {
                 holder.tv_body.setVisibility(View.GONE);
                 holder.imageshared.setVisibility(View.GONE);
                 holder.video_layout.setVisibility(View.GONE);
+                holder.bodyshared.setVisibility(View.VISIBLE);
 
 
                 LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -155,14 +154,19 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                             holderShared.tv_date.setText(Utils.getdiffDate(currenttimestamp.toString(), postShared.getTimestamp()));
 
                             if (!Utils.isEmptyString(postShared.getUrlPhoto())) {
-                                Glide.with(mActivity).load(postShared.getUrlPhoto())
+
+                                GlideApp.with(mActivity)
+                                        .load(postShared.getUrlPhoto())
+                                        // .load("http://via.placeholder.com/300.png")
+                                        .override(1000, 500)
+                                        .centerCrop()
                                         .into(holderShared.imageshared);
                             }
 
                             if (!Utils.isEmptyString(postShared.getUrlVideo())) {
                                 holderShared.video_layout.setVisibility(View.VISIBLE);
                                 playVideo(holderShared, post.getUrlVideo());
-                            }else{
+                            } else {
                                 holderShared.video_layout.setVisibility(View.GONE);
                             }
                             holderShared.itemView.setOnClickListener(new View.OnClickListener() {
@@ -200,8 +204,6 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                 });
             } else {
                 holder.tv_body.setVisibility(View.VISIBLE);
-                holder.video_layout.setVisibility(View.VISIBLE);
-                holder.imageshared.setVisibility(View.VISIBLE);
                 holder.bodyshared.setVisibility(View.GONE);
 
             }
@@ -214,7 +216,15 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             } else {
                 holder.video_layout.setVisibility(View.GONE);
             }
+            if (!Utils.isEmptyString(post.getUrlPhoto())) {
+                Picasso.with(mActivity).
+                        load(post.getUrlPhoto())
+                        .into(holder.imageshared);
 
+                holder.imageshared.setVisibility(View.VISIBLE);
+            } else {
+                holder.imageshared.setVisibility(View.GONE);
+            }
 
             mDatabase.child("users").child(post.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -270,10 +280,10 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             holder.imageshared.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GalleryActivity.currentImage=post.getUrlPhoto();
+                    GalleryActivity.currentImage = post.getUrlPhoto();
 
                     Intent intent = new Intent(mActivity, GalleryActivity.class);
-                   mActivity.startActivity(intent);
+                    mActivity.startActivity(intent);
                 }
             });
 
@@ -302,10 +312,8 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                                     Map<String, Object> childUpdates = new HashMap<>();
                                     childUpdates.put("/posts/" + key, postValues);
                                     mDatabase.updateChildren(childUpdates);
-
-
                                     mDatabase.child("posts").child(post.getKey()).child("shareCount").setValue(post.getShareCount() + 1);
-                                    notifyDataSetChanged();
+                                    //   notifyDataSetChanged();
                                 }
                             })
                             .negativeText(R.string.cancel)
@@ -317,14 +325,40 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                             }).show();
                 }
             });
-            final String myLikeKey = DataFilter.getInstance().liked(post, userId);
+            final String myLikeKey;
+
+            myLikeKey = DataFilter.getInstance().liked(post, userId);
             if (myLikeKey != null) {
                 holder.tv_likes.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
                 //  holder.tv_likes.setEnabled(false);
+                holder.tv_likes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.like, 0, 0, 0);
             } else {
                 holder.tv_likes.setTextColor(mActivity.getResources().getColor(R.color.colorHint));
-                // holder.tv_likes.setEnabled(true);
+                holder.tv_likes.setCompoundDrawablesWithIntrinsicBounds(R.drawable.like_gray, 0, 0, 0);
             }
+
+
+            final String myCommentKey = DataFilter.getInstance().commented(post, userId);
+            if (myCommentKey != null) {
+                holder.tv_comments.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
+                //  holder.tv_likes.setEnabled(false);
+                holder.tv_comments.setCompoundDrawablesWithIntrinsicBounds(R.drawable.comment, 0, 0, 0);
+            } else {
+                holder.tv_comments.setTextColor(mActivity.getResources().getColor(R.color.colorHint));
+                holder.tv_comments.setCompoundDrawablesWithIntrinsicBounds(R.drawable.comment_gray, 0, 0, 0);
+            }
+
+
+            final String myshareKey = DataFilter.getInstance().shared(post, userId);
+            if (myshareKey != null) {
+                holder.tv_shares.setTextColor(mActivity.getResources().getColor(R.color.colorAccent));
+                //  holder.tv_likes.setEnabled(false);
+                holder.tv_shares.setCompoundDrawablesWithIntrinsicBounds(R.drawable.share, 0, 0, 0);
+            } else {
+                holder.tv_shares.setTextColor(mActivity.getResources().getColor(R.color.colorHint));
+                holder.tv_shares.setCompoundDrawablesWithIntrinsicBounds(R.drawable.share_gray, 0, 0, 0);
+            }
+
 
             holder.tv_likes.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -340,7 +374,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                                         dialog.dismiss();
                                         mDatabase.child("posts").child(post.getKey()).child("starCount").setValue(post.getStarCount() - 1);
                                         mDatabase.child("posts").child(post.getKey()).child("likes").child(myLikeKey).removeValue();//.setValue(null);
-                                        notifyDataSetChanged();
+                                        //   notifyDataSetChanged();
                                     }
                                 })
                                 .negativeText(R.string.cancel)
@@ -360,7 +394,7 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
                         mDatabase.child("posts").child(post.getKey()).updateChildren(childLikes);
                         mDatabase.child("posts").child(post.getKey()).child("starCount").setValue(post.getStarCount() + 1);
                     }
-                    notifyDataSetChanged();
+                    //  notifyDataSetChanged();
                 }
             });
 
@@ -375,18 +409,17 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.MyView
             Log.i("glide", personProfile.getCoverphoto());
             Log.i("glide", personProfile.getProfilephoto());
             holder.tv_title.setText(personProfile.getFirstname() + " " + personProfile.getLastname());
-            List<jp.wasabeef.picasso.transformations.BlurTransformation> transformationList = new LinkedList<>();
-          /*  transformationList.add(new BlurTransformation(mActivity, 15));
-            transformationList.add(new ColorFilterTransformation(mActivity, colorForFilter));*/
-            transformationList.add(new jp.wasabeef.picasso.transformations.BlurTransformation(mActivity));
 
-            MultiTransformation<Bitmap> multiTransformation = new MultiTransformation<Bitmap>((Transformation<Bitmap>) transformationList);
 
-            Glide.with(mActivity)
+            GlideApp.with(mActivity)
                     .load(personProfile.getProfilephoto())
-
+                    // .load("http://via.placeholder.com/300.png")
+                    .override(300, 300)
+                    .centerCrop()
                     .into(holder.profileimg);
         } catch (Exception e) {
+
+            Log.i("glide", e.getMessage());
             e.printStackTrace();
         }
     }
