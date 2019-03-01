@@ -339,6 +339,8 @@ public class MyHomeFragment extends BaseFragment {
     }
 
     private void drawPersonViews(Person personProfile) {
+
+        Log.i("person", personProfile.toString());
         try {
             Log.i("person", personProfile.getCoverphoto());
             Log.i("person", personProfile.getProfilephoto());

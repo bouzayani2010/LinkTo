@@ -128,12 +128,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-ads:16.0.1'
     implementation 'com.google.firebase:firebase-perf:16.2.3'
-
-    //  implementation'com.firebaseui:firebase-ui-storage:2.0.1'
     implementation 'com.firebaseui:firebase-ui-storage:3.2.1'
-
-
-   // implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
 
 }
 // ADD THIS AT THE BOTTOM

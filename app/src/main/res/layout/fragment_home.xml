@@ -27,7 +27,7 @@
         <RelativeLayout
             android:id="@+id/personellayout"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="200dp">
 
 
             <com.project.linkto.customwidget.CustomTextView
@@ -56,8 +56,8 @@
 
             <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileimg"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
                 android:padding="15dp"
                 android:scaleType="centerCrop"

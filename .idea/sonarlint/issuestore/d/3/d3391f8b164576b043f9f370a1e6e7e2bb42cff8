@@ -1,19 +1,19 @@
 
-zsquid:UselessImportCheck"ORemove this unused import 'android.support.design.widget.FloatingActionButton'.(„Ÿ¹¼8Û¯«ÿü,
-dsquid:S21428"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8Û¯«ÿü,
-isquid:CommentedOutCodeLineb"<This block of commented-out lines of code should be removed.(­“€À8Û¯«ÿü,
+^squid:UselessImportCheck".Remove this unused import 'android.view.View'.(Ø½­äþÿÿÿÿ8Û¯«ÿü,
+Ysquid:S2696*"6Make the enclosing method "static" or remove this set.(ùÀŒ€øÿÿÿÿ8Û¯«ÿü,
+lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(‘Ù±8àž™Ê-
+bsquid:UselessImportCheck"2Remove this unused import 'android.widget.Button'.(²òžýÿÿÿÿ8Û¯«ÿü,
+†"squid:ClassVariableVisibilityCheck"QMake mAuth a static final constant or non-public and provide accessors if needed.(êã€è8Û¯«ÿü,
 ]squid:UselessImportCheck"3Remove this unused import 'android.content.Intent'.(³ð‹G8äþ”½-
+Ssquid:S2209z"5Change this instance-reference to a static reference.(ð‹Éµ8‘èñ¹‚-
+^squid:UselessImportCheck"3Remove this unused import 'android.view.ViewGroup'.(‹îá8Û¯«ÿü,
+isquid:CommentedOutCodeLineb"<This block of commented-out lines of code should be removed.(­“€À8Û¯«ÿü,
+zsquid:UselessImportCheck"ORemove this unused import 'android.support.design.widget.FloatingActionButton'.(„Ÿ¹¼8Û¯«ÿü,
+Isquid:S1444"+Make this "public static mAuth" field final(êã€è8Û¯«ÿü,
+Fsquid:S11489"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Û¯«ÿü,
+isquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(‰ˆÁÿ8Û¯«ÿü,
+Ssquid:S2209m"5Change this instance-reference to a static reference.(þÊ‘Ï8‘èñ¹‚-
 isquid:CommentedOutCodeLine}"<This block of commented-out lines of code should be removed.(©í²Ë8Û¯«ÿü,
 ‹"squid:ClassVariableVisibilityCheck "WMake currentUser a static final constant or non-public and provide accessors if needed.(ÂœÁl8Û¯«ÿü,
-bsquid:UselessImportCheck"2Remove this unused import 'android.widget.Button'.(²òžýÿÿÿÿ8Û¯«ÿü,
-Fsquid:S11489"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Û¯«ÿü,
-^squid:UselessImportCheck"3Remove this unused import 'android.view.ViewGroup'.(‹îá8Û¯«ÿü,
-Ssquid:S2209z"5Change this instance-reference to a static reference.(ð‹Éµ8‘èñ¹‚-
-lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(‘Ù±8àž™Ê-
+dsquid:S21428"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8Û¯«ÿü,
 msquid:UselessImportCheck"CRemove this unused import 'android.support.design.widget.Snackbar'.( À®p8Û¯«ÿü,
-Isquid:S1444"+Make this "public static mAuth" field final(êã€è8Û¯«ÿü,
-isquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(‰ˆÁÿ8Û¯«ÿü,
-Ysquid:S2696*"6Make the enclosing method "static" or remove this set.(ùÀŒ€øÿÿÿÿ8Û¯«ÿü,
-Ssquid:S2209m"5Change this instance-reference to a static reference.(þÊ‘Ï8‘èñ¹‚-
-^squid:UselessImportCheck".Remove this unused import 'android.view.View'.(Ø½­äþÿÿÿÿ8Û¯«ÿü,
-†"squid:ClassVariableVisibilityCheck"QMake mAuth a static final constant or non-public and provide accessors if needed.(êã€è8Û¯«ÿü,

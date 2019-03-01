@@ -12,6 +12,10 @@ public class Person {
     private String coverphoto;
     private String profilephoto;
     private String key;
+    private String country;
+    private String gender;
+    private String city;
+    private String summary;
 
     public Long getBirthdate() {
         return 0 + birthdate;
@@ -70,6 +74,39 @@ public class Person {
         return key;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -80,6 +117,7 @@ public class Person {
                 ", coverphoto='" + coverphoto + '\'' +
                 ", profilephoto='" + profilephoto + '\'' +
                 ", key='" + key + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }
